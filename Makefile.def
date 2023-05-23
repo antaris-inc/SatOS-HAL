@@ -1,0 +1,299 @@
+# Project Configurations
+#############################################################
+# 0 - refers to Linux environment - exe
+# 1 - refers to Target environment - elf
+
+ENVIRONMENT=1
+
+#############################################################
+# 65Z - refers to STM32F765ZI development board
+# 69N - refers to STM32F769NI discovery development board
+# 65N  - refers to Target hardware STM32F765NIH6 (Core Board)
+
+BOARD=65N
+
+#############################################################
+# 4  - print from UART 4 in Coreboard
+# 5  - print from UART 5 in Coreboard
+# 0 -  Disable print in Coreboard
+
+PRINT_ENB=4
+
+#############################################################
+# 0 - Watchdog timer disable
+# 1 - Watchdog timer enable
+
+WDT_ENB=1
+
+#############################################################
+# 0 -  which enables software flash through debugger/programmer
+# 1 -  which enables software boot by Bootloader/OTSU
+
+BOOTLOADER=0
+
+#############################################################
+#0 - Which enables GS via Ethernet;
+#1 - Which enables GS via USB; OBC support via PS;
+
+# When CAN_BYPASS_SOCK_ENB=0,This will not impact any common functionality 
+# When CAN_BYPASS_SOCK_ENB= , this decides which IP (USB/Ethernet) to be listern
+# Default to all USB, as we must need to support via USB for PS TC TM Interface
+GS_OBC_VIA_USB=1
+##############################################################
+#0 - Which enables PS via USB
+#1 - Which enables PS via Ethernet
+
+# This is not a common use case, only need if PS sim is running via ethernet
+PS_OBC_VIA_ETH=0
+##############################################################
+# Core board acts as sim mode address to connect with disco brd simulator when enabled, disabled needs real s_band module setup
+CORE_BRD_S_BAND_SIM_SETUP=0
+
+# Enabled only for disco board and it will act like ethernet to can convertor only. so OBC func may not work when enabled.
+DISCO_BRD_ETH_CAN_SIM_SETUP=0
+
+# Enabled only for bypassing CAN interface and seng data through socket(ETH) interface from core board or EVB board 
+CAN_BYPASS_SOCK_ENB=0
+
+#############################################################
+
+# 1 - Turn on HRM by default during power on
+# 0 - HRM is not truned on by default during power on
+
+EPS_HRM_ON_DFLT=1
+#############################################################
+
+# 1 - Turn on Payload server and GPS by default during power on
+# 0 - Payload server and GPS is not truned on by default during power on
+
+EPS_PS_ON_DFLT=0
+#############################################################
+
+# 1 - Heat sink will not be turned on
+# 0 - Heat sink will be turned on based on the nvm settings
+
+HEAT_SINK_DISABLE=0
+#############################################################
+# 0 - Disable scanf function provision in Linux environment
+# 1 - Enable scanf function provision in Linux environment
+
+SCANF_ENB =1
+#############################################################
+# 0 - Enables O2 optimization
+# 1 - Disbales O2 optimzation
+
+IGNORE_OPT =0
+#############################################################
+
+# Clear All previous CFLAGS settings
+CFLAGS :=
+
+# Decide whether the commands will be shwon or not
+#VERBOSE =TRUE
+VERBOSE =FALSE
+
+# Hide or not the calls depending of VERBOSE
+ifeq ($(VERBOSE),TRUE)
+    HIDE =  
+    MAKE_FLAGS = -k
+else
+    HIDE = @
+    MAKE_FLAGS = --no-print-directory --silent
+endif
+
+# Enable O2
+ifneq ($(IGNORE_OPT),1)
+OPT = -O2
+endif
+
+PROJ_NAME = antaris_exo_core
+TARGET = antaris_exo_core
+
+MKDIR = mkdir -p
+RM    = rm -rf
+RMDIR = rm -rf
+
+ifeq ($(ENVIRONMENT),1)
+
+# Target file name and extension type
+EXT = elf
+
+CC      = arm-none-eabi-gcc
+AR      = arm-none-eabi-ar
+OC      = arm-none-eabi-objcopy
+OD      = arm-none-eabi-objdump
+SIZE    = arm-none-eabi-size
+LD      = arm-none-eabi-ld
+
+# TBD: Toolchain path selection to be done
+#TC_PATH = /opt/gcc-arm-none-eabi-10.3-2021.10/
+#    CC   = $(TC_PATH)/bin/arm-none-eabi-gcc
+#    LD   = $(TC_PATH)/bin/arm-none-eabi-ld
+#    AR   = $(TC_PATH)/bin/arm-none-eabi-ar
+#    OC   = $(TC_PATH)/bin/arm-none-eabi-objcopy
+#    OD   = $(TC_PATH)/bin/arm-none-eabi-objdump
+#    SIZE = $(TC_PATH)/bin/arm-none-eabi-size
+
+# Processor information is updated here
+CPU = -mcpu=cortex-m7
+
+# Processor related compilation flags are updated here
+MCU = $(CPU) -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb
+
+ifeq ($(WDT_ENB),1)
+    CFLAGS += -DWDT_ENABLE
+endif
+
+ifeq ($(EPS_HRM_ON_DFLT),1)
+	CFLAGS += -DEPS_HRM_ON_DFLT
+endif
+
+ifeq ($(EPS_PS_ON_DFLT),1)
+	CFLAGS += -DEPS_PS_ON_DFLT 
+endif
+
+ifeq ($(HEAT_SINK_DISABLE),1)
+	CFLAGS += -DHEAT_SINK_DISABLE 
+endif
+
+ifeq ($(BOOTLOADER),1)
+    CFLAGS += -DBTLR_ON
+endif
+
+ifeq ($(CAN_BYPASS_SOCK_ENB),1)
+    CFLAGS += -DCAN_BYPASS
+endif
+
+ifeq ($(GS_OBC_VIA_USB),1)
+	CFLAGS += -DGSOBC_USB_EN
+endif
+
+ifeq ($(PS_OBC_VIA_ETH),1)
+	CFLAGS += -DPSOBC_ETH_EN
+endif
+
+
+ifeq ($(ENVIRONMENT),1)
+	CFLAGS += -DUSB_IP_ADDR0=190
+	CFLAGS += -DUSB_IP_ADDR1=160
+	CFLAGS += -DUSB_IP_ADDR2=0
+	CFLAGS += -DUSB_IP_ADDR3=10
+	
+	CFLAGS += -DETH_IP_ADDR0=192
+	CFLAGS += -DETH_IP_ADDR1=168
+	CFLAGS += -DETH_IP_ADDR2=1
+	CFLAGS += -DETH_IP_ADDR3=111
+
+	CFLAGS += -DPS_SRVR_PORT=6565
+	CFLAGS += -DGS_SRVR_PORT=6767
+endif
+
+
+ifeq ($(BOARD),65Z)
+    # Additional compilation flags that could be enabled
+    CFLAGS += -g3 $(OPT) -Wall $(MCU) -DDEBUG -DUSE_HAL_DRIVER -DSTM32F765xx \
+             -DCMSIS_RTOS_V2 -DFT_OBC -DFT_SAT -I$(TOP_DIR)/includes -I$(TOP_DIR) -DCSP_FREERTOS=1 \
+            -Wno-implicit-function-declaration
+
+else ifeq ($(BOARD),69N)
+    #Additional compilation flags that could be enabled
+    CFLAGS += -g3 $(OPT) -Wall $(MCU) -DDEBUG -DUSE_HAL_DRIVER -DSTM32F769xx \
+             -DCMSIS_RTOS_V2 -DFT_OBC -DFT_SAT -I$(TOP_DIR)/includes -I$(TOP_DIR) -DCSP_FREERTOS=1 \
+            -Wno-implicit-function-declaration
+
+    ifeq ($(DISCO_BRD_ETH_CAN_SIM_SETUP),1)
+        CFLAGS += -DS_BAND_SIM
+    endif
+
+else ifeq ($(BOARD),65N)
+
+    CFLAGS += -g3 $(OPT) -Wall $(MCU) -DDEBUG -DUSE_HAL_DRIVER -DSTM32F765xx -DCOREBOARD \
+    	 -DCMSIS_RTOS_V2 -DFT_OBC -DFT_SAT -I$(TOP_DIR)/includes -I$(TOP_DIR) -DCSP_FREERTOS=1 \
+            -Wno-implicit-function-declaration
+
+    ifeq ($(CORE_BRD_S_BAND_SIM_SETUP),1)
+        CFLAGS += -DS_BAND_SIM_CB
+    endif
+
+
+    ifeq ($(PRINT_ENB),4)
+        CFLAGS += -DPRINT_UART_4
+    else ifeq ($(PRINT_ENB),5)
+        CFLAGS += -DPRINT_UART_5
+    endif
+endif
+
+# Linker file path and file name is updated here
+ifeq ($(BOOTLOADER),0)
+    LDSCRIPT = linker/linker.ld
+endif
+
+# Libraries to be linked are updated here
+LIBS = -lc -lm
+
+ifneq ($(SINGLE_MAKE),1)
+    LIBS += -lipcc_lib -lcrc -lhmac -lmbedcrypto
+endif
+
+# Linker related flags are upated here
+LDFLAGS = $(MCU) -specs=nano.specs -specs=nosys.specs -T$(LDSCRIPT) -Wl,-Map=$(TARGET).$(EXT).map,--cref -Wl,--gc-sections \
+	  -L exo_lib/exo_ipcc/\
+	  -L exo_lib/security/libcrc-2.0/obj/\
+	  -L exo_lib/security/hmac/obj/\
+	  -L exo_lib/security/mbedtls/library/obj/\
+
+else
+
+# Target file name and extension type
+EXT = exe
+
+# Toolchain path
+AR   = ar
+CC   = gcc
+OC   = objcopy
+OD   = objdump
+SIZE = size
+LD   = ld
+
+# Additional compilation flags that could be enabled
+CFLAGS += -g3 $(OPT) -lpthread -Wall -DDEBUG -DLINUX_TEMP_PORT -DFT_OBC -DFT_SAT -I$(TOP_DIR)/includes -I$(TOP_DIR) -DCSP_POSIX=1 -std=gnu99
+CFLAGS += -DCAN_BYPASS
+
+ifeq ($(SCANF_ENB),1)
+    CFLAGS += -DSCANF_ENB
+endif
+
+# Libraries to be linked are updated here
+LDFLAGS = -L exo_lib/exo_ipcc/\
+	  -L exo_lib/security/libcrc-2.0/obj/\
+	  -L exo_lib/security/hmac/obj/\
+	  -L exo_lib/security/mbedtls/library/obj/
+
+LIBS = -lc -lm
+
+ifneq ($(SINGLE_MAKE),1)
+    LIBS += -lipcc_lib -lcrc -lhmac -lmbedcrypto
+endif
+
+endif
+
+MAKE = make -k $(MAKE_FLAGS)
+
+#MAKE += -j4
+
+OBJ_DIR := obj
+
+$(OBJ_DIR)/%.o : %.s
+	echo Building $@
+	$(HIDE)$(MKDIR) $(dir $@)
+	$(HIDE)$(CC) $(CFLAGS) -c $(INCLUDES) -o $@ $< -MMD
+	$(HIDE)$(MKDIR) $(TOP_DIR)/$(OBJ_DIR)
+	$(HIDE)$(OC) $@ $(TOP_DIR)/$(OBJ_DIR)/$(notdir $@)
+
+$(OBJ_DIR)/%.o : %.c
+	echo Building $@
+	$(HIDE)$(MKDIR) $(dir $@)
+	$(HIDE)$(CC) $(CFLAGS) -c $(INCLUDES) -o $@ $< -MMD
+	$(HIDE)$(MKDIR) $(TOP_DIR)/$(OBJ_DIR)
+	$(HIDE)$(OC) $@ $(TOP_DIR)/$(OBJ_DIR)/$(notdir $@)
+

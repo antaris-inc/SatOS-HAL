@@ -1,5 +1,5 @@
 #
-#   @copyright Copyright 2022 Antaris, Inc.
+#   @copyright Copyright 2024 Antaris, Inc.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -76,14 +76,6 @@ INCLUDES = -Iinc/\
 	   -I$(TOP_DIR)/drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_common/rtc/inc/\
 	   -I$(TOP_DIR)/drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_common/ethernet/inc/\
 	   -I$(TOP_DIR)/drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_common/fmc_nor_flash/inc/\
-	   -I$(TOP_DIR)/exo_lib/tc_tm/sample_apps/mfcc_sample_app/inc/\
-	   -I$(TOP_DIR)/exo_core/obc/inc/\
-	   -I$(TOP_DIR)/exo_services/scheduler\
-	   -I$(TOP_DIR)/exo_services/comms_ctrlr/sband/inc/\
-	   -I$(TOP_DIR)/exo_services/comms_ctrlr/xband/inc/\
-	   -I$(TOP_DIR)/exo_services/adcs_ctrlr/inc/\
-	   -I$(TOP_DIR)/exo_services/tc_tm_mngr/inc/\
-        -I$(TOP_DIR)/exo_services/exo_otsu/inc/\
 	   -I$(TOP_DIR)/exo_os/rtos/free_rtos/include/\
 	   -I$(TOP_DIR)/exo_os/rtos/free_rtos/portable/GCC/ARM_CM7/r0p1/\
 	   -I$(TOP_DIR)/exo_os/exo_ral/exo_ral_common/inc/\
@@ -127,20 +119,24 @@ INCLUDES = -Iinc/\
 	   -I$(TOP_DIR)/drivers/exo_hal_driver_fw/exo_ahw_al_driver_api/exo_ahw_al_common/voltage_sequencer/inc/\
 	   -I$(TOP_DIR)/drivers/exo_hal_driver_fw/exo_ahw_al_driver_api/exo_ahw_al_common/hot_swp_cntlr/inc/\
 	   -I$(TOP_DIR)/drivers/exo_hal_driver_fw/exo_ahw_al_driver_api/exo_ahw_al_common/common/inc/\
-	   -I../../../../exo_lib/tc_tm/sample_apps/mfcc_sample_app/inc/\
-	   -I../../../../exo_core/obc/inc/\
-	   -I../../../../exo_services/scheduler\
-	   -I../../../../exo_services/comms_ctrlr/sband/inc/\
-	   -I../../../../exo_services/adcs_ctrlr/inc/\
-	   -I../../../../exo_services/tc_tm_mngr/inc/\
 	   -I$(TOP_DIR)drivers/ahw_drivers/memory_drivers/qspi_s25hl512t/inc/\
-	   -I$(TOP_DIR)exo_fw/nvm/inc/\
-	   -I$(TOP_DIR)exo_lib/exo_ipcc/inc/\
-	   -I $(TOP_DIR)exo_lib/tc_tm/lib/inc/\
 	   -I$(TOP_DIR)/exo_lib/security/mbedtls/include\
 	   -I$(TOP_DIR)/exo_lib/file_transfer/inc\
            -I$(TOP_DIR)/exo_lib/security/hmac/src/\
            -I$(TOP_DIR)/exo_lib/security/libcrc-2.0/include\
+	   -I$(TOP_DIR)/exo_services/comms_ctrlr/uhf/inc/\
+	   -I$(TOP_DIR)/drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_common/gpio/inc/\
+	   
+ifneq ($(BOARD),)
+    ifeq ($(BOARD),GEN1)
+        INCLUDES += \
+            -I$(TOP_DIR)drivers/bsp/gen1/inc/
+    else ifeq ($(BOARD),STM32_DISCO_F769NI)
+        INCLUDES += \
+            -I$(TOP_DIR)drivers/bsp/stm32_disco_f769ni/inc/
+    endif
+endif
+	   
 
 ##############################################################################
 #Current Folder target name, usually current folder name
@@ -155,11 +151,9 @@ INCLUDES = -Iinc/\
 
 SRC_DIR += src
 
-ifeq ($(BOARD),65Z)
-    SRC += src/startup_stm32f765zitx.s
-else ifeq ($(BOARD),65N)
+ifeq ($(BOARD),GEN1)
     SRC += src/startup_stm32f765nihx.s
-else ifeq ($(BOARD),69N)
+else ifeq ($(BOARD),STM32_DISCO_F769NI)
     SRC += src/startup_stm32f769nihx.s
 endif
 

@@ -1,5 +1,5 @@
 #
-#   @copyright Copyright 2022 Antaris, Inc.
+#   @copyright Copyright 2024 Antaris, Inc.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -38,18 +38,17 @@ INCLUDES =
 #SRC_DIR += src
 #SUBDIR += dir_name
 
-SUBDIR += temp_sensor
-SUBDIR += imu
-SUBDIR += digital_thermostat
-SUBDIR += power_sense_monitor
-SUBDIR += hot_swp_cntlr
-SUBDIR += voltage_sequencer
-SUBDIR += data_logger
+SUBDIR += temp_sensor/mcp9843
+SUBDIR += imu/bmx160
+SUBDIR += digital_thermostat/ds620
+SUBDIR += power_sense_monitor/ina230
+SUBDIR += hot_swp_cntlr/adm1176
+SUBDIR += voltage_sequencer/ucd9081
+SUBDIR += data_logger/ads7828
+SUBDIR += gpio_expander
 
 ifeq ($(ENVIRONMENT),1)
 SUBDIR += memory_drivers
-SUBDIR += gpio_expander
-
 endif
 ##############################################################################
 

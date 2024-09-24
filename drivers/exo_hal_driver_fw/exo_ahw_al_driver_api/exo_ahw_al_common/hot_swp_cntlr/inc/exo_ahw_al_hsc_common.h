@@ -4,7 +4,7 @@
  * @brief This file contains function prototypes ,structures and
  * enumerations for hotswap controller and voltage ,current monitor
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,9 +33,9 @@
  */
 typedef struct _ahw_al_hsc_hdle
 {
-    ahw_al_gen_info ahw_gen_info;      /*!< IO interface handle pointer   	*/
-    uint8_t over_curr_sts:1;           /*!< over current status   			*/
-    uint8_t hot_swp_sts:1;             /*!< Hot swap status  				*/
+    ahw_al_gen_info ahw_gen_info;      /*!< IO interface handle pointer     */
+    uint8_t over_curr_sts:1;           /*!< over current status             */
+    uint8_t hot_swp_sts:1;             /*!< Hot swap status                 */
 }ahw_al_hsc_hdl;
 
 /**

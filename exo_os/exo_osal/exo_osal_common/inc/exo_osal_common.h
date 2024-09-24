@@ -3,7 +3,7 @@
  *
  * @brief This file contains common definitions for OSAL.
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,9 @@
 
 #define os_success 1                 ///< OS SUCCESS
 #define os_error 0                   ///< OS ERROR
+//#define os_send_itc_wait 10000
 #define os_wait_forever 0xFFFFFFFFU  ///< Indefinite waiting time
+#define os_send_itc_wait os_wait_forever
 
 /**
  * @brief Mapping the RAL status to OS status.

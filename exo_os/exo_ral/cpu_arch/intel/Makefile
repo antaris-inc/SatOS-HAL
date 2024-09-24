@@ -1,5 +1,5 @@
 #
-#   @copyright Copyright 2022 Antaris, Inc.
+#   @copyright Copyright 2024 Antaris, Inc.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -29,11 +29,6 @@ SUBDIR =
 INCLUDES = -Iinc/\
 	   -I$(TOP_DIR)/includes/\
 	   -I$(TOP_DIR)/drivers/exo_hal_driver_fw/exo_hal_fw_common/common/inc/\
-	   -I$(TOP_DIR)/exo_lib/tc_tm/sample_apps/mfcc_sample_app/inc/\
-	   -I$(TOP_DIR)/exo_core/obc/inc/\
-	   -I$(TOP_DIR)/exo_lib/tc_tm/lib/inc/\
-	   -I$(TOP_DIR)/exo_services/tc_tm_mngr/inc/\
-	   -I$(TOP_DIR)/exo_services/scheduler/\
 	   -I$(TOP_DIR)/exo_os/exo_ral/exo_ral_common/inc/\
 	   -I$(TOP_DIR)/exo_os/exo_osal/exo_osal_common/inc/\
 	   -I$(TOP_DIR)/exo_os/exo_osal/ipc_mbmr/inc/\
@@ -44,15 +39,14 @@ INCLUDES = -Iinc/\
            -I$(TOP_DIR)/exo_lib/security/hmac/src/\
            -I$(TOP_DIR)/exo_lib/security/libcrc-2.0/include\
            -I$(TOP_DIR)/drivers/ahw_drivers/eps/inc/\
-	   -I$(TOP_DIR)/exo_services/comms_ctrlr/sband/inc/\
-	   -I$(TOP_DIR)/exo_services/comms_ctrlr/xband/inc/\
+	   -I$(TOP_DIR)/exo_services/comms_ctrlr/uhf/inc/\
 	   -I$(TOP_DIR)/drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_common/rtc/inc/\
 	   -I$(TOP_DIR)/exo_lib/exo_ipcc/inc/\
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_common/i2c/inc/\
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_common/common/inc/\
-	   -I$(TOP_DIR)exo_fw/nvm/inc/\
-	   -I$(TOP_DIR)exo_services/adcs_ctrlr/inc/\
-	   -I$(TOP_DIR)exo_lib/adcs_intf/inc/\
+	   -I$(TOP_DIR)exo_lib/comms_intf/uhf/inc/\
+	   -I$(TOP_DIR)exo_stack/libcsp/include/csp/\
+	   -I$(TOP_DIR)/exo_stack/libcsp/include/\
 
 ##############################################################################
 #Current Folder target name, usually current folder name

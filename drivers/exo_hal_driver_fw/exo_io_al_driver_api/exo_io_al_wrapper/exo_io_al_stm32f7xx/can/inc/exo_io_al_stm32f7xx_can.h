@@ -4,7 +4,7 @@
  * @brief This file contains structures,enumerations
  * and function declaration for CAN interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,19 +32,19 @@
  */
 typedef enum
 {
-    IOHAL_STM32_CAN_TX_MB0_CPLT_CB_ID,			/*!< CAN Mailbox0 Transfer completed callback ID  	*/
-    IOHAL_STM32_CAN_TX_MB1_CPLT_CB_ID,			/*!< CAN Mailbox1 Transfer completed callback ID  	*/
-    IOHAL_STM32_CAN_TX_MB2_CPLT_CB_ID,			/*!< CAN Mailbox2 Transfer completed callback ID  	*/
-    IOHAL_STM32_CAN_MB0_ABORT_CB_ID,			/*!< CAN Mailbox0 Abort callback ID  				*/
-    IOHAL_STM32_CAN_MB1_ABORT_CB_ID,			/*!< CAN Mailbox1 Abort callback ID  				*/
-    IOHAL_STM32_CAN_MB2_ABORT_CB_ID,			/*!< CAN Mailbox2 Abort callback ID  				*/
-    IOHAL_STM32_CAN_FIFO0_MSG_PEND_CB_ID,		/*!< CAN FIFO0 message pending callback ID  		*/
-    IOHAL_STM32_CAN_FIFO0_FULL_CB_ID,			/*!< CAN FIFO0 full callback ID  					*/
-    IOHAL_STM32_CAN_FIFO1_MSG_PEND_CB_ID,		/*!< CAN FIFO1 message pending callback ID  		*/
-    IOHAL_STM32_CAN_FIFO1_FULL_CB_ID,			/*!< CAN FIFO1 full callback ID  					*/
-    IOHAL_STM32_CAN_SLEEP_CB_ID,				/*!< CAN sleep callback ID  						*/
-    IOHAL_STM32_CAN_WAKEUP_CB_ID,				/*!< CAN wakeup callback ID  						*/
-    IOHAL_STM32_CAN_ERROR_CB_ID,				/*!< CAN error callback ID  						*/
+    IOHAL_STM32_CAN_TX_MB0_CPLT_CB_ID,          /*!< CAN Mailbox0 Transfer completed callback ID    */
+    IOHAL_STM32_CAN_TX_MB1_CPLT_CB_ID,          /*!< CAN Mailbox1 Transfer completed callback ID    */
+    IOHAL_STM32_CAN_TX_MB2_CPLT_CB_ID,          /*!< CAN Mailbox2 Transfer completed callback ID    */
+    IOHAL_STM32_CAN_MB0_ABORT_CB_ID,            /*!< CAN Mailbox0 Abort callback ID                 */
+    IOHAL_STM32_CAN_MB1_ABORT_CB_ID,            /*!< CAN Mailbox1 Abort callback ID                 */
+    IOHAL_STM32_CAN_MB2_ABORT_CB_ID,            /*!< CAN Mailbox2 Abort callback ID                 */
+    IOHAL_STM32_CAN_FIFO0_MSG_PEND_CB_ID,       /*!< CAN FIFO0 message pending callback ID          */
+    IOHAL_STM32_CAN_FIFO0_FULL_CB_ID,           /*!< CAN FIFO0 full callback ID                     */
+    IOHAL_STM32_CAN_FIFO1_MSG_PEND_CB_ID,       /*!< CAN FIFO1 message pending callback ID          */
+    IOHAL_STM32_CAN_FIFO1_FULL_CB_ID,           /*!< CAN FIFO1 full callback ID                     */
+    IOHAL_STM32_CAN_SLEEP_CB_ID,                /*!< CAN sleep callback ID                          */
+    IOHAL_STM32_CAN_WAKEUP_CB_ID,               /*!< CAN wakeup callback ID                         */
+    IOHAL_STM32_CAN_ERROR_CB_ID,                /*!< CAN error callback ID                          */
 
 } iohal_stm32_can_cbid;
 
@@ -240,29 +240,29 @@ hal_ret_sts io_hal_stm32f7xx_can_reset_error(ioal_can_hdle *ioal_hcan);
 
 /* API Mapping */
 
-#define io_hal_common_can1_init 					io_hal_stm32f7xx_can1_init
-#define io_hal_common_can3_init 					io_hal_stm32f7xx_can3_init
-#define io_hal_common_can2_init 					io_hal_stm32f7xx_can2_init
-#define io_hal_common_can_start						io_hal_stm32f7xx_can_start
-#define io_hal_common_can_stop						io_hal_stm32f7xx_can_stop
-#define io_hal_common_can_request_sleep				io_hal_stm32f7xx_can_request_sleep
-#define io_hal_common_can_wakeup					io_hal_stm32f7xx_can_wakeup
-#define io_hal_common_can_is_sleep_active				io_hal_stm32f7xx_can_is_sleep_active
-#define io_hal_common_can_reg_cb					io_hal_stm32f7xx_can_reg_cb
+#define io_hal_common_can1_init                     io_hal_stm32f7xx_can1_init
+#define io_hal_common_can3_init                     io_hal_stm32f7xx_can3_init
+#define io_hal_common_can2_init                     io_hal_stm32f7xx_can2_init
+#define io_hal_common_can_start                     io_hal_stm32f7xx_can_start
+#define io_hal_common_can_stop                      io_hal_stm32f7xx_can_stop
+#define io_hal_common_can_request_sleep             io_hal_stm32f7xx_can_request_sleep
+#define io_hal_common_can_wakeup                    io_hal_stm32f7xx_can_wakeup
+#define io_hal_common_can_is_sleep_active               io_hal_stm32f7xx_can_is_sleep_active
+#define io_hal_common_can_reg_cb                    io_hal_stm32f7xx_can_reg_cb
 
-#define io_hal_common_add_tx_message				io_hal_stm32f7xx_add_tx_message
-#define io_hal_common_abort_tx_request				io_hal_stm32f7xx_abort_tx_request
+#define io_hal_common_add_tx_message                io_hal_stm32f7xx_add_tx_message
+#define io_hal_common_abort_tx_request              io_hal_stm32f7xx_abort_tx_request
 #define io_hal_common_get_tx_mailboxes_free_level   io_hal_stm32f7xx_get_tx_mailboxes_free_level
-#define io_hal_common_is_tx_message_pending  		io_hal_stm32f7xx_is_tx_message_pending
-#define io_hal_common_get_tx_time_stamp    			io_hal_stm32f7xx_get_tx_time_stamp
-#define io_hal_common_get_rx_message   				io_hal_stm32f7xx_get_rx_message
-#define io_hal_common_get_rx_fifo_fill_level  		io_hal_stm32f7xx_get_rx_fifo_fill_level
+#define io_hal_common_is_tx_message_pending         io_hal_stm32f7xx_is_tx_message_pending
+#define io_hal_common_get_tx_time_stamp             io_hal_stm32f7xx_get_tx_time_stamp
+#define io_hal_common_get_rx_message                io_hal_stm32f7xx_get_rx_message
+#define io_hal_common_get_rx_fifo_fill_level        io_hal_stm32f7xx_get_rx_fifo_fill_level
 
-#define	io_hal_common_can_activate_notification			io_hal_stm32f7xx_can_activate_notification
-#define	io_hal_common_can_deactivate_notification		io_hal_stm32f7xx_can_deactivate_notification
-#define	io_hal_common_can_get_state						io_hal_stm32f7xx_can_get_state
-#define	io_hal_common_can_get_error						io_hal_stm32f7xx_can_get_error
-#define	io_hal_common_can_reset_error					io_hal_stm32f7xx_can_reset_error
-#define	io_hal_common_can_configfilter					io_hal_stm32f7xx_can_configfilter
+#define io_hal_common_can_activate_notification         io_hal_stm32f7xx_can_activate_notification
+#define io_hal_common_can_deactivate_notification       io_hal_stm32f7xx_can_deactivate_notification
+#define io_hal_common_can_get_state                     io_hal_stm32f7xx_can_get_state
+#define io_hal_common_can_get_error                     io_hal_stm32f7xx_can_get_error
+#define io_hal_common_can_reset_error                   io_hal_stm32f7xx_can_reset_error
+#define io_hal_common_can_configfilter                  io_hal_stm32f7xx_can_configfilter
 
 #endif /* _IO_AL_STM32F7XX_CAN_H_ */

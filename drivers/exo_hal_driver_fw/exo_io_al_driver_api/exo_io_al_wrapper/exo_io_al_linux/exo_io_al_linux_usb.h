@@ -1,9 +1,9 @@
-/*
+/**
  * @file exo_io_al_linux_usb.h
  *
  * @brief This file contains linux wrapper functions declarations for IO interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@
 #define _IO_AL_LINUX_USB_H_
 
 #include "exo_hal_common.h"
-//#include "exo_io_al_i2c_common.h"
 
 /**
  * @brief IO-HAL USB initialization function for linux
@@ -52,13 +51,11 @@ hal_ret_sts io_hal_linux_usb_device_stop(void *ioal_husbdev);
  */
 hal_ret_sts io_hal_linux_usb_device_deinit(void *ioal_husbdev);
 
-
-
-#define io_hal_common_usb_device_init 						io_hal_linux_usb_device_init
-#define io_hal_common_usb_device_start 						io_hal_linux_usb_device_start
-#define io_hal_common_usb_device_stop 						io_hal_linux_usb_device_stop
-
-#define io_hal_common_usb_device_deinit    io_hal_linux_usb_device_deinit 
-#define io_hal_common_usb_device_deinit        io_hal_linux_usb_device_deinit
+/** IO HAL common USB function mapping **/
+#define io_hal_common_usb_device_init    io_hal_linux_usb_device_init
+#define io_hal_common_usb_device_start   io_hal_linux_usb_device_start
+#define io_hal_common_usb_device_stop    io_hal_linux_usb_device_stop
+#define io_hal_common_usb_device_deinit  io_hal_linux_usb_device_deinit
+#define io_hal_common_usb_device_deinit  io_hal_linux_usb_device_deinit
 
 #endif

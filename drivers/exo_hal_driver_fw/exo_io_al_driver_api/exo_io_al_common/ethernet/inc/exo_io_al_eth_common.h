@@ -4,7 +4,7 @@
  * @brief This file contains structures,enumerations
  * and function declaration for ETHERNET interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,18 +22,11 @@
 #ifndef DRIVERS_EXO_HAL_DRIVER_FW_EXO_IO_AL_DRIVER_API_EXO_IO_AL_COMMON_ETHERNET_INC_EXO_IO_AL_ETH_COMMON_H_
 #define DRIVERS_EXO_HAL_DRIVER_FW_EXO_IO_AL_DRIVER_API_EXO_IO_AL_COMMON_ETHERNET_INC_EXO_IO_AL_ETH_COMMON_H_
 
-#define ETH_INTF_ENB
-
-
-
 #include "exo_io_al_common.h"
 #include "exo_hal_common.h"
 #include <stdint.h>
 
-
-
-
-
+//#define ETH_INTF_ENB
 
 /**
  * @brief IO-HAl Ethernet interface control block handle structure definition
@@ -134,8 +127,18 @@ hal_ret_sts io_hal_eth_write_phy_reg(ioal_eth_hdl*ioal_heth, uint16_t phy_reg, u
 #endif
 
 #ifndef LINUX_TEMP_PORT
+/**
+ * @brief Check Ethernet dummy
+ *
+ * @param[in] ioal_eth : pointer to ethernet handler
+ */
 void check_eth_dummy(ioal_eth_hdl *ioal_heth);
 #else
+/**
+ * @brief This is ethernet interface dummy function for linux
+ *
+ * @param[in] ioal_eth : pointer to ethernet handler
+ */
 void linux_eth_dummy_fn(struct _ioal_eth_hdl *heth);
 #endif
 

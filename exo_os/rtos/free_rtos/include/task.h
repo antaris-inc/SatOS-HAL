@@ -34,7 +34,7 @@
 #endif
 
 #include "list.h"
-
+#include <stddef.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -2411,6 +2411,12 @@ TaskHandle_t pvTaskIncrementMutexHeldCount( void ) PRIVILEGED_FUNCTION;
  */
 void vTaskInternalSetTimeOutState( TimeOut_t * const pxTimeOut ) PRIVILEGED_FUNCTION;
 
+typedef struct
+{
+    size_t free_heapsize;
+    size_t used_heapsize;
+    size_t total_heapsize;
+}heap_memory_info_s;
 
 #ifdef __cplusplus
 }

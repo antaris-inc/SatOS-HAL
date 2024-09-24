@@ -1,9 +1,9 @@
 /**
- * @file exo_io_al_eth_common.h
+ * @file exo_io_al_eth_common.c
  *
  * @brief This file contains abstracted function definition for ETHERNET interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ hal_ret_sts io_hal_eth_init(void)
     hal_ret_sts sts;
     if(HAL_SCS == io_hal_common_eth_init(&ioal_heth))
     {
-        intf_inst_hdle_ptr[IOAL_INST_ETH] = &ioal_heth;
+        intf_inst_hdle_ptr[IOAL_INST_ETHERNET1] = &ioal_heth;
 
     }
     else
@@ -237,7 +237,9 @@ hal_ret_sts io_hal_eth_write_phy_reg(ioal_eth_hdl* ioal_heth, uint16_t phy_reg, 
 
 
 #ifndef LINUX_TEMP_PORT
-
+/**
+ * @brief Check Ethernet dummy
+ */
 void check_eth_dummy(ioal_eth_hdl *ioal_heth)
 {
     return;

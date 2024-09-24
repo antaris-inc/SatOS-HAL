@@ -4,7 +4,7 @@
  * @brief This file has structure declaration ,enumerations,
  * function declaration for ADS7828 Data Acquisition Device
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@
  */
 typedef struct
 {
-    ahw_al_gen_info ahw_gen_info;		/*!< AHW general information */
+    ahw_al_gen_info ahw_gen_info;       /*!< AHW general information */
 
 }ahw_al_ads7828_hdle;
 
@@ -41,22 +41,22 @@ typedef struct
  */
 typedef enum
 {
-    DE_PI_CH0=0b0000,					/*!< ads7828 channel 0 */
-    DE_NI_CH0=0b0100,					/*!< ads7828 channel 0 */
-    DE_PI_CH1=0b0001,					/*!< ads7828 channel 1 */
-    DE_NI_CH1=0b0101 ,					/*!< ads7828 channel 1 */
-    DE_PI_CH2=0b0010,					/*!< ads7828 channel 2 */
-    DE_NI_CH2=0b0110,					/*!< ads7828 channel 2 */
-    DE_PI_CH3=0b0011,					/*!< ads7828 channel 3 */
-    DE_NI_CH3=0b0111,					/*!< ads7828 channel 3 */
-    SE_CH0=0b1000,			    		/*!< ads7828 channel 0 */
-    SE_CH1=0b1100,			    		/*!< ads7828 channel 1 */
-    SE_CH2=0b1001,			    		/*!< ads7828 channel 2 */
-    SE_CH3=0b1101,			    		/*!< ads7828 channel 3 */
-    SE_CH4=0b1010,			    		/*!< ads7828 channel 4 */
-    SE_CH5=0b1110,			    		/*!< ads7828 channel 5 */
-    SE_CH6=0b1011,			    		/*!< ads7828 channel 6 */
-    SE_CH7=0b1111,			    		/*!< ads7828 channel 7 */
+    DE_PI_CH0=0b0000,                   /*!< ads7828 channel 0 */
+    DE_NI_CH0=0b0100,                   /*!< ads7828 channel 0 */
+    DE_PI_CH1=0b0001,                   /*!< ads7828 channel 1 */
+    DE_NI_CH1=0b0101 ,                  /*!< ads7828 channel 1 */
+    DE_PI_CH2=0b0010,                   /*!< ads7828 channel 2 */
+    DE_NI_CH2=0b0110,                   /*!< ads7828 channel 2 */
+    DE_PI_CH3=0b0011,                   /*!< ads7828 channel 3 */
+    DE_NI_CH3=0b0111,                   /*!< ads7828 channel 3 */
+    SE_CH0=0b1000,                      /*!< ads7828 channel 0 */
+    SE_CH1=0b1100,                      /*!< ads7828 channel 1 */
+    SE_CH2=0b1001,                      /*!< ads7828 channel 2 */
+    SE_CH3=0b1101,                      /*!< ads7828 channel 3 */
+    SE_CH4=0b1010,                      /*!< ads7828 channel 4 */
+    SE_CH5=0b1110,                      /*!< ads7828 channel 5 */
+    SE_CH6=0b1011,                      /*!< ads7828 channel 6 */
+    SE_CH7=0b1111,                      /*!< ads7828 channel 7 */
     CH_MAX=0b10000,
 
 }ahw_al_ads7828_chnl;
@@ -66,10 +66,10 @@ typedef enum
  */
 typedef enum
 {
-    AL_PD_DWN,			    		    	/*!< ads7828 power down */
-    AL_INT_REF_OFF_ADC_ON,		    		/*!< ads7828 internal reference OFF ADC ON */
-    AL_INT_REF_ON_ADC_OFF,			    	/*!< ads7828 internal reference ON ADC OFF */
-    AL_INT_REF_ON_ADC_ON,   				/*!< ads7828 internal reference OFN ADC ON */
+    AL_PD_DWN,                              /*!< ads7828 power down */
+    AL_INT_REF_OFF_ADC_ON,                  /*!< ads7828 internal reference OFF ADC ON */
+    AL_INT_REF_ON_ADC_OFF,                  /*!< ads7828 internal reference ON ADC OFF */
+    AL_INT_REF_ON_ADC_ON,                   /*!< ads7828 internal reference OFN ADC ON */
     AL_PD_SEL_MAX
 
 }ahw_al_ads7828_pd_sel;

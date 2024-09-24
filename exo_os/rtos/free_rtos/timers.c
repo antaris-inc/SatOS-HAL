@@ -458,6 +458,30 @@ Timer_t * pxTimer =  xTimer;
 	taskEXIT_CRITICAL();
 }
 /*-----------------------------------------------------------*/
+BaseType_t xTimerGetReloadMode( TimerHandle_t xTimer )
+{
+    Timer_t * pxTimer = xTimer;
+    BaseType_t xReturn;
+
+    configASSERT( xTimer );
+    taskENTER_CRITICAL();
+    {
+        if( ( pxTimer->ucStatus & tmrSTATUS_IS_AUTORELOAD ) == 0 )
+        {
+            /* Not an auto-reload timer. */
+            xReturn = pdFALSE;
+        }
+        else
+        {
+            /* Is an auto-reload timer. */
+            xReturn = pdTRUE;
+        }
+    }
+    taskEXIT_CRITICAL();
+
+    return xReturn;
+}
+/*-----------------------------------------------------------*/
 
 TickType_t xTimerGetExpiryTime( TimerHandle_t xTimer )
 {

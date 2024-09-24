@@ -4,7 +4,7 @@
  * @brief This file has wrapper function of IMU sensor BMX160This file has mapping functions which resolves the
  * instance Id and invokes the vendor driver API for IMU sensor based on the partnumber
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

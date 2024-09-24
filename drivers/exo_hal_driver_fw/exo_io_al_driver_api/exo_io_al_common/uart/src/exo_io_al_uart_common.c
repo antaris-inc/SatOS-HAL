@@ -3,7 +3,7 @@
  *
  * @brief This file contains abstracted function definition for UART interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,42 +30,42 @@
 
 #ifndef LINUX_TEMP_PORT
 
-#define UART6_TX_CPLT_CB		check_uart6_dummy					///< UART6 TX complete callback event
-#define UART6_RX_CPLT_CB		check_uart6_dummy					///< UART6 RX complete callback event
-#define UART6_ABORT_CPLT_CB		check_uart6_dummy					///< UART6 Abort complete callback event
-#define UART6_ABORT_TX_CPLT_CB	check_uart6_dummy					///< UART6 Abort TX complete callback event
-#define UART6_ABORT_RX_CPLT_CB	check_uart6_dummy					///< UART6 Abort RX complete callback event
-#define UART6_ERROR_CB			check_uart6_dummy					///< UART6 error callback event
+#define UART6_TX_CPLT_CB        io_hal_uart_tx_cmplt_cb             ///< UART6 TX complete callback event
+#define UART6_RX_CPLT_CB        io_hal_uart_rx_cmplt_cb             ///< UART6 RX complete callback event
+#define UART6_ABORT_CPLT_CB     io_hal_uart_abort_cmplt_cb          ///< UART6 Abort complete callback event
+#define UART6_ABORT_TX_CPLT_CB  io_hal_uart_abort_tx_cmplt_cb       ///< UART6 Abort TX complete callback event
+#define UART6_ABORT_RX_CPLT_CB  io_hal_uart_abort_rx_cmplt_cb       ///< UART6 Abort RX complete callback event
+#define UART6_ERROR_CB          io_hal_uart_error_cb                ///< UART6 error callback event
 
-#define UART1_TX_CPLT_CB		check_uart1_dummy					///< UART1 TX complete callback event
-#define UART1_RX_CPLT_CB		check_uart1_dummy					///< UART1 RX complete callback event
-#define UART1_ABORT_CPLT_CB		check_uart1_dummy					///< UART1 Abort complete callback event
-#define UART1_ABORT_TX_CPLT_CB	check_uart1_dummy					///< UART1 Abort TX complete callback event
-#define UART1_ABORT_RX_CPLT_CB	check_uart1_dummy					///< UART1 Abort RX complete callback event
-#define UART1_ERROR_CB			check_uart1_dummy					///< UART1 error callback event
+#define UART1_TX_CPLT_CB        check_uart1_dummy                   ///< UART1 TX complete callback event
+#define UART1_RX_CPLT_CB        check_uart1_dummy                   ///< UART1 RX complete callback event
+#define UART1_ABORT_CPLT_CB     check_uart1_dummy                   ///< UART1 Abort complete callback event
+#define UART1_ABORT_TX_CPLT_CB  check_uart1_dummy                   ///< UART1 Abort TX complete callback event
+#define UART1_ABORT_RX_CPLT_CB  check_uart1_dummy                   ///< UART1 Abort RX complete callback event
+#define UART1_ERROR_CB          check_uart1_dummy                   ///< UART1 error callback event
 
-#define UART4_TX_CPLT_CB		check_uart4_dummy					///< UART4 TX complete callback event
-#define UART4_RX_CPLT_CB		check_uart4_dummy					///< UART4 RX complete callback event
-#define UART4_ABORT_CPLT_CB		check_uart4_dummy					///< UART4 Abort complete callback event
-#define UART4_ABORT_TX_CPLT_CB	check_uart4_dummy					///< UART4 Abort TX complete callback event
-#define UART4_ABORT_RX_CPLT_CB	check_uart4_dummy					///< UART4 Abort RX complete callback event
-#define UART4_ERROR_CB			check_uart4_dummy					///< UART4 error callback event
+#define UART4_TX_CPLT_CB        check_uart4_dummy                   ///< UART4 TX complete callback event
+#define UART4_RX_CPLT_CB        check_uart4_dummy                   ///< UART4 RX complete callback event
+#define UART4_ABORT_CPLT_CB     check_uart4_dummy                   ///< UART4 Abort complete callback event
+#define UART4_ABORT_TX_CPLT_CB  check_uart4_dummy                   ///< UART4 Abort TX complete callback event
+#define UART4_ABORT_RX_CPLT_CB  check_uart4_dummy                   ///< UART4 Abort RX complete callback event
+#define UART4_ERROR_CB          check_uart4_dummy                   ///< UART4 error callback event
 
-#define UART5_TX_CPLT_CB		check_uart5_dummy					///< UART5 TX complete callback event
-#define UART5_RX_CPLT_CB		check_uart5_dummy					///< UART5 RX complete callback event
-#define UART5_ABORT_CPLT_CB		check_uart5_dummy					///< UART5 Abort complete callback event
-#define UART5_ABORT_TX_CPLT_CB	check_uart5_dummy					///< UART5 Abort TX complete callback event
-#define UART5_ABORT_RX_CPLT_CB	check_uart5_dummy					///< UART5 Abort RX complete callback event
-#define UART5_ERROR_CB			check_uart5_dummy					///< UART5 error callback event
+#define UART5_TX_CPLT_CB        check_uart5_dummy                   ///< UART5 TX complete callback event
+#define UART5_RX_CPLT_CB        check_uart5_dummy                   ///< UART5 RX complete callback event
+#define UART5_ABORT_CPLT_CB     check_uart5_dummy                   ///< UART5 Abort complete callback event
+#define UART5_ABORT_TX_CPLT_CB  check_uart5_dummy                   ///< UART5 Abort TX complete callback event
+#define UART5_ABORT_RX_CPLT_CB  check_uart5_dummy                   ///< UART5 Abort RX complete callback event
+#define UART5_ERROR_CB          check_uart5_dummy                   ///< UART5 error callback event
 
 #else
 
-#define UART6_TX_CPLT_CB		linux_uart_dummy_fn							///< UART6 TX complete callback event
-#define UART6_RX_CPLT_CB		linux_uart_dummy_fn							///< UART6 RX complete callback event
-#define UART6_ABORT_CPLT_CB	    linux_uart_dummy_fn							///< UART6 Abort complete callback event
-#define UART6_ABORT_TX_CPLT_CB	linux_uart_dummy_fn							///< UART6 Abort TX complete callback event
-#define UART6_ABORT_RX_CPLT_CB  linux_uart_dummy_fn							///< UART6 Abort RX complete callback event
-#define UART6_ERROR_CB			linux_uart_dummy_fn							///< UART6 error callback event
+#define UART6_TX_CPLT_CB        linux_uart_dummy_fn                         ///< UART6 TX complete callback event
+#define UART6_RX_CPLT_CB        linux_uart_dummy_fn                         ///< UART6 RX complete callback event
+#define UART6_ABORT_CPLT_CB     linux_uart_dummy_fn                         ///< UART6 Abort complete callback event
+#define UART6_ABORT_TX_CPLT_CB  linux_uart_dummy_fn                         ///< UART6 Abort TX complete callback event
+#define UART6_ABORT_RX_CPLT_CB  linux_uart_dummy_fn                         ///< UART6 Abort RX complete callback event
+#define UART6_ERROR_CB          linux_uart_dummy_fn                         ///< UART6 error callback event
 
 #endif
 
@@ -144,9 +144,28 @@ hal_ret_sts io_hal_uart_init(void)
 
         sts = HAL_IO_INIT_ERR;
     }
+    if(HAL_SCS == io_hal_common_uart6_init(&ioal_huart6))
+    {
+        intf_inst_hdle_ptr[IOAL_INST_UART6] = &ioal_huart6;
+        sts=HAL_SCS;
+
+    }
+    else
+    {
+        sts = HAL_IO_INIT_ERR;
+    }
 #endif
 
-#ifdef LINUX_TEMP_PORT
+#ifndef UHF_HW_BYPASS
+    if(HAL_SCS == io_hal_common_uart6_init(&ioal_huart6))
+    {
+        intf_inst_hdle_ptr[IOAL_INST_UART6] = &ioal_huart6;
+        sts=HAL_SCS;
+    }
+    else
+    {
+        sts = HAL_IO_INIT_ERR;
+    }
     printf("\n EXO IO AL UART Initialisation completed successfully");
 #endif
     return sts;
@@ -163,17 +182,64 @@ void io_hal_uart6_cb_init(ioal_uart_hdle *huart6)
     huart6->abort_tx_cplt_cb = UART6_ABORT_TX_CPLT_CB;
     huart6->abort_rx_cplt_cb = UART6_ABORT_RX_CPLT_CB;
     huart6->error_cb = UART6_ERROR_CB;
-
-#ifndef LINUX_TEMP_PORT
-    io_hal_common_uart_reg_cb(huart6, IOHAL_STM32_UART_TX_CPLT_CB_ID);
-    io_hal_common_uart_reg_cb(huart6, IOHAL_STM32_UART_RX_CPLT_CB_ID);
-    io_hal_common_uart_reg_cb(huart6, IOHAL_STM32_UART_ABORT_CPLT_CB_ID);
-    io_hal_common_uart_reg_cb(huart6, IOHAL_STM32_UART_ABORT_TX_CPLT_CB_ID);
-    io_hal_common_uart_reg_cb(huart6, IOHAL_STM32_UART_ABORT_RX_CPLT_CB_ID);
-    io_hal_common_uart_reg_cb(huart6, IOHAL_STM32_UART_ERROR_CB_ID);
-#endif
 }
 
+/**
+ * @brief UART TX complete call back api
+ */
+void io_hal_uart_tx_cmplt_cb(ioal_uart_hdle *huart)
+{
+    huart->intf_gen_info.state = IO_FREE_STATE;
+    huart->app_callbacks.uart_tx_cplt_cb(huart);
+}
+
+/**
+ * @brief UART RX complete call back api
+ */
+void io_hal_uart_rx_cmplt_cb(ioal_uart_hdle *huart)
+{
+    huart->intf_gen_info.state = IO_FREE_STATE;
+    huart->app_callbacks.uart_rx_cplt_cb(huart);
+}
+
+/**
+ * @brief UART abort complete call back api
+ */
+void io_hal_uart_abort_cmplt_cb(ioal_uart_hdle *huart)
+{
+    huart->intf_gen_info.state = IO_FREE_STATE;
+    huart->app_callbacks.uart_abort_cplt_cb(huart);
+}
+
+/**
+ * @brief UART abort TX complete call back api
+ */
+void io_hal_uart_abort_tx_cmplt_cb(ioal_uart_hdle *huart)
+{
+    huart->intf_gen_info.state = IO_FREE_STATE;
+    huart->app_callbacks.uart_abort_tx_cplt_cb(huart);
+}
+
+/**
+ * @brief UART abort RX complete call back api
+ */
+void io_hal_uart_abort_rx_cmplt_cb(ioal_uart_hdle *huart)
+{
+    huart->intf_gen_info.state = IO_FREE_STATE;
+    huart->app_callbacks.uart_abort_rx_cplt_cb(huart);
+}
+
+/**
+ * @brief UART error call back api
+ */
+void io_hal_uart_error_cb(ioal_uart_hdle *huart)
+{
+    huart->intf_gen_info.state = IO_FREE_STATE;
+    if( huart->app_callbacks.uart_error_cb !=NULL)
+    {
+        huart->app_callbacks.uart_error_cb(huart);
+    }
+}
 
 /*
  * @brief This API transmit the data in UART interface with blocking mode
@@ -198,39 +264,69 @@ hal_ret_sts io_hal_uart_transmit(ioal_uart_hdle *huart, uint8 *pdata, uint16 siz
 /*
  * @brief This API receive the data in UART interface with blocking mode
  */
-hal_ret_sts io_hal_uart_receive(ioal_uart_hdle *huart, uint8 *pdata, uint16 size, uint32 timeout)
+uint32 io_hal_uart_receive(ioal_uart_hdle *huart, uint8 *pdata, uint16 size, uint32 timeout)
+{
+    int32_t r_bytes = 0;
+    huart->intf_gen_info.state = IO_BUSY_STATE;
+    r_bytes = io_hal_common_uart_receive(huart,pdata,size,timeout);
+    huart->intf_gen_info.state = IO_FREE_STATE;
+    return r_bytes;
+}
+
+/*
+ * @brief This API transmit the data in UART interface with DMA mode
+ */
+hal_ret_sts io_hal_uart_transmit_dma(ioal_uart_hdle *huart, ahw_al_gen_info* ahw_info, uint8 *pdata, uint16 size)
 {
     hal_ret_sts ret_sts = HAL_MAX_ERR;
     huart->intf_gen_info.state = IO_BUSY_STATE;
-    if(HAL_SCS == io_hal_common_uart_receive(huart,pdata,size,timeout))
+    huart->app_callbacks=ahw_info->intr_hdl.io_cb_list.uart_callbacks;
+    huart->cb_context=ahw_info->intr_hdl.cb_context;
+    if(huart != NULL && pdata != NULL)
     {
-        ret_sts = HAL_SCS;
-        huart->intf_gen_info.state = IO_FREE_STATE;
+        if(HAL_SCS == io_hal_common_uart_transmit_dma(huart,pdata,size))
+        {
+            ret_sts = HAL_SCS;
+
+        }
+        else
+        {
+            ret_sts = HAL_IO_RX_ERR;
+        }
     }
     else
     {
-        ret_sts = HAL_IO_RX_ERR;
-        huart->intf_gen_info.state = IO_FREE_STATE;
+        ret_sts = HAL_IO_INVLD_ARG;
     }
     return ret_sts;
 }
+
 
 #ifndef LINUX_TEMP_PORT
 /*
  * @brief This API transmit the data with interrupt mode
  */
-hal_ret_sts io_hal_uart_transmit_it(ioal_uart_hdle *huart, uint8 *pdata, uint16 size)
+hal_ret_sts io_hal_uart_transmit_it(ioal_uart_hdle *huart, ahw_al_gen_info* ahw_info, uint8 *pdata, uint16 size)
 {
     hal_ret_sts ret_sts = HAL_MAX_ERR;
     huart->intf_gen_info.state = IO_BUSY_STATE;
-    if(HAL_SCS == io_hal_common_uart_transmit_it(huart,pdata,size))
+    huart->app_callbacks=ahw_info->intr_hdl.io_cb_list.uart_callbacks;
+    huart->cb_context=ahw_info->intr_hdl.cb_context;
+    if(huart != NULL && pdata != NULL)
     {
-        ret_sts = HAL_SCS;
+        if(HAL_SCS == io_hal_common_uart_transmit_it(huart,pdata,size))
+        {
+            ret_sts = HAL_SCS;
 
+        }
+        else
+        {
+            ret_sts = HAL_IO_RX_ERR;
+        }
     }
     else
     {
-        ret_sts = HAL_IO_RX_ERR;
+        ret_sts = HAL_IO_INVLD_ARG;
     }
     return ret_sts;
 }
@@ -238,37 +334,27 @@ hal_ret_sts io_hal_uart_transmit_it(ioal_uart_hdle *huart, uint8 *pdata, uint16 
 /*
  * @brief This API receive the data with interrupt mode
  */
-hal_ret_sts io_hal_uart_receive_it(ioal_uart_hdle *huart, uint8 *pdata, uint16 size)
+hal_ret_sts io_hal_uart_receive_it(ioal_uart_hdle *huart, ahw_al_gen_info* ahw_info, uint8 *pdata, uint16 size)
 {
     hal_ret_sts ret_sts = HAL_MAX_ERR;
     huart->intf_gen_info.state = IO_BUSY_STATE;
-    if(HAL_SCS == io_hal_common_uart_receive_it(huart,pdata,size))
+    huart->app_callbacks=ahw_info->intr_hdl.io_cb_list.uart_callbacks;
+    huart->cb_context=ahw_info->intr_hdl.cb_context;
+    if(huart != NULL && pdata != NULL)
     {
-        ret_sts = HAL_SCS;
+        if(HAL_SCS == io_hal_common_uart_receive_it(huart,pdata,size))
+        {
+            ret_sts = HAL_SCS;
 
+        }
+        else
+        {
+            ret_sts = HAL_IO_RX_ERR;
+        }
     }
     else
     {
-        ret_sts = HAL_IO_RX_ERR;
-    }
-    return ret_sts;
-}
-
-/*
- * @brief This API transmit the data in UART interface with DMA mode
- */
-hal_ret_sts io_hal_uart_transmit_dma(ioal_uart_hdle *huart, uint8 *pdata, uint16 size)
-{
-    hal_ret_sts ret_sts = HAL_MAX_ERR;
-    huart->intf_gen_info.state = IO_BUSY_STATE;
-    if(HAL_SCS == io_hal_common_uart_transmit_dma(huart,pdata,size))
-    {
-        ret_sts = HAL_SCS;
-
-    }
-    else
-    {
-        ret_sts = HAL_IO_RX_ERR;
+        ret_sts = HAL_IO_INVLD_ARG;
     }
     return ret_sts;
 }
@@ -276,16 +362,26 @@ hal_ret_sts io_hal_uart_transmit_dma(ioal_uart_hdle *huart, uint8 *pdata, uint16
 /*
  * @brief This API receive the data in UART interface in DMA mode
  */
-hal_ret_sts io_hal_uart_receive_dma(ioal_uart_hdle *huart, uint8 *pdata, uint16 size)
+hal_ret_sts io_hal_uart_receive_dma(ioal_uart_hdle *huart, ahw_al_gen_info* ahw_info, uint8 *pdata, uint16 size)
 {
     hal_ret_sts ret_sts = HAL_MAX_ERR;
-    if(HAL_SCS == io_hal_common_uart_receive_dma(huart,pdata,size))
+    huart->intf_gen_info.state = IO_BUSY_STATE;
+    huart->app_callbacks=ahw_info->intr_hdl.io_cb_list.uart_callbacks;
+    huart->cb_context=ahw_info->intr_hdl.cb_context;
+    if(huart != NULL && pdata != NULL)
     {
-        ret_sts = HAL_SCS;
+        if(HAL_SCS == io_hal_common_uart_receive_dma(huart,pdata,size))
+        {
+            ret_sts = HAL_SCS;
+        }
+        else
+        {
+            ret_sts = HAL_IO_RX_ERR;
+        }
     }
     else
     {
-        ret_sts = HAL_IO_RX_ERR;
+        ret_sts = HAL_IO_INVLD_ARG;
     }
     return ret_sts;
 }
@@ -303,6 +399,32 @@ hal_ret_sts io_hal_uart_dma_pause(ioal_uart_hdle *huart)
     else
     {
         ret_sts = HAL_IO_RX_ERR;
+    }
+    return ret_sts;
+}
+
+/**
+ * @brief This API handle UART DMA receive data to idle
+ */
+hal_ret_sts io_hal_uart_dma_receive_to_idle(ioal_uart_hdle *huart ,  ahw_al_gen_info* ahw_info,uint8 *pdata, uint16 size )
+{
+    hal_ret_sts ret_sts = HAL_MAX_ERR;
+    huart->app_callbacks=ahw_info->intr_hdl.io_cb_list.uart_callbacks;
+    huart->cb_context=ahw_info->intr_hdl.cb_context;
+    if(huart != NULL && pdata != NULL)
+    {
+        if(HAL_SCS == io_hal_common_uart_dma_receive_to_idle(huart ,pdata ,size))
+        {
+            ret_sts = HAL_SCS;
+        }
+        else
+        {
+            ret_sts = HAL_IO_RX_ERR;
+        }
+    }
+    else
+    {
+        ret_sts = HAL_IO_INVLD_ARG;
     }
     return ret_sts;
 }
@@ -452,23 +574,23 @@ hal_ret_sts io_hal_uart_abort_receive_it(ioal_uart_hdle *huart)
 
 #endif
 
-
-#ifndef LINUX_TEMP_PORT
-/**
- * @brief UART call back api
+/*
+ * @brief This API to get UART state
  */
-void check_uart6_dummy(ioal_uart_hdle *huart)
+ioal_uart_state io_hal_uart_get_state(ioal_uart_hdle *huart)
 {
-    //    recv_flg=1;
+    ioal_uart_state uart_sts = IOAL_UART_STATE_MAX;
+    huart->intf_gen_info.state = IO_BUSY_STATE;
+    uart_sts = io_hal_common_uart_get_state(huart);
+    huart->intf_gen_info.state = IO_FREE_STATE;
+    return uart_sts;
 }
 
-#else
-
+#ifdef LINUX_TEMP_PORT
 /**
  * @brief This is UART interface dummy function for linux
  */
 void linux_uart_dummy_fn(struct _ioal_uart_hdle *huart)
 {
 }
-
 #endif

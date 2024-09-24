@@ -3,7 +3,7 @@
  *
  * @brief This file contains abstracted function definitions for semaphore and mutex.
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -102,8 +102,10 @@ ral_status_t ral_sem_get_count(ral_sem_handle_ptr ral_sem_id, uint32_t* count)
 ral_status_t ral_mutex_create(ral_mutex_handle_ptr *ral_mtx_id)
 {
     ral_status_t sts;
+    *ral_mtx_id=(ral_mutex_handle_ptr)ral_malloc(sizeof(ral_mutex_handle_t));
     sts=ral_common_mutex_create(ral_mtx_id);
     return(sts);
+
 }
 
 /*!

@@ -1,9 +1,9 @@
-/*
+/**
  * @file exo_io_al_linux_can.h
  *
  * @brief This file contains linux wrapper functions declarations for IO interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,12 +58,11 @@ hal_ret_sts io_hal_linux_can_start(void *ioal_hcan);
  */
 hal_ret_sts io_hal_linux_can_stop(void *ioal_hcan);
 
-
-
-#define io_hal_common_can1_init 			io_hal_linux_can1_init
-#define io_hal_common_can2_init 			io_hal_linux_can2_init
-#define io_hal_common_can3_init 			io_hal_linux_can3_init
-#define io_hal_common_can_start				io_hal_linux_can_start
-#define io_hal_common_can_stop				io_hal_linux_can_stop
+/** IOAL CAN function mapping **/
+#define io_hal_common_can1_init             io_hal_linux_can1_init
+#define io_hal_common_can2_init             io_hal_linux_can2_init
+#define io_hal_common_can3_init             io_hal_linux_can3_init
+#define io_hal_common_can_start             io_hal_linux_can_start
+#define io_hal_common_can_stop              io_hal_linux_can_stop
 
 #endif

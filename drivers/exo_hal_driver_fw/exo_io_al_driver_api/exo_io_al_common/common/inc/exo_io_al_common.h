@@ -4,7 +4,7 @@
  * @brief This file contains structures,enumerations
  * and function declaration for application hardware management
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,16 +25,17 @@
 #include "exo_types.h"
 
 #include "exo_hal_common.h"
+#include "exo_hal_io_al_common.h"
 
 /**
  * @brief HAL IO state enumeration
  */
 typedef enum _hal_io_state
 {
-    IO_FREE_STATE,				/*!< IO free state */
-    IO_BUSY_STATE,				/*!< IO busy state */
-    IO_ERR_STATE,				/*!< IO error state */
-    IO_INVLD_STATE,				/*!< IO invalid state */
+    IO_FREE_STATE,              /*!< IO free state */
+    IO_BUSY_STATE,              /*!< IO busy state */
+    IO_ERR_STATE,               /*!< IO error state */
+    IO_INVLD_STATE,             /*!< IO invalid state */
 }hal_io_state;
 
 /**
@@ -65,7 +66,7 @@ typedef struct _ioal_intf_gen_info
 typedef enum
 {
     FUNC_STE_DISABLE = 0U,                 /*!< function disable state */
-    FUNC_STE_ENABLE = !FUNC_STE_DISABLE	 /*!< function enable state */
+    FUNC_STE_ENABLE = !FUNC_STE_DISABLE  /*!< function enable state */
 } io_hal_functional_state;
 
 /**
@@ -73,5 +74,11 @@ typedef enum
  * @retval No return
  */
 hal_ret_sts io_hal_init(void);
+
+/**
+ * @brief Function to get IOAL instance handle pointer
+ * @retval instance handle pointer
+ */
+void* get_ioal_inst_hdle(io_inst_id inst_id);
 
 #endif

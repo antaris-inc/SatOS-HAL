@@ -3,7 +3,7 @@
  *
  * @brief This file contains wrapper function definition for CAN interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,11 +25,26 @@
 #include "stm32f7xx_hal.h"
 #endif
 
+/**
+ * @brief CAN1 Initialization Function
+ *
+ * @param[in] ioal_hcan1 : Pointer to ioal can
+ */
 static void MX_CAN1_Init(ioal_can_hdle *ioal_hcan1);
+
+/**
+ * @brief CAN3 Initialization Function
+ *
+ * @param[in] ioal_hcan3 : Pointer to ioal can
+ */
 static void MX_CAN3_Init(ioal_can_hdle *ioal_hcan3);
+
+/**
+ * @brief CAN2 Initialization Function
+ *
+ * @param[in] ioal_hcan2 : Pointer to ioal can
+ */
 static void MX_CAN2_Init(ioal_can_hdle *ioal_hcan2);
-
-
 
 /**
  * @brief  Transmission Mailbox 0 complete callback function

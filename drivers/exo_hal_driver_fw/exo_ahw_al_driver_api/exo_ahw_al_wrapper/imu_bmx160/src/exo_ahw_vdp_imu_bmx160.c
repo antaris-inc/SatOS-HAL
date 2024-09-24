@@ -3,7 +3,7 @@
  *
  * @brief This file contains the vendor driver porting function of BMX160 IMU sensor
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,10 +24,10 @@
 #include "bmx160.h"
 #include "exo_osal.h"
 
-struct bmi160_dev himu;
-extern ahw_io_map *ahw_io_lookup_tble[MAX_AH_INST_ID];
-extern void *intf_inst_hdle_ptr[MAX_IO_INST_ID];
-struct bmi160_int_settg vdp_int_config;
+struct bmi160_dev himu; ///< BMI 160 dev
+extern ahw_io_map *ahw_io_lookup_tble[MAX_AH_INST_ID]; ///< Hardware IO lookup table
+extern void *intf_inst_hdle_ptr[MAX_IO_INST_ID];   ///< Interface instance handle pointer
+struct bmi160_int_settg vdp_int_config; ///< BMI160 VDP interface configuration
 
 
 /**
@@ -280,9 +280,9 @@ hal_ret_sts ahw_vdp_imu_bmx160_get_sensor_data(ahw_al_imu_hdle *al_himu)
     vdh_imu = (struct bmi160_dev*) al_himu->ahw_gen_info.vdp_inst_hdle;
 
     if(HAL_SCS == bmi160_get_sensor_data(BMI160_BOTH_ACCEL_AND_GYRO,
-                (struct bmi160_sensor_data*)&al_himu->accel_data,
-                (struct bmi160_sensor_data*)&al_himu->gyro_data,
-                (struct bmx160_mag_sensor_data*)&al_himu->mag_data,vdh_imu))
+            (struct bmi160_sensor_data*)&al_himu->accel_data,
+            (struct bmi160_sensor_data*)&al_himu->gyro_data,
+            (struct bmx160_mag_sensor_data*)&al_himu->mag_data,vdh_imu))
     {
         sts = HAL_SCS;
     }

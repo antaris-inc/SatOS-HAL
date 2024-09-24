@@ -4,7 +4,7 @@
  * @brief This file contains structures,enumerations
  * and function declaration for CAN interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,20 +37,20 @@
  */
 typedef struct _ioal_can_hdle
 {
-	ioal_intf_gen_info intf_gen_info;							/*!< Hold general information of interface								*/
-	void (*can_tx_mb0_cplt_cb)(struct _ioal_can_hdle *hcan);    /*!< Hold Fn address for Tx complete for mailbox0 event					*/
-	void (*can_tx_mb1_cplt_cb)(struct _ioal_can_hdle *hcan);    /*!< Hold Fn address for Tx complete for mailbox1 event					*/
-	void (*can_tx_mb2_cplt_cb)(struct _ioal_can_hdle *hcan);    /*!< Hold Fn address for Tx complete for mailbox2 event					*/
-	void (*can_mb0_abort_cb)(struct _ioal_can_hdle *hcan);     	/*!< Hold Fn address for mailbox0 abort event							*/
-	void (*can_mb1_abort_cb)(struct _ioal_can_hdle *hcan);     	/*!< Hold Fn address for mailbox1 abort event							*/
-	void (*can_mb2_abort_cb)(struct _ioal_can_hdle *hcan);    	/*!< Hold Fn address for mailbox2 abort event							*/
-	void (*can_fifo0_msg_pend_cb)(struct _ioal_can_hdle *hcan); /*!< Hold Fn address for message pending indication for fifo0 event		*/
-	void (*can_fifo0_full_cb)(struct _ioal_can_hdle *hcan);     /*!< Hold Fn address for fifo0 full event								*/
-	void (*can_fifo1_msg_pend_cb)(struct _ioal_can_hdle *hcan); /*!< Hold Fn address for message pending indication for fifo1 event		*/
-	void (*can_fifo1_full_cb)(struct _ioal_can_hdle *hcan);     /*1< Hold Fn address for fifo1 full event								*/
-	void (*can_sleep_cb)(struct _ioal_can_hdle *hcan);   		/*!< Hold Fn address for sleep event									*/
-	void (*can_wakeup_cb)(struct _ioal_can_hdle *hcan);   		/*!< Hold Fn address for wakeup event									*/
-	void (*can_error_cb)(struct _ioal_can_hdle *hcan);     		/*!< Hold Fn address for error event									*/
+    ioal_intf_gen_info intf_gen_info;                           /*!< Hold general information of interface                              */
+    void (*can_tx_mb0_cplt_cb)(struct _ioal_can_hdle *hcan);    /*!< Hold Fn address for Tx complete for mailbox0 event                 */
+    void (*can_tx_mb1_cplt_cb)(struct _ioal_can_hdle *hcan);    /*!< Hold Fn address for Tx complete for mailbox1 event                 */
+    void (*can_tx_mb2_cplt_cb)(struct _ioal_can_hdle *hcan);    /*!< Hold Fn address for Tx complete for mailbox2 event                 */
+    void (*can_mb0_abort_cb)(struct _ioal_can_hdle *hcan);      /*!< Hold Fn address for mailbox0 abort event                           */
+    void (*can_mb1_abort_cb)(struct _ioal_can_hdle *hcan);      /*!< Hold Fn address for mailbox1 abort event                           */
+    void (*can_mb2_abort_cb)(struct _ioal_can_hdle *hcan);      /*!< Hold Fn address for mailbox2 abort event                           */
+    void (*can_fifo0_msg_pend_cb)(struct _ioal_can_hdle *hcan); /*!< Hold Fn address for message pending indication for fifo0 event     */
+    void (*can_fifo0_full_cb)(struct _ioal_can_hdle *hcan);     /*!< Hold Fn address for fifo0 full event                               */
+    void (*can_fifo1_msg_pend_cb)(struct _ioal_can_hdle *hcan); /*!< Hold Fn address for message pending indication for fifo1 event     */
+    void (*can_fifo1_full_cb)(struct _ioal_can_hdle *hcan);     /*1< Hold Fn address for fifo1 full event                               */
+    void (*can_sleep_cb)(struct _ioal_can_hdle *hcan);          /*!< Hold Fn address for sleep event                                    */
+    void (*can_wakeup_cb)(struct _ioal_can_hdle *hcan);         /*!< Hold Fn address for wakeup event                                   */
+    void (*can_error_cb)(struct _ioal_can_hdle *hcan);          /*!< Hold Fn address for error event                                    */
 }ioal_can_hdle;
 
 /**
@@ -58,12 +58,12 @@ typedef struct _ioal_can_hdle
  */
 typedef enum
 {
-	IOHAL_CAN_STATE_RESET             = 0x00U,  /*!< CAN not yet initialized or disabled */
-	IOHAL_CAN_STATE_READY             = 0x01U,  /*!< CAN initialized and ready for use   */
-	IOHAL_CAN_STATE_LISTENING         = 0x02U,  /*!< CAN receive process is ongoing      */
-	IOHAL_CAN_STATE_SLEEP_PENDING     = 0x03U,  /*!< CAN sleep request is pending        */
-	IOHAL_CAN_STATE_SLEEP_ACTIVE      = 0x04U,  /*!< CAN sleep mode is active            */
-	IOHAL_CAN_STATE_ERROR             = 0x05U   /*!< CAN error state                     */
+    IOHAL_CAN_STATE_RESET             = 0x00U,  /*!< CAN not yet initialized or disabled */
+    IOHAL_CAN_STATE_READY             = 0x01U,  /*!< CAN initialized and ready for use   */
+    IOHAL_CAN_STATE_LISTENING         = 0x02U,  /*!< CAN receive process is ongoing      */
+    IOHAL_CAN_STATE_SLEEP_PENDING     = 0x03U,  /*!< CAN sleep request is pending        */
+    IOHAL_CAN_STATE_SLEEP_ACTIVE      = 0x04U,  /*!< CAN sleep mode is active            */
+    IOHAL_CAN_STATE_ERROR             = 0x05U   /*!< CAN error state                     */
 
 } iohal_can_state;
 /**
@@ -71,16 +71,16 @@ typedef enum
  */
 typedef struct
 {
-	uint32_t FilterIdHigh;          		/*!< CAN filter id high 			*/
-	uint32_t FilterIdLow;           		/*!< CAN filter id low 				*/
-	uint32_t FilterMaskIdHigh;      		/*!< CAN filter mask id high 		*/
-	uint32_t FilterMaskIdLow;       		/*!< CAN filter mask id low 		*/
-	uint32_t FilterFIFOAssignment;  		/*!< CAN filter FIFO assignment 	*/
-	uint32_t FilterBank;            		/*!< CAN filter basnk 				*/
-	uint32_t FilterMode;            		/*!< CAN filter mode 				*/
-	uint32_t FilterScale;           		/*!< CAN filter scale 				*/
-        uint32_t FilterActivation;      		/*!< CAN filter acivation 			*/
-        uint32_t SlaveStartFilterBank;  		/*!< CAN slave start filter bank  	*/
+    uint32_t FilterIdHigh;                  /*!< CAN filter id high             */
+    uint32_t FilterIdLow;                   /*!< CAN filter id low              */
+    uint32_t FilterMaskIdHigh;              /*!< CAN filter mask id high        */
+    uint32_t FilterMaskIdLow;               /*!< CAN filter mask id low         */
+    uint32_t FilterFIFOAssignment;          /*!< CAN filter FIFO assignment     */
+    uint32_t FilterBank;                    /*!< CAN filter basnk               */
+    uint32_t FilterMode;                    /*!< CAN filter mode                */
+    uint32_t FilterScale;                   /*!< CAN filter scale               */
+    uint32_t FilterActivation;              /*!< CAN filter acivation           */
+    uint32_t SlaveStartFilterBank;          /*!< CAN slave start filter bank    */
 } iohal_can_filter;
 
 /**
@@ -88,12 +88,12 @@ typedef struct
  */
 typedef struct
 {
-    uint32_t StdId;   									/*!< CAN standard id. 				*/
-    uint32_t ExtId;   									/*!< CAN extended id. 				*/
-    uint32_t IDE;     									/*!< CAN identifier type 			*/
-    uint32_t RTR;     									/*!< CAN remote transition request  */
-    uint32_t DLC;     									/*!< CAN length of the frame 		*/
-    io_hal_functional_state TransmitGlobalTime; 		/*!< functional state 				*/
+    uint32_t StdId;                                     /*!< CAN standard id.               */
+    uint32_t ExtId;                                     /*!< CAN extended id.               */
+    uint32_t IDE;                                       /*!< CAN identifier type            */
+    uint32_t RTR;                                       /*!< CAN remote transition request  */
+    uint32_t DLC;                                       /*!< CAN length of the frame        */
+    io_hal_functional_state TransmitGlobalTime;         /*!< functional state               */
 
 } iohal_can_tx_header;
 /**
@@ -101,13 +101,13 @@ typedef struct
  */
 typedef struct
 {
-    uint32_t StdId;    				/*!< CAN standard id. 				*/
-    uint32_t ExtId;       			/*!< CAN extended id. 				*/
-    uint32_t IDE;      				/*!< CAN identifier type 			*/
-    uint32_t RTR;       			/*!< CAN remote transition request  */
-    uint32_t DLC;      				/*!< CAN length of the frame 		*/
-    uint32_t Timestamp; 			/*!< CAN timestamp					*/
-    uint32_t FilterMatchIndex; 		/*!< CAN filter match index 		*/
+    uint32_t StdId;                 /*!< CAN standard id.               */
+    uint32_t ExtId;                 /*!< CAN extended id.               */
+    uint32_t IDE;                   /*!< CAN identifier type            */
+    uint32_t RTR;                   /*!< CAN remote transition request  */
+    uint32_t DLC;                   /*!< CAN length of the frame        */
+    uint32_t Timestamp;             /*!< CAN timestamp                  */
+    uint32_t FilterMatchIndex;      /*!< CAN filter match index         */
 } iohal_can_rx_header;
 
 /**
@@ -287,9 +287,32 @@ hal_ret_sts io_hal_can_reset_error(ioal_can_hdle *hcan);
 #endif /* _IO_AL_CAN_COMMON_H_ */
 
 #ifndef LINUX_TEMP_PORT
+/**
+ * @brief CAN1 temporary dummy function
+ *
+ * @param[in] hcan : pointer to CAN handle
+ */
 void check_can1_dummy(ioal_can_hdle *hcan);
+
+/**
+ * @brief CAN3 temporary dummy function
+ *
+ * @param[in] hcan : pointer to CAN handle
+ */
 void check_can3_dummy(ioal_can_hdle *hcan);
+
+/**
+ * @brief CAN2 temporary dummy function
+ *
+ * @param[in] hcan : pointer to CAN handle
+ */
 void check_can2_dummy(ioal_can_hdle *hcan);
 #else
+
+/**
+ * @brief Linux CAN dummy function
+ *
+ * @param[in] hcan : pointer to CAN handle
+ */
 void linux_can_dummy_fn(struct _ioal_can_hdle *hcan);
 #endif

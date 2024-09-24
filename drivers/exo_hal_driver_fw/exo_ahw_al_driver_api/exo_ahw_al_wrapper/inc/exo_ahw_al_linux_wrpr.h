@@ -1,9 +1,9 @@
-/*
- * @file exo_ahw_al_wrpr.h
+/**
+ * @file exo_ahw_al_linux_wrpr.h
  *
- * @brief This file contains the function prototype of temperature sensor
+ * @brief This file contains linux common wrapper functionality prototype
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,6 @@
 #ifndef HAL_DRIVER_WRPR_H_
 #define HAL_DRIVER_WRPR_H_
 
-
 #include "stdint.h"
 
-
-
-uint8_t skt_intf_write(void* intf_hdl, uint16_t slv_addr, uint8_t reg_addr, uint8_t *data, uint16_t len);
-uint8_t skt_intf_read(void* intf_hdl, uint16_t slv_addr, uint8_t reg_addr, uint8_t *data, uint16_t len);
-
-#endif
+#endif /* HAL_DRIVER_WRPR_H_ */

@@ -65,7 +65,7 @@
 #define configCPU_CLOCK_HZ                       ( SystemCoreClock )
 #define configTICK_RATE_HZ                       ((TickType_t)1000)
 #define configMAX_PRIORITIES                     ( 56 )
-#define configMINIMAL_STACK_SIZE                 ((uint16_t)128)
+#define configMINIMAL_STACK_SIZE                 ((uint16_t)384)
 #define configTOTAL_HEAP_SIZE                    ((size_t)300720)    //50720 //100720
 #define configMAX_TASK_NAME_LEN                  ( 25 )
 #define configUSE_TRACE_FACILITY                 1
@@ -76,9 +76,16 @@
 #define configUSE_COUNTING_SEMAPHORES            1
 #define configUSE_PORT_OPTIMISED_TASK_SELECTION  0
 
+#ifdef RTOS_AWARE_DEBUG
+#define configQUEUE_REGISTRY_SIZE                60
+#else
+#define configUSE_NEWLIB_REENTRANT          1
+#define configQUEUE_REGISTRY_SIZE                8
+#endif
+
 #define  configUSE_TRACE_FACILITY 1
 #define   configUSE_STATS_FORMATTING_FUNCTIONS 1
-#define  configUSE_NEWLIB_REENTRANT 1
+//#define  configUSE_NEWLIB_REENTRANT 1
 /* USER CODE BEGIN MESSAGE_BUFFER_LENGTH_TYPE */
 /* Defaults to size_t for backward compatibility, but can be changed
    if lengths will always be less than the number of bytes in a size_t. */
@@ -112,6 +119,26 @@ to exclude the API function. */
 #define INCLUDE_xQueueGetMutexHolder         1
 #define INCLUDE_uxTaskGetStackHighWaterMark  1
 #define INCLUDE_eTaskGetState                1
+
+//
+
+#ifdef ENABLE_STACK_USAGE_STATITICS_REPORT
+
+#define configUSE_TICK_HOOK                      1
+#define configRECORD_STACK_HIGH_ADDRESS          1 /*STACK IMPLEMENTATION*/
+#define configGENERATE_RUN_TIME_STATS            1  /*STACK IMPLEMENTATION*/
+#define configUSE_STATS_FORMATTING_FUNCTIONS     1 /*STACK IMPLEMENTATION*/
+#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS configureTimerForRunTimeStats
+#define portGET_RUN_TIME_COUNTER_VALUE getRunTimeCounterValue
+#else
+#define configUSE_TICK_HOOK                      0
+#endif
+
+#ifdef EXO_STACK_OVERFLOW_DETECTION
+#define  configCHECK_FOR_STACK_OVERFLOW        1
+#endif
+
+
 
 /*
  * The CMSIS-RTOS V2 FreeRTOS wrapper is dependent on the heap implementation used

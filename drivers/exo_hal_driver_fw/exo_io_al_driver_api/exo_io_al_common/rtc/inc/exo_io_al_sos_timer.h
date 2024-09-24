@@ -4,7 +4,7 @@
  * @brief This file contains structures,enumerations
  * and function declaration for RTC interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@
 #define DRIVERS_EXO_HAL_DRIVER_FW_EXO_IO_AL_DRIVER_API_EXO_IO_AL_COMMON_RTC_INC_EXO_IO_AL_SOS_TIMER_H_
 
 
-
 #include <stdint.h>
 #include <time.h>
 
@@ -32,9 +31,9 @@
  */
 typedef struct
 {
-    uint8_t hour;		/*!< RTC hour 		*/
-    uint8_t min;		/*!< RTC minute 	*/
-    uint8_t sec;		/*!< RTC seconds 	*/
+    uint8_t hour;       /*!< RTC hour       */
+    uint8_t min;        /*!< RTC minute     */
+    uint8_t sec;        /*!< RTC seconds    */
 
 }sys_time_s;
 
@@ -43,9 +42,9 @@ typedef struct
  */
 typedef struct
 {
-    uint8_t date;		/*!< RTC date 	*/
-    uint8_t month;		/*!< RTC month 	*/
-    uint16_t year;		/*!< RTC year 	*/
+    uint8_t date;       /*!< RTC date   */
+    uint8_t month;      /*!< RTC month  */
+    uint16_t year;      /*!< RTC year   */
 
 }sys_date_s;
 
@@ -54,13 +53,13 @@ typedef struct
  */
 typedef struct
 {
-    uint8_t hour;			/*!< RTC hour 			*/
-    uint8_t minute;			/*!< RTC minute 		*/
-    uint8_t seconds;		/*!< RTC seconds 		*/
-    uint8_t date;			/*!< RTC date 			*/
-    uint8_t month;			/*!< RTC month 			*/
-    uint16_t year;			/*!< RTC year 			*/
-    uint8_t rsvrd;			/*!< RTC reserved bit 	*/
+    uint8_t hour;           /*!< RTC hour           */
+    uint8_t minute;         /*!< RTC minute         */
+    uint8_t seconds;        /*!< RTC seconds        */
+    uint8_t date;           /*!< RTC date           */
+    uint8_t month;          /*!< RTC month          */
+    uint16_t year;          /*!< RTC year           */
+    uint8_t rsvrd;          /*!< RTC reserved bit   */
 
 }__attribute__((__packed__))sys_time_date_s;
 
@@ -124,7 +123,6 @@ void rtc_nvm_reload(void);
  * @retval No return
  */
 void preload_saved_rtc(void);
-
 
 
 #endif /* DRIVERS_EXO_HAL_DRIVER_FW_EXO_IO_AL_DRIVER_API_EXO_IO_AL_COMMON_RTC_INC_EXO_IO_AL_SOS_TIMER_H_ */

@@ -4,7 +4,7 @@
  * @brief This file contains CMSIS wrapper function prototypes, macros for
  * thread, queue, semaphore, mutex.
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

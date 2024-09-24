@@ -1,9 +1,9 @@
 /**
- * @file exo_io_al_rtc_commons.c
+ * @file exo_io_al_rtc_common.c
  *
  * @brief This file contains abstracted function definition for RTC interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ hal_ret_sts io_hal_rtc_init(void)
     hal_ret_sts ret_sts;
     if(HAL_SCS == io_hal_common_rtc_init(&ioal_hrtc))
     {
-        intf_inst_hdle_ptr[IOAL_INST_RTC] = &ioal_hrtc;
+        intf_inst_hdle_ptr[IOAL_INST_RTC1] = &ioal_hrtc;
 
     }
     else
@@ -332,7 +332,9 @@ hal_ret_sts io_hal_rtc_init_mode(ioal_rtc_hdle *hrtc)
 #endif
 
 #ifndef LINUX_TEMP_PORT
-
+/**
+ * @brief This is RTC interface dummy function.
+ */
 void check_rtc_dummy(ioal_rtc_hdle *hrtc)
 {
     return;

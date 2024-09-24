@@ -4,7 +4,7 @@
  * @brief This file contains structures,enumerations
  * and function declaration for ETHERNET interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -192,21 +192,21 @@ void MX_Eth_Init(void);
 ##### API Mapping #####
 ===============================================================================  */
 
-#define io_hal_common_eth_init					io_hal_stm32f7xx_eth_init
-#define io_hal_common_eth_deinit				io_hal_stm32f7xx_eth_deinit
-#define io_hal_common_eth_tf					io_hal_stm32f7xx_eth_tf
-#define io_hal_common_eth_get_rf				io_hal_stm32f7xx_eth_get_rf
-#define io_hal_common_eth_getrf_it				io_hal_stm32f7xx_eth_getrf_it
-#define io_hal_common_eth_start				    io_hal_stm32f7xx_eth_start
-#define io_hal_common_eth_stop					io_hal_stm32f7xx_eth_stop
-#define io_hal_common_eth_get_state				io_hal_stm32f7xx_eth_get_state
+#define io_hal_common_eth_init                  io_hal_stm32f7xx_eth_init
+#define io_hal_common_eth_deinit                io_hal_stm32f7xx_eth_deinit
+#define io_hal_common_eth_tf                    io_hal_stm32f7xx_eth_tf
+#define io_hal_common_eth_get_rf                io_hal_stm32f7xx_eth_get_rf
+#define io_hal_common_eth_getrf_it              io_hal_stm32f7xx_eth_getrf_it
+#define io_hal_common_eth_start                 io_hal_stm32f7xx_eth_start
+#define io_hal_common_eth_stop                  io_hal_stm32f7xx_eth_stop
+#define io_hal_common_eth_get_state             io_hal_stm32f7xx_eth_get_state
 #define io_hal_common_eth_reg_cb                io_hal_stm32f7xx_eth_reg_cb
-#define io_hal_common_eth_dmatx_desclist_init	io_hal_stm32f7xx_eth_dmatx_desclist_init
-#define io_hal_common_eth_dmarx_desclist_init	io_hal_stm32f7xx_eth_dmarx_desclist_init
-#define io_hal_common_eth_config_mac			io_hal_stm32f7xx_eth_config_mac
-#define io_hal_common_eth_config_dma			io_hal_stm32f7xx_eth_config_dma
-#define	io_hal_common_eth_read_phy_reg			io_hal_stm32f7xx_eth_read_phy_reg
-#define io_hal_common_eth_write_phy_reg			io_hal_stm32f7xx_eth_write_phy_reg
+#define io_hal_common_eth_dmatx_desclist_init   io_hal_stm32f7xx_eth_dmatx_desclist_init
+#define io_hal_common_eth_dmarx_desclist_init   io_hal_stm32f7xx_eth_dmarx_desclist_init
+#define io_hal_common_eth_config_mac            io_hal_stm32f7xx_eth_config_mac
+#define io_hal_common_eth_config_dma            io_hal_stm32f7xx_eth_config_dma
+#define io_hal_common_eth_read_phy_reg          io_hal_stm32f7xx_eth_read_phy_reg
+#define io_hal_common_eth_write_phy_reg         io_hal_stm32f7xx_eth_write_phy_reg
 
 
 

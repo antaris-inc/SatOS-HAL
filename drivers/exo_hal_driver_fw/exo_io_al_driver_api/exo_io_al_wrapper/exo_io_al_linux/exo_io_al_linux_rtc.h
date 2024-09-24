@@ -1,9 +1,9 @@
-/*
+/**
  * @file exo_io_al_linux_rtc.h
  *
  * @brief This file contains linux wrapper functions declarations for IO interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@
 #define _IO_AL_LINUX_RTC_H_
 
 #include "exo_hal_common.h"
-//#include "exo_io_al_i2c_common.h"
 
 /**
  * @brief IO-HAL RTC initialization function for linux
@@ -31,8 +30,7 @@
  */
 hal_ret_sts io_hal_linux_rtc_init(void *ioal_hrtc);
 
+/** IO HAL Linux RTC initialization function mapping **/
+#define io_hal_common_rtc_init   io_hal_linux_rtc_init
 
-#define io_hal_common_rtc_init 				io_hal_linux_rtc_init
-
-
-#endif
+#endif /* _IO_AL_LINUX_RTC_H_ */

@@ -4,7 +4,7 @@
  * @brief This file contains structures,enumerations
  * and function declaration for I2C interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,17 +33,17 @@
  */
 typedef enum
 {
-    IOHAL_STM32_I2C_MASTER_TX_CPLT_CB_ID      = 0x00U,    /*!< I2C Master Tx Transfer completed callback ID */
-    IOHAL_STM32_I2C_MASTER_RX_CPLT_CB_ID      = 0x01U,    /*!< I2C Master Rx Transfer completed callback ID */
-    IOHAL_STM32_I2C_LISTEN_CPLT_CB_ID         = 0x02U,    /*!< I2C Listen Complete callback ID */
-    IOHAL_STM32_I2C_ABORT_CB_ID               = 0x03U,    /*!< I2C Abort callback ID */
-    IOHAL_STM32_I2C_ERROR_CB_ID               = 0x04U,    /*!< I2C Error callback ID */
+    IOHAL_STM32_I2C_MASTER_TX_CPLT_CB_ID      = 0x00U,    ///< I2C Master Tx Transfer completed callback ID
+    IOHAL_STM32_I2C_MASTER_RX_CPLT_CB_ID      = 0x01U,    ///< I2C Master Rx Transfer completed callback ID
+    IOHAL_STM32_I2C_LISTEN_CPLT_CB_ID         = 0x02U,    ///< I2C Listen Complete callback ID
+    IOHAL_STM32_I2C_ABORT_CB_ID               = 0x03U,    ///< I2C Abort callback ID
+    IOHAL_STM32_I2C_ERROR_CB_ID               = 0x04U,    ///< I2C Error callback ID
 
 } iohal_stm32_i2c_cbid;
 
 /**
  * @brief  This function initializes the control block memory and do the basic
- * 		configurations I2C1
+ *      configurations I2C1
  * @param[in]  ioal_hi2c1 -  pointer to a ioal_i2c_hdle structure that contains
  *                the configuration information for I2C1 module.
  * @retval HAL status.
@@ -51,7 +51,7 @@ typedef enum
 hal_ret_sts io_hal_stm32f7xx_i2c1_init(ioal_i2c_hdle *ioal_hi2c1);
 /**
  * @brief  This function initializes the control block memory and do the basic
- * 		configurations I2C2
+ *      configurations I2C2
  * @param[in]  ioal_hi2c2 -  pointer to a ioal_i2c_hdle structure that contains
  *                the configuration information for I2C2 module.
  * @retval HAL status.
@@ -59,7 +59,7 @@ hal_ret_sts io_hal_stm32f7xx_i2c1_init(ioal_i2c_hdle *ioal_hi2c1);
 hal_ret_sts io_hal_stm32f7xx_i2c2_init(ioal_i2c_hdle *ioal_hi2c2);
 /**
  * @brief  This function initializes the control block memory and do the basic
- * 		configurations I2C3
+ *      configurations I2C3
  * @param[in]  ioal_hi2c3 -  pointer to a ioal_i2c_hdle structure that contains
  *                the configuration information for I2C3 module.
  * @retval HAL status.
@@ -67,12 +67,30 @@ hal_ret_sts io_hal_stm32f7xx_i2c2_init(ioal_i2c_hdle *ioal_hi2c2);
 hal_ret_sts io_hal_stm32f7xx_i2c3_init(ioal_i2c_hdle *ioal_hi2c3);
 /**
  * @brief  This function initializes the control block memory and do the basic
- * 		configurations I2C4
+ *      configurations I2C4
  * @param[in]  ioal_hi2c4 -  pointer to a ioal_i2c_hdle structure that contains
  *                the configuration information for I2C4 module.
  * @retval HAL status.
  */
 hal_ret_sts io_hal_stm32f7xx_i2c4_init(ioal_i2c_hdle *ioal_hi2c4);
+
+/**
+ * @brief  This function De initializes the I2C
+ *
+ * @param[in] ioal_hi2c : pointer to a ioal_i2c_hdle structure that contains
+ *                the configuration information for I2C module.
+ * @retval HAL status.
+ */
+hal_ret_sts io_hal_stm32f7xx_i2c_deinit(ioal_i2c_hdle *ioal_hi2c);
+
+/**
+ * @brief This function get the i2c error code
+ * @param[in] ioal_hi2c : pointer to a ioal_i2c_hdle structure that contains
+ *                the configuration information for I2C module.
+ * @retval I2C Error code.
+ */
+uint32 io_hal_stm32f7xx_i2c_get_err(ioal_i2c_hdle *ioal_hi2c);
+
 /**
  * @brief  This function transmits data in master mode
  * @param[in]  ioal_hi2c -  pointer to a ioal_i2c_hdle structure that contains
@@ -151,14 +169,14 @@ hal_ret_sts io_hal_stm32f7xx_i2c_is_device_ready(ioal_i2c_hdle *ioal_hi2c, uint1
  *                the configuration information for I2C module.
  * @retval HAL status.
  */
-hal_ret_sts io_hal_stm32f7xx_i2c_enablelisten_it(ioal_i2c_hdle *ioal_hi2c);
+hal_ret_sts io_hal_stm32f7xx_i2c_enable_listen_it(ioal_i2c_hdle *ioal_hi2c);
 /**
  * @brief  This function disable the Address listen mode with Interrupt.
  * @param[in]  ioal_hi2c -  pointer to a ioal_i2c_hdle structure that contains
  *                the configuration information for I2C module.
  * @retval HAL status.
  */
-hal_ret_sts io_hal_stm32f7xx_i2c_disablelisten_it(ioal_i2c_hdle *ioal_hi2c);
+hal_ret_sts io_hal_stm32f7xx_i2c_disable_listen_it(ioal_i2c_hdle *ioal_hi2c);
 /**
  * @brief   This function abort a master I2C  with Interrupt.
  * @param[in]  ioal_hi2c -  pointer to a ioal_i2c_hdle structure that contains
@@ -167,14 +185,7 @@ hal_ret_sts io_hal_stm32f7xx_i2c_disablelisten_it(ioal_i2c_hdle *ioal_hi2c);
  * @retval HAL status.
  */
 hal_ret_sts io_hal_stm32f7xx_i2c_abort_it(ioal_i2c_hdle *ioal_hi2c, uint16 addr);
-/**
- * @brief   This function  register a I2C Callback event
- * @param[in]  ioal_hi2c -  pointer to a ioal_i2c_hdle structure that contains
- *                the configuration information for I2C module.
- * @param[in]  cbid - ID of the callback event
- * @retval HAL status.
- */
-hal_ret_sts io_hal_stm32f7xx_i2c_reg_cb(ioal_i2c_hdle *ioal_hi2c, iohal_stm32_i2c_cbid cbid);
+
 
 /**
  * @brief  This function is a I2C1 initialization function
@@ -207,20 +218,22 @@ void MX_I2C4_Init(ioal_i2c_hdle *ioal_hi2c4);
 
 
 /* API Mapping */
-#define io_hal_common_i2c1_init 			io_hal_stm32f7xx_i2c1_init
-#define io_hal_common_i2c2_init 			io_hal_stm32f7xx_i2c2_init
-#define io_hal_common_i2c3_init 			io_hal_stm32f7xx_i2c3_init
-#define io_hal_common_i2c4_init 			io_hal_stm32f7xx_i2c4_init
-#define io_hal_common_i2c_transmit 			io_hal_stm32f7xx_i2c_transmit
-#define io_hal_common_i2c_receive 			io_hal_stm32f7xx_i2c_receive
-#define io_hal_common_i2c_transmit_it 		io_hal_stm32f7xx_i2c_transmit_it
-#define io_hal_common_i2c_receive_it 		io_hal_stm32f7xx_i2c_receive_it
-#define io_hal_common_i2c_transmit_dma 		io_hal_stm32f7xx_i2c_transmit_dma
-#define io_hal_common_i2c_receive_dma 		io_hal_stm32f7xx_i2c_receive_dma
-#define io_hal_common_i2c_is_device_ready 	io_hal_stm32f7xx_i2c_is_device_ready
-#define io_hal_common_i2c_enablelisten_it 	io_hal_stm32f7xx_i2c_enablelisten_it
-#define io_hal_common_i2c_disablelisten_it 	io_hal_stm32f7xx_i2c_disablelisten_it
-#define io_hal_common_i2c_abort_it 			io_hal_stm32f7xx_i2c_abort_it
-#define io_hal_common_i2c_reg_cb			io_hal_stm32f7xx_i2c_reg_cb
+#define io_hal_common_i2c1_init             io_hal_stm32f7xx_i2c1_init
+#define io_hal_common_i2c2_init             io_hal_stm32f7xx_i2c2_init
+#define io_hal_common_i2c3_init             io_hal_stm32f7xx_i2c3_init
+#define io_hal_common_i2c4_init             io_hal_stm32f7xx_i2c4_init
+#define io_hal_common_i2c_transmit          io_hal_stm32f7xx_i2c_transmit
+#define io_hal_common_i2c_receive           io_hal_stm32f7xx_i2c_receive
+#define io_hal_common_i2c_transmit_it       io_hal_stm32f7xx_i2c_transmit_it
+#define io_hal_common_i2c_receive_it        io_hal_stm32f7xx_i2c_receive_it
+#define io_hal_common_i2c_transmit_dma      io_hal_stm32f7xx_i2c_transmit_dma
+#define io_hal_common_i2c_receive_dma       io_hal_stm32f7xx_i2c_receive_dma
+#define io_hal_common_i2c_is_device_ready   io_hal_stm32f7xx_i2c_is_device_ready
+#define io_hal_common_i2c_enablelisten_it   io_hal_stm32f7xx_i2c_enable_listen_it
+#define io_hal_common_i2c_disablelisten_it  io_hal_stm32f7xx_i2c_disablelisten_it
+#define io_hal_common_i2c_abort_it          io_hal_stm32f7xx_i2c_abort_it
+#define io_hal_common_i2c_reg_cb            io_hal_stm32f7xx_i2c_reg_cb
+#define io_hal_common_i2c_deinit            io_hal_stm32f7xx_i2c_deinit
+#define io_hal_common_i2c_get_err           io_hal_stm32f7xx_i2c_get_err
 
 #endif

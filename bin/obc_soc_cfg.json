@@ -1,0 +1,13 @@
+{
+    "subsystem":[
+        {
+            "name":"OBC<->UHF",
+            "ip_address":"127.0.0.1",
+            "port":9130
+        },
+        {
+            "name":"LNX_UART_COM_PORT",
+            "com_port":"/dev/ttyUSB0"
+        }
+    ]
+}

@@ -3,7 +3,7 @@
  *
  * @brief This file contains abstracted function definition for CAN interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,92 +32,91 @@
 
 #ifndef LINUX_TEMP_PORT
 
-#define CAN1_TX_MB0_CPLT_CB		check_can1_dummy					///< CAN1 TX MB0 complete callback event
-#define CAN1_TX_MB1_CPLT_CB		check_can1_dummy					///< CAN1 TX MB1 callback event
-#define CAN1_TX_MB2_CPLT_CB		check_can1_dummy					///< CAN1 TX MB2 complete callback event
-#define CAN1_MB0_ABORT_CB		check_can1_dummy					///< CAN1 MB0 abort callback event
-#define CAN1_MB1_ABORT_CB		check_can1_dummy					///< CAN1 MB1 abort callback event
-#define CAN1_MB2_ABORT_CB		check_can1_dummy					///< CAN1 MB2 abort callback event
-#define CAN1_FIFO0_MSG_PEND_CB	check_can1_dummy					///< CAN1 FIFO 0 message pending callback event
-#define CAN1_FIFO0_FULL_CB		check_can1_dummy					///< CAN1 FIFO 0 message full callback event
-#define CAN1_FIFO1_MSG_PEND_CB	check_can1_dummy					///< CAN1 FIFO 1 message pending callback event
-#define CAN1_FIFO1_FULL_CB		check_can1_dummy					///< CAN1 FIFO 1 message full callback event
-#define CAN1_SLEEP_CB			check_can1_dummy					///< CAN1 sleep callback event
-#define CAN1_WAKEUP_CB			check_can1_dummy					///< CAN1 wakeup callback event
-#define CAN1_ERROR_CB			check_can1_dummy					///< CAN1 error callback event
+#define CAN1_TX_MB0_CPLT_CB     check_can1_dummy    ///< TX MB0 complete callback event
+#define CAN1_TX_MB1_CPLT_CB     check_can1_dummy    ///< TX MB1 callback event
+#define CAN1_TX_MB2_CPLT_CB     check_can1_dummy    ///< TX MB2 complete callback event
+#define CAN1_MB0_ABORT_CB       check_can1_dummy    ///< MB0 abort callback event
+#define CAN1_MB1_ABORT_CB       check_can1_dummy    ///< MB1 abort callback event
+#define CAN1_MB2_ABORT_CB       check_can1_dummy    ///< MB2 abort callback event
+#define CAN1_FIFO0_MSG_PEND_CB  check_can1_dummy    ///< FIFO 0 message pending callback event
+#define CAN1_FIFO0_FULL_CB      check_can1_dummy    ///< FIFO 0 message full callback event
+#define CAN1_FIFO1_MSG_PEND_CB  check_can1_dummy    ///< FIFO 1 message pending callback event
+#define CAN1_FIFO1_FULL_CB      check_can1_dummy    ///< FIFO 1 message full callback event
+#define CAN1_SLEEP_CB           check_can1_dummy    ///< sleep callback event
+#define CAN1_WAKEUP_CB          check_can1_dummy    ///< wakeup callback event
+#define CAN1_ERROR_CB           check_can1_dummy    ///< error callback event
 
-#define CAN3_TX_MB0_CPLT_CB		check_can3_dummy					///< CAN3 TX MB0 complete callback event
-#define CAN3_TX_MB1_CPLT_CB		check_can3_dummy					///< CAN3 TX MB1 callback event
-#define CAN3_TX_MB2_CPLT_CB		check_can3_dummy					///< CAN3 TX MB2 complete callback event
-#define CAN3_MB0_ABORT_CB		check_can3_dummy					///< CAN3 MB0 abort callback event
-#define CAN3_MB1_ABORT_CB		check_can3_dummy					///< CAN3 MB1 abort callback event
-#define CAN3_MB2_ABORT_CB		check_can3_dummy					///< CAN3 MB2 abort callback event
-#define CAN3_FIFO0_MSG_PEND_CB	check_can3_dummy					///< CAN3 FIFO 0 message pending callback event
-#define CAN3_FIFO0_FULL_CB		check_can3_dummy					///< CAN3 FIFO 0 message full callback event
-#define CAN3_FIFO1_MSG_PEND_CB	check_can3_dummy					///< CAN3 FIFO 1 message pending callback event
-#define CAN3_FIFO1_FULL_CB		check_can3_dummy					///< CAN3 FIFO 1 message full callback event
-#define CAN3_SLEEP_CB			check_can3_dummy					///< CAN3 sleep callback event
-#define CAN3_WAKEUP_CB			check_can3_dummy					///< CAN3 wakeup callback event
-#define CAN3_ERROR_CB			check_can3_dummy					///< CAN3 error callback event
+#define CAN3_TX_MB0_CPLT_CB     check_can3_dummy    ///< TX MB0 complete callback event
+#define CAN3_TX_MB1_CPLT_CB     check_can3_dummy    ///< TX MB1 callback event
+#define CAN3_TX_MB2_CPLT_CB     check_can3_dummy    ///< TX MB2 complete callback event
+#define CAN3_MB0_ABORT_CB       check_can3_dummy    ///< MB0 abort callback event
+#define CAN3_MB1_ABORT_CB       check_can3_dummy    ///< MB1 abort callback event
+#define CAN3_MB2_ABORT_CB       check_can3_dummy    ///< MB2 abort callback event
+#define CAN3_FIFO0_MSG_PEND_CB  check_can3_dummy    ///< FIFO 0 message pending callback event
+#define CAN3_FIFO0_FULL_CB      check_can3_dummy    ///< FIFO 0 message full callback event
+#define CAN3_FIFO1_MSG_PEND_CB  check_can3_dummy    ///< FIFO 1 message pending callback event
+#define CAN3_FIFO1_FULL_CB      check_can3_dummy    ///< FIFO 1 message full callback event
+#define CAN3_SLEEP_CB           check_can3_dummy    ///< sleep callback event
+#define CAN3_WAKEUP_CB          check_can3_dummy    ///< wakeup callback event
+#define CAN3_ERROR_CB           check_can3_dummy    ///< error callback event
 
-#define CAN2_TX_MB0_CPLT_CB		check_can2_dummy					///< CAN2 TX MB0 complete callback event
-#define CAN2_TX_MB1_CPLT_CB		check_can2_dummy					///< CAN2 TX MB1 callback event
-#define CAN2_TX_MB2_CPLT_CB		check_can2_dummy					///< CAN2 TX MB2 complete callback event
-#define CAN2_MB0_ABORT_CB		check_can2_dummy					///< CAN2 MB0 abort callback event
-#define CAN2_MB1_ABORT_CB		check_can2_dummy					///< CAN2 MB1 abort callback event
-#define CAN2_MB2_ABORT_CB		check_can2_dummy					///< CAN2 MB2 abort callback event
-#define CAN2_FIFO0_MSG_PEND_CB	check_can2_dummy					///< CAN2 FIFO 0 message pending callback event
-#define CAN2_FIFO0_FULL_CB		check_can2_dummy					///< CAN2 FIFO 0 message full callback event
-#define CAN2_FIFO1_MSG_PEND_CB	check_can2_dummy					///< CAN2 FIFO 1 message pending callback event
-#define CAN2_FIFO1_FULL_CB		check_can2_dummy					///< CAN2 FIFO 1 message full callback event
-#define CAN2_SLEEP_CB			check_can2_dummy					///< CAN2 sleep callback event
-#define CAN2_WAKEUP_CB			check_can2_dummy					///< CAN2 wakeup callback event
-#define CAN2_ERROR_CB			check_can2_dummy					///< CAN2 error callback event
+#define CAN2_TX_MB0_CPLT_CB     check_can2_dummy    ///< TX MB0 complete callback event
+#define CAN2_TX_MB1_CPLT_CB     check_can2_dummy    ///< TX MB1 callback event
+#define CAN2_TX_MB2_CPLT_CB     check_can2_dummy    ///< TX MB2 complete callback event
+#define CAN2_MB0_ABORT_CB       check_can2_dummy    ///< MB0 abort callback event
+#define CAN2_MB1_ABORT_CB       check_can2_dummy    ///< MB1 abort callback event
+#define CAN2_MB2_ABORT_CB       check_can2_dummy    ///< MB2 abort callback event
+#define CAN2_FIFO0_MSG_PEND_CB  check_can2_dummy    ///< FIFO 0 message pending callback event
+#define CAN2_FIFO0_FULL_CB      check_can2_dummy    ///< FIFO 0 message full callback event
+#define CAN2_FIFO1_MSG_PEND_CB  check_can2_dummy    ///< FIFO 1 message pending callback event
+#define CAN2_FIFO1_FULL_CB      check_can2_dummy    ///< FIFO 1 message full callback event
+#define CAN2_SLEEP_CB           check_can2_dummy    ///< sleep callback event
+#define CAN2_WAKEUP_CB          check_can2_dummy    ///< wakeup callback event
+#define CAN2_ERROR_CB           check_can2_dummy    ///< error callback event
 
 #else
 
+#define CAN1_TX_MB0_CPLT_CB     linux_can_dummy_fn  ///< CAN1 TX MB0 complete callback event
+#define CAN1_TX_MB1_CPLT_CB     linux_can_dummy_fn  ///< CAN1 TX MB1 callback event
+#define CAN1_TX_MB2_CPLT_CB     linux_can_dummy_fn  ///< CAN1 TX MB2 complete callback event
+#define CAN1_MB0_ABORT_CB       linux_can_dummy_fn  ///< CAN1 MB0 abort callback event
+#define CAN1_MB1_ABORT_CB       linux_can_dummy_fn  ///< CAN1 MB1 abort callback event
+#define CAN1_MB2_ABORT_CB       linux_can_dummy_fn  ///< CAN1 MB2 abort callback event
+#define CAN1_FIFO0_MSG_PEND_CB  linux_can_dummy_fn  ///< CAN1 FIFO 0 message pending callback event
+#define CAN1_FIFO0_FULL_CB      linux_can_dummy_fn  ///< CAN1 FIFO 0 message full callback event
+#define CAN1_FIFO1_MSG_PEND_CB  linux_can_dummy_fn  ///< CAN1 FIFO 1 message pending callback event
+#define CAN1_FIFO1_FULL_CB      linux_can_dummy_fn  ///< CAN1 FIFO 1 message full callback event
+#define CAN1_SLEEP_CB           linux_can_dummy_fn  ///< CAN1 sleep callback event
+#define CAN1_WAKEUP_CB          linux_can_dummy_fn  ///< CAN1 wakeup callback event
+#define CAN1_ERROR_CB           linux_can_dummy_fn  ///< CAN1 error callback event
 
-#define CAN1_TX_MB0_CPLT_CB	    linux_can_dummy_fn							///< CAN1 TX MB0 complete callback event
-#define CAN1_TX_MB1_CPLT_CB		linux_can_dummy_fn							///< CAN1 TX MB1 callback event
-#define CAN1_TX_MB2_CPLT_CB		linux_can_dummy_fn							///< CAN1 TX MB2 complete callback event
-#define CAN1_MB0_ABORT_CB		linux_can_dummy_fn							///< CAN1 MB0 abort callback event
-#define CAN1_MB1_ABORT_CB		linux_can_dummy_fn							///< CAN1 MB1 abort callback event
-#define CAN1_MB2_ABORT_CB		linux_can_dummy_fn							///< CAN1 MB2 abort callback event
-#define CAN1_FIFO0_MSG_PEND_CB	linux_can_dummy_fn							///< CAN1 FIFO 0 message pending callback event
-#define CAN1_FIFO0_FULL_CB		linux_can_dummy_fn							///< CAN1 FIFO 0 message full callback event
-#define CAN1_FIFO1_MSG_PEND_CB	linux_can_dummy_fn							///< CAN1 FIFO 1 message pending callback event
-#define CAN1_FIFO1_FULL_CB		linux_can_dummy_fn							///< CAN1 FIFO 1 message full callback event
-#define CAN1_SLEEP_CB			linux_can_dummy_fn							///< CAN1 sleep callback event
-#define CAN1_WAKEUP_CB			linux_can_dummy_fn							///< CAN1 wakeup callback event
-#define CAN1_ERROR_CB			linux_can_dummy_fn							///< CAN1 error callback event
+#define CAN3_TX_MB0_CPLT_CB     linux_can_dummy_fn  ///< CAN3 TX MB0 complete callback event
+#define CAN3_TX_MB1_CPLT_CB     linux_can_dummy_fn  ///< CAN3 TX MB1 callback event
+#define CAN3_TX_MB2_CPLT_CB     linux_can_dummy_fn  ///< CAN3 TX MB2 complete callback event
+#define CAN3_MB0_ABORT_CB       linux_can_dummy_fn  ///< CAN3 MB0 abort callback event
+#define CAN3_MB1_ABORT_CB       linux_can_dummy_fn  ///< CAN3 MB1 abort callback event
+#define CAN3_MB2_ABORT_CB       linux_can_dummy_fn  ///< CAN3 MB2 abort callback event
+#define CAN3_FIFO0_MSG_PEND_CB  linux_can_dummy_fn  ///< CAN3 FIFO 0 message pending callback event
+#define CAN3_FIFO0_FULL_CB      linux_can_dummy_fn  ///< CAN3 FIFO 0 message full callback event
+#define CAN3_FIFO1_MSG_PEND_CB  linux_can_dummy_fn  ///< CAN3 FIFO 1 message pending callback event
+#define CAN3_FIFO1_FULL_CB      linux_can_dummy_fn  ///< CAN3 FIFO 1 message full callback event
+#define CAN3_SLEEP_CB           linux_can_dummy_fn  ///< CAN3 sleep callback event
+#define CAN3_WAKEUP_CB          linux_can_dummy_fn  ///< CAN3 wakeup callback event
+#define CAN3_ERROR_CB           linux_can_dummy_fn  ///< CAN3 error callback event
 
-#define CAN3_TX_MB0_CPLT_CB		linux_can_dummy_fn							///< CAN3 TX MB0 complete callback event
-#define CAN3_TX_MB1_CPLT_CB		linux_can_dummy_fn							///< CAN3 TX MB1 callback event
-#define CAN3_TX_MB2_CPLT_CB	    linux_can_dummy_fn							///< CAN3 TX MB2 complete callback event
-#define CAN3_MB0_ABORT_CB		linux_can_dummy_fn							///< CAN3 MB0 abort callback event
-#define CAN3_MB1_ABORT_CB		linux_can_dummy_fn							///< CAN3 MB1 abort callback event
-#define CAN3_MB2_ABORT_CB		linux_can_dummy_fn							///< CAN3 MB2 abort callback event
-#define CAN3_FIFO0_MSG_PEND_CB	linux_can_dummy_fn							///< CAN3 FIFO 0 message pending callback event
-#define CAN3_FIFO0_FULL_CB		linux_can_dummy_fn							///< CAN3 FIFO 0 message full callback event
-#define CAN3_FIFO1_MSG_PEND_CB  linux_can_dummy_fn							///< CAN3 FIFO 1 message pending callback event
-#define CAN3_FIFO1_FULL_CB		linux_can_dummy_fn							///< CAN3 FIFO 1 message full callback event
-#define CAN3_SLEEP_CB			linux_can_dummy_fn							///< CAN3 sleep callback event
-#define CAN3_WAKEUP_CB			linux_can_dummy_fn							///< CAN3 wakeup callback event
-#define CAN3_ERROR_CB			linux_can_dummy_fn							///< CAN3 error callback event
-
-#define CAN2_TX_MB0_CPLT_CB		linux_can_dummy_fn							///< CAN2 TX MB0 complete callback event
-#define CAN2_TX_MB1_CPLT_CB		linux_can_dummy_fn							///< CAN2 TX MB1 callback event
-#define CAN2_TX_MB2_CPLT_CB		linux_can_dummy_fn							///< CAN2 TX MB2 complete callback event
-#define CAN2_MB0_ABORT_CB		linux_can_dummy_fn							///< CAN2 MB0 abort callback event
-#define CAN2_MB1_ABORT_CB		linux_can_dummy_fn							///< CAN2 MB1 abort callback event
-#define CAN2_MB2_ABORT_CB		linux_can_dummy_fn							///< CAN2 MB2 abort callback event
-#define CAN2_FIFO0_MSG_PEND_CB	linux_can_dummy_fn							///< CAN2 FIFO 0 message pending callback event
-#define CAN2_FIFO0_FULL_CB		linux_can_dummy_fn							///< CAN2 FIFO 0 message full callback event
-#define CAN2_FIFO1_MSG_PEND_CB	linux_can_dummy_fn							///< CAN2 FIFO 1 message pending callback event
-#define CAN2_FIFO1_FULL_CB	    linux_can_dummy_fn							///< CAN2 FIFO 1 message full callback event
-#define CAN2_SLEEP_CB			linux_can_dummy_fn							///< CAN2 sleep callback event
-#define CAN2_WAKEUP_CB			linux_can_dummy_fn							///< CAN2 wakeup callback event
-#define CAN2_ERROR_CB			linux_can_dummy_fn							///< CAN2 error callback event
+#define CAN2_TX_MB0_CPLT_CB     linux_can_dummy_fn  ///< CAN2 TX MB0 complete callback event
+#define CAN2_TX_MB1_CPLT_CB     linux_can_dummy_fn  ///< CAN2 TX MB1 callback event
+#define CAN2_TX_MB2_CPLT_CB     linux_can_dummy_fn  ///< CAN2 TX MB2 complete callback event
+#define CAN2_MB0_ABORT_CB       linux_can_dummy_fn  ///< CAN2 MB0 abort callback event
+#define CAN2_MB1_ABORT_CB       linux_can_dummy_fn  ///< CAN2 MB1 abort callback event
+#define CAN2_MB2_ABORT_CB       linux_can_dummy_fn  ///< CAN2 MB2 abort callback event
+#define CAN2_FIFO0_MSG_PEND_CB  linux_can_dummy_fn  ///< CAN2 FIFO 0 message pending callback event
+#define CAN2_FIFO0_FULL_CB      linux_can_dummy_fn  ///< CAN2 FIFO 0 message full callback event
+#define CAN2_FIFO1_MSG_PEND_CB  linux_can_dummy_fn  ///< CAN2 FIFO 1 message pending callback event
+#define CAN2_FIFO1_FULL_CB      linux_can_dummy_fn  ///< CAN2 FIFO 1 message full callback event
+#define CAN2_SLEEP_CB           linux_can_dummy_fn  ///< CAN2 sleep callback event
+#define CAN2_WAKEUP_CB          linux_can_dummy_fn  ///< CAN2 wakeup callback event
+#define CAN2_ERROR_CB           linux_can_dummy_fn  ///< CAN2 error callback event
 
 #endif
 
@@ -177,9 +176,9 @@ void io_hal_can1_cb_init(ioal_can_hdle *hcan1)
     hcan1->can_tx_mb0_cplt_cb =  CAN1_TX_MB0_CPLT_CB;
     hcan1->can_tx_mb1_cplt_cb =  CAN1_TX_MB1_CPLT_CB;
     hcan1->can_tx_mb2_cplt_cb =  CAN1_TX_MB2_CPLT_CB;
-    hcan1->can_mb0_abort_cb	=  CAN1_MB0_ABORT_CB;
-    hcan1->can_mb1_abort_cb	=  CAN1_MB1_ABORT_CB;
-    hcan1->can_mb2_abort_cb	=  CAN1_MB2_ABORT_CB;
+    hcan1->can_mb0_abort_cb =  CAN1_MB0_ABORT_CB;
+    hcan1->can_mb1_abort_cb =  CAN1_MB1_ABORT_CB;
+    hcan1->can_mb2_abort_cb =  CAN1_MB2_ABORT_CB;
     hcan1->can_fifo0_msg_pend_cb =  CAN1_FIFO0_MSG_PEND_CB;
     hcan1->can_fifo0_full_cb =  CAN1_FIFO0_FULL_CB;
     hcan1->can_fifo1_msg_pend_cb =  CAN1_FIFO1_MSG_PEND_CB;
@@ -213,9 +212,9 @@ void io_hal_can3_cb_init(ioal_can_hdle *hcan3)
     hcan3->can_tx_mb0_cplt_cb =  CAN3_TX_MB0_CPLT_CB;
     hcan3->can_tx_mb1_cplt_cb =  CAN3_TX_MB1_CPLT_CB;
     hcan3->can_tx_mb2_cplt_cb =  CAN3_TX_MB2_CPLT_CB;
-    hcan3->can_mb0_abort_cb	=  CAN3_MB0_ABORT_CB;
-    hcan3->can_mb1_abort_cb	=  CAN3_MB1_ABORT_CB;
-    hcan3->can_mb2_abort_cb	=  CAN3_MB2_ABORT_CB;
+    hcan3->can_mb0_abort_cb =  CAN3_MB0_ABORT_CB;
+    hcan3->can_mb1_abort_cb =  CAN3_MB1_ABORT_CB;
+    hcan3->can_mb2_abort_cb =  CAN3_MB2_ABORT_CB;
     hcan3->can_fifo0_msg_pend_cb =  CAN3_FIFO0_MSG_PEND_CB;
     hcan3->can_fifo0_full_cb =  CAN3_FIFO0_FULL_CB;
     hcan3->can_fifo1_msg_pend_cb =  CAN3_FIFO1_MSG_PEND_CB;
@@ -248,9 +247,9 @@ void io_hal_can2_cb_init(ioal_can_hdle *hcan2)
     hcan2->can_tx_mb0_cplt_cb =  CAN2_TX_MB0_CPLT_CB;
     hcan2->can_tx_mb1_cplt_cb =  CAN2_TX_MB1_CPLT_CB;
     hcan2->can_tx_mb2_cplt_cb =  CAN2_TX_MB2_CPLT_CB;
-    hcan2->can_mb0_abort_cb	=  CAN2_MB0_ABORT_CB;
-    hcan2->can_mb1_abort_cb	=  CAN2_MB1_ABORT_CB;
-    hcan2->can_mb2_abort_cb	=  CAN2_MB2_ABORT_CB;
+    hcan2->can_mb0_abort_cb =  CAN2_MB0_ABORT_CB;
+    hcan2->can_mb1_abort_cb =  CAN2_MB1_ABORT_CB;
+    hcan2->can_mb2_abort_cb =  CAN2_MB2_ABORT_CB;
     hcan2->can_fifo0_msg_pend_cb =  CAN2_FIFO0_MSG_PEND_CB;
     hcan2->can_fifo0_full_cb =  CAN2_FIFO0_FULL_CB;
     hcan2->can_fifo1_msg_pend_cb =  CAN2_FIFO1_MSG_PEND_CB;
@@ -559,21 +558,19 @@ void linux_can_dummy_fn(struct _ioal_can_hdle *hcan)
 
 #else
 
+/**
+ * @brief CAN1 temporary dummy function
+ */
 void check_can1_dummy(ioal_can_hdle *hcan)
 {
 
 }
-
+/**
+ * @brief CAN2 temporary dummy function
+ */
 void check_can2_dummy(ioal_can_hdle *hcan)
 {
 
 }
-
-
-void check_can3_dummy(ioal_can_hdle *hcan)
-{
-
-}
-
 
 #endif

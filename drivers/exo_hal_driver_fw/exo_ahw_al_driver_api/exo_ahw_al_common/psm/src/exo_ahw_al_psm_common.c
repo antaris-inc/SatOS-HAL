@@ -3,7 +3,7 @@
  *
  * @brief This file contains abstracted driver function for power sense monitor
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -103,7 +103,7 @@ hal_ret_sts ahw_al_psm_deinit(ahw_al_psm_hdle* hpsm_arg, ahw_inst_id_t ahw_id)
 /**
  * @brief API to read the power sense monitor die identifier
  */
-hal_ret_sts	 ahw_al_psm_read_id(ahw_al_psm_hdle *hpsm)
+hal_ret_sts  ahw_al_psm_read_id(ahw_al_psm_hdle *hpsm)
 {
     hal_ret_sts sts;
     sts = ahiobcsn_check_ste(&hpsm->ahw_gen_info);

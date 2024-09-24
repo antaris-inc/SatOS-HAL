@@ -1249,6 +1249,20 @@ const char * pcTimerGetName( TimerHandle_t xTimer ) PRIVILEGED_FUNCTION; /*lint 
 void vTimerSetReloadMode( TimerHandle_t xTimer, const UBaseType_t uxAutoReload ) PRIVILEGED_FUNCTION;
 
 /**
+ * BaseType_t xTimerGetReloadMode( TimerHandle_t xTimer );
+ *
+ * Queries a timer to determine if it is an auto-reload timer, in which case the timer
+ * automatically resets itself each time it expires, or a one-shot timer, in
+ * which case the timer will only expire once unless it is manually restarted.
+ *
+ * @param xTimer The handle of the timer being queried.
+ *
+ * @return If the timer is an auto-reload timer then pdTRUE is returned, otherwise
+ * pdFALSE is returned.
+ */
+BaseType_t xTimerGetReloadMode( TimerHandle_t xTimer ) PRIVILEGED_FUNCTION;
+
+/**
  * TickType_t xTimerGetPeriod( TimerHandle_t xTimer );
  *
  * Returns the period of a timer.

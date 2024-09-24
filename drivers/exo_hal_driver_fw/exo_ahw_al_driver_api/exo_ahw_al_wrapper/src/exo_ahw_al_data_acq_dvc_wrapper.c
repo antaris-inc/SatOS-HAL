@@ -4,7 +4,7 @@
  * @brief This file has mapping functions which resolves the
  * instance Id and invokes the vendor driver api for data acquisition device based on the partnumber
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ hal_ret_sts ahw_al_common_ads7828_get_data(ahw_al_ads7828_hdle *al_ads7828,ahw_a
     hal_ret_sts sts;
     switch(al_ads7828->ahw_gen_info.ahw_inst_id)
     {
-        case DATA_ACQ_DVC_ADS7828:
+        case DATA_LOGGER_ADS7828_PS:
             sts = ahw_vdp_ads7828_get_data(al_ads7828,chnl,pd_opt,data);
             break;
         default:

@@ -3,7 +3,7 @@
  *
  * @brief This file has abstracted driver functions,structures and enumerations for digital thermostat
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,8 +45,8 @@ typedef enum
  */
 typedef enum
 {
-    DT_ONESHOT,				/*!< Oneshot mode */
-    DT_CONTINOUS_CONV,		/*!< Continous conversion mode */
+    DT_ONESHOT,             /*!< Oneshot mode */
+    DT_CONTINOUS_CONV,      /*!< Continous conversion mode */
     DT_CONV_MODE_MAX
 
 }digital_thermos_conversion_mode;
@@ -56,8 +56,8 @@ typedef enum
  */
 typedef enum
 {
-    DT_HIGH,				/*!< PO pin High level */
-    DT_LOW,				/*!< PO pin Low level */
+    DT_HIGH,                /*!< PO pin High level */
+    DT_LOW,             /*!< PO pin Low level */
     DT_MODE_MAX
 
 }digital_thermos_mode;
@@ -67,13 +67,13 @@ typedef enum
  */
 typedef struct _ahw_al_dt_hdle
 {
-    ahw_al_gen_info ahw_gen_info;		/*!< AHW general information              */
-    double low_temp_thrsld;				/*!< low temperature threshold value      */
-    double high_temp_thrsld;			/*!< High temperature threshold value     */
-    uint8_t conversion_mode;			/*!< Auto conversion enable/disable       */
-    uint8_t resolution;					/*!< ADC resolution                       */
-    uint8_t thermostat_mode;			/*!< DS620 operating mode                 */
-    uint8_t thermostat_event_sts;		/*!< DS620 event status                   */
+    ahw_al_gen_info ahw_gen_info;       /*!< AHW general information              */
+    double low_temp_thrsld;             /*!< low temperature threshold value      */
+    double high_temp_thrsld;            /*!< High temperature threshold value     */
+    uint8_t conversion_mode;            /*!< Auto conversion enable/disable       */
+    uint8_t resolution;                 /*!< ADC resolution                       */
+    uint8_t thermostat_mode;            /*!< DS620 operating mode                 */
+    uint8_t thermostat_event_sts;       /*!< DS620 event status                   */
 
 }ahw_al_dt_hdle;
 
@@ -199,8 +199,8 @@ hal_ret_sts ahw_al_dt_get_po_lvl(ahw_al_dt_hdle *hdt,uint8_t *lvl);
  * @brief This API get the operating mode of temperature sensor
  * @param[in]  hdt - instance pointer of DS620
  * @param[out] mode - operating mode
- * 				1 - one shot conversion
- * 				0 - continuous conversion
+ *              1 - one shot conversion
+ *              0 - continuous conversion
  * @retval hal_ret_sts - returns the success or error code
  */
 hal_ret_sts ahw_al_dt_get_mode(ahw_al_dt_hdle *hdt,uint8_t *mode);

@@ -3,7 +3,7 @@
  *
  * @brief This file contains driver function of GPIO expander MCP23008
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -106,6 +106,33 @@ e_gpio_pin_ste mcp23008_read_pin(s_mcp23008* mcp23008_hdl, e_gpio_num gpio_pin)
 }
 
 /*!
+ * @brief This function self validates the GPIO expander by  writing and reading back the data from register through i2c
+ */
+e_mcp23008_err mcp23008_self_test(s_mcp23008* mcp23008_hdl)
+{
+    e_mcp23008_err sts;
+    sts=MCP23008_ERR ;
+    uint8_t data;
+    uint8_t write_data =0x41;
+    uint8_t read_data =0;
+    sts =  mcp23008_hdl->read(mcp23008_hdl->intf_hdl, mcp23008_hdl->slv_addr,DEFVAL,&data,1);
+    if(sts==MCP23008_SCS)
+    {
+        mcp23008_hdl->write(mcp23008_hdl->intf_hdl, mcp23008_hdl->slv_addr,DEFVAL,&write_data,1);
+        mcp23008_hdl->read(mcp23008_hdl->intf_hdl, mcp23008_hdl->slv_addr,DEFVAL,&read_data,1);
+    }
+    if(write_data==read_data)
+    {
+        sts=MCP23008_SCS;
+    }
+    else
+    {
+        sts =MCP23008_ERR;
+    }
+    mcp23008_hdl->write(mcp23008_hdl->intf_hdl, mcp23008_hdl->slv_addr,DEFVAL,&data,1);
+    return sts;
+}
+/*!
  * @brief This function is used to write the GPIO with specified state
  */
 e_mcp23008_err mcp23008_write_pin(s_mcp23008* mcp23008_hdl, uint8_t gpio_pin, e_gpio_pin_ste gpio_ste)
@@ -199,16 +226,44 @@ e_mcp23008_err mcp23008_toggle_pin(s_mcp23008* mcp23008_hdl, uint8_t gpio_pin)
 e_mcp23008_err mcp23008_config_pin(s_mcp23008* mcp23008_hdl, s_gpio_config* gpio_pin)
 {
     e_mcp23008_err ret= MCP23008_ERR;
+    uint8_t gpio_bit_msk;
+    uint8_t pin =0;
     if(mcp23008_null_ptr_check(mcp23008_hdl)==MCP23008_SCS && gpio_pin != NULL)
     {
-        ret = mcp23008_set_direction (mcp23008_hdl,gpio_pin->gpio_bit_msk,gpio_pin->gpio_dir);
-        if(gpio_pin->gpio_dir==MCP23008_GPIO_OUTPUT)
+        switch(gpio_pin->mode)
         {
-            ret = mcp23008_write_pin(mcp23008_hdl,gpio_pin->gpio_bit_msk,gpio_pin->gpio_state);
+            case MCP23008_GPIO_MODE_INPUT:
+            {
+                ret = mcp23008_set_direction (mcp23008_hdl,gpio_pin->gpio_bit_msk,MCP23008_GPIO_INPUT);
+                break;
+            }
+            case MCP23008_GPIO_MODE_OUTPUT:
+            {
+                ret = mcp23008_set_direction (mcp23008_hdl,gpio_pin->gpio_bit_msk,MCP23008_GPIO_OUTPUT);
+                break;
+            }
+            case MCP23008_GPIO_MODE_IT_RISING:
+            {
+                ret = mcp23008_set_direction (mcp23008_hdl,gpio_pin->gpio_bit_msk,MCP23008_GPIO_INPUT);
+                ret = mcp23008_interrupt_cfg(mcp23008_hdl,gpio_pin->gpio_bit_msk, MCP23008_GPIO_INTR_RISING);
+                break;
+            }
+            case MCP23008_GPIO_MODE_IT_FALLING:
+            {
+                ret = mcp23008_set_direction (mcp23008_hdl,gpio_pin->gpio_bit_msk,MCP23008_GPIO_INPUT);
+                ret = mcp23008_interrupt_cfg(mcp23008_hdl,gpio_pin->gpio_bit_msk, MCP23008_GPIO_INTR_FALLING);
+                break;
+
+            }
+            case MCP23008_GPIO_MODE_IT_RISING_FALLING:
+            {
+                ret = mcp23008_set_direction (mcp23008_hdl,gpio_pin->gpio_bit_msk,MCP23008_GPIO_INPUT);
+                ret = mcp23008_interrupt_cfg(mcp23008_hdl,gpio_pin->gpio_bit_msk, MCP23008_GPIO_INTR_RISING_FALLING);
+                break;
+            }
         }
-        else
+        if(ret == MCP23008_SCS)
         {
-            ret = mcp23008_interrupt_cfg(mcp23008_hdl,gpio_pin->gpio_bit_msk, gpio_pin->intr_type);
             if(gpio_pin->pull_up_sts==MCP23008_PULLUP_ENABLE)
             {
                 ret = mcp23008_pullup_enable (mcp23008_hdl,gpio_pin->gpio_bit_msk);
@@ -216,6 +271,20 @@ e_mcp23008_err mcp23008_config_pin(s_mcp23008* mcp23008_hdl, s_gpio_config* gpio
             else
             {
                 ret = mcp23008_pullup_disable (mcp23008_hdl,gpio_pin->gpio_bit_msk);
+            }
+        }
+        if(ret == MCP23008_SCS)
+        {
+            gpio_bit_msk=gpio_pin->gpio_bit_msk;
+            while(gpio_bit_msk)
+            {
+                if((gpio_bit_msk & 0x01) == 0x01)
+                {
+                    mcp23008_hdl->callback_func_info[pin].callback_func=gpio_pin->cb_func;
+                    mcp23008_hdl->callback_func_info[pin].cb_func_args=gpio_pin->cb_func_args;
+                }
+                gpio_bit_msk=gpio_bit_msk>>1;
+                pin++;
             }
         }
     }
@@ -312,7 +381,7 @@ e_mcp23008_err mcp23008_interrupt_cfg(s_mcp23008* mcp23008_hdl, uint8_t gpio_pin
                         ret=mcp23008_hdl->write(mcp23008_hdl->intf_hdl, mcp23008_hdl->slv_addr,GPINTEN,&data,1);
                         break;
 
-                    case MCP23008_GPIO_INTR_PIN_CHANGE:
+                    case MCP23008_GPIO_INTR_RISING_FALLING:
                         data = data | gpio_pin;
                         if(mcp23008_hdl->write(mcp23008_hdl->intf_hdl, mcp23008_hdl->slv_addr,GPINTEN,&data,1) == MCP23008_SCS)
                         {
@@ -335,7 +404,7 @@ e_mcp23008_err mcp23008_interrupt_cfg(s_mcp23008* mcp23008_hdl, uint8_t gpio_pin
                                 {
                                     if(mcp23008_hdl->read(mcp23008_hdl->intf_hdl, mcp23008_hdl->slv_addr,DEFVAL,&data,1) == MCP23008_SCS)
                                     {
-                                        data = data | gpio_pin;
+                                        data = data & (~gpio_pin);
                                         ret=mcp23008_hdl->write(mcp23008_hdl->intf_hdl, mcp23008_hdl->slv_addr,DEFVAL,&data,1);
                                     }
                                 }
@@ -354,7 +423,7 @@ e_mcp23008_err mcp23008_interrupt_cfg(s_mcp23008* mcp23008_hdl, uint8_t gpio_pin
                                 {
                                     if(mcp23008_hdl->read(mcp23008_hdl->intf_hdl, mcp23008_hdl->slv_addr,DEFVAL,&data,1) == MCP23008_SCS)
                                     {
-                                        data= data & (~gpio_pin);
+                                        data = data | gpio_pin;
                                         ret=mcp23008_hdl->write(mcp23008_hdl->intf_hdl, mcp23008_hdl->slv_addr,DEFVAL,&data,1);
                                     }
                                 }

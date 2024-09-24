@@ -1,5 +1,5 @@
 #
-#   @copyright Copyright 2022 Antaris, Inc.
+#   @copyright Copyright 2024 Antaris, Inc.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -35,6 +35,7 @@ INCLUDES = -Iinc \
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_common/uart/inc/\
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_common/usb/inc/\
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_common/can/inc/\
+	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_common/gpio/inc/\
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_common/ethernet/inc/\
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_common/fmc_nor_flash/inc/\
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_wrapper/exo_io_al_stm32f7xx/inc/\
@@ -48,6 +49,7 @@ INCLUDES = -Iinc \
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_wrapper/exo_io_al_stm32f7xx/uart/inc/\
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_wrapper/inc/\
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_hal_fw_common/common/inc/\
+	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_ahw_al_driver_api/exo_ahw_al_common/common/inc/\
 	   -I$(TOP_DIR)/drivers/io_drivers/io_drivers_stm32f7xx/i2c/inc\
 	   -I$(TOP_DIR)/drivers/io_drivers/io_drivers_stm32f7xx/common/inc\
 	   -I$(TOP_DIR)/drivers/io_drivers/io_drivers_stm32f7xx/rcc/inc\

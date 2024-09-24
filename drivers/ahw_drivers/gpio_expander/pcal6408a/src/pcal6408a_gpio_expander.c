@@ -3,7 +3,7 @@
  *
  * @brief This file contains functions that drives the PCAL6408A GPIO expander
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@
 
 #include "pcal6408a_gpio_expander.h"
 
-static pcal6408a_gpio_cfg glob_gpio_config[PCAL6408A_GPIO_MAX];
 
 /* Static function declarations */
 
@@ -62,7 +61,32 @@ int8_t pcal6408a_gpio_init(pcal6408a_dev *hdev)
     }
     return rslt;
 }
-
+/**
+ * @brief This API is used to read the pcal6408a registers and writes data to it ,to validate GPIO expender
+ */
+int8_t pcal6408a_self_test(pcal6408a_dev *hdev)
+{
+    int8_t sts=PCAL6408A_E_COM_FAIL;
+    uint8_t data;
+    uint8_t write_data =0x41;
+    uint8_t read_data =0;
+    sts = pcal6408a_read(hdev,PCAL6408_REG_INPUT_LATCH, &data,2);
+    if(sts ==PCAL6408A_OK)
+    {
+        pcal6408a_write(hdev,PCAL6408_REG_INPUT_LATCH ,&write_data, 1);
+        pcal6408a_read(hdev, PCAL6408_REG_INPUT_LATCH, &read_data, 1);
+    }
+    if(write_data==read_data)
+    {
+        sts= PCAL6408A_OK;
+    }
+    else
+    {
+        sts=PCAL6408A_E_COM_FAIL;
+    }
+    pcal6408a_write(hdev, PCAL6408_REG_INPUT_LATCH, &data, 1);
+    return sts ;
+}
 /**
  * @brief This API is used to read the pcal6408a registers through i2c interface
  */
@@ -125,7 +149,12 @@ int8_t pcal6408a_readpin(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6408a_
     }
     else
     {
-        status = pcal6408a_read(hdev, 0x01, &data, 1);
+        if(pcal6408a_get_input_latch(hdev, pin)== LATCH)
+        {
+            pcal6408a_set_input_latch(hdev, pin, NO_LATCH);
+            status = pcal6408a_read(hdev, PCAL6408_REG_INPUT, &data, 1);
+            pcal6408a_set_input_latch(hdev, pin, LATCH);
+        }
         if (PCAL6408A_OK == status)
         {
             data = (data & pin);
@@ -223,15 +252,6 @@ int8_t pcal6408a_set_dir(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6408a_
         {
             data = bit_write(data, pin, dir);
             status = pcal6408a_write(hdev, PCAL6408_REG_CONFIG, &data, 1);
-            if (PCAL6408A_OK == status)
-            {
-
-                glob_gpio_config[pin].dir = dir;
-            }
-            else
-            {
-
-            }
         }
         else
         {
@@ -281,15 +301,6 @@ int8_t pcal6408a_set_strength(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6
                 data = ((data & ~mask) | (strength << (pin*2)));
                 status = pcal6408a_write(hdev, PCAL6408_REG_OUT_STRENGTH0, &data, 1);
             }
-            if (PCAL6408A_OK == status)
-            {
-
-                glob_gpio_config[pin].strength = strength;
-            }
-            else
-            {
-
-            }
         }
         else
         {
@@ -321,15 +332,6 @@ int8_t pcal6408a_set_pol_inv(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal64
     {
         data = bit_write(data, pin, polarity);
         status = pcal6408a_write(hdev, PCAL6408_REG_POLARITY_INVERSION, &data, 1);
-        if (PCAL6408A_OK == status)
-        {
-
-            glob_gpio_config[pin].polarity_inv = polarity;
-        }
-        else
-        {
-
-        }
     }
     else
     {
@@ -343,7 +345,7 @@ int8_t pcal6408a_set_pol_inv(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal64
  * @brief This API enables or disables the input latch of the corresponding 
  * gpio pin. This is effective only when the pin is configured as an INPUT
  */
-int8_t pcal6408a_set_input_lat(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6408a_pin_lat latch)
+int8_t pcal6408a_set_input_latch(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6408a_pin_lat latch)
 {
     uint8_t data;
     int8_t status;
@@ -361,19 +363,40 @@ int8_t pcal6408a_set_input_lat(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal
     {
         data = bit_write(data, pin, latch);
         status = pcal6408a_write(hdev, PCAL6408_REG_INPUT_LATCH, &data, 1);
-        if (PCAL6408A_OK == status)
-        {
-
-            glob_gpio_config[pin].latch = latch;
-        }
-        else
-        {
-
-        }
     }
     else
     {
 
+    }
+
+    return status;
+}
+
+/**
+ * @brief This API enables or disables the input latch of the corresponding
+ * gpio pin. This is effective only when the pin is configured as an INPUT
+ */
+pcal6408a_pin_lat pcal6408a_get_input_latch(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin)
+{
+    uint8_t data = 0;
+    uint8_t status;
+    status = is_gpio_valid(pin);
+    if (PCAL6408A_OK != status)
+    {
+        status = PCAL6408A_E_OUT_OF_RANGE;
+    }
+    else
+    {
+        status = pcal6408a_read(hdev,PCAL6408_REG_INPUT_LATCH,&data,1);
+        data = pin & data;
+        if(data>0)
+        {
+            status = LATCH;
+        }
+        else
+        {
+            status = NO_LATCH;
+        }
     }
 
     return status;
@@ -399,15 +422,6 @@ int8_t pcal6408a_enable_pull(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal64
         {
             data = bit_write(data, pin, flag);
             status = pcal6408a_write(hdev, PCAL6408_REG_PULL_ENABLE, &data, 1);
-            if (PCAL6408A_OK == status)
-            {
-
-                glob_gpio_config[pin].pull_enable = flag;
-            }
-            else
-            {
-
-            }
         }
         else
         {
@@ -433,24 +447,23 @@ int8_t pcal6408a_set_pull_up_dwn(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pc
     }
     else
     {
-        status = pcal6408a_read(hdev, PCAL6408_REG_PULL_UP_DOWN, &data, 1);
-        if (PCAL6408A_OK == status)
+        if(flag==NO_PULL)
         {
-            data = bit_write(data, pin, flag);
-            status = pcal6408a_write(hdev, PCAL6408_REG_PULL_UP_DOWN, &data, 1);
+            pcal6408a_enable_pull(hdev,pin,PULL_DISABLED);
+        }
+        else
+        {
+            pcal6408a_enable_pull(hdev,pin,PULL_ENABLED);
+            status = pcal6408a_read(hdev, PCAL6408_REG_PULL_UP_DOWN, &data, 1);
             if (PCAL6408A_OK == status)
             {
-
-                glob_gpio_config[pin].up_dwn = flag;
+                data = bit_write(data, pin, flag);
+                status = pcal6408a_write(hdev, PCAL6408_REG_PULL_UP_DOWN, &data, 1);
             }
             else
             {
 
             }
-        }
-        else
-        {
-
         }
     }
 
@@ -460,7 +473,7 @@ int8_t pcal6408a_set_pull_up_dwn(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pc
 /**
  * @brief This API configures the interrupt mask of the corresponding gpio pin
  */
-int8_t pcal6408a_set_intr_msk(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6408a_mask flag)
+int8_t pcal6408a_intr_config(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6408a_intr_mode intr_mode)
 {
     uint8_t data;
     int8_t status;
@@ -471,55 +484,27 @@ int8_t pcal6408a_set_intr_msk(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6
     }
     else
     {
-        status = pcal6408a_read(hdev, PCAL6408_REG_INT_MASK, &data, 1);
-        if (PCAL6408A_OK == status)
+        if(intr_mode<INTRUPT_DISABLE)
         {
-            data = bit_write(data, pin, flag);
-            status = pcal6408a_write(hdev, PCAL6408_REG_INT_MASK, &data, 1);
+            status = pcal6408a_read(hdev, PCAL6408_REG_INT_MASK, &data, 1);
             if (PCAL6408A_OK == status)
             {
-
-                glob_gpio_config[pin].intr_set = flag;
+                data = bit_write(data,pin,0);
+                status = pcal6408a_write(hdev, PCAL6408_REG_INT_MASK, &data, 1);
+                pcal6408a_set_input_latch(hdev, pin, LATCH);
             }
-            else
-            {
-
-            }
-        }
-        else
-        {
-
         }
     }
-
     return status;
 }
 
 /**
  * @brief This API is used to identify the source of an interrupt.
  */
-int8_t pcal6408a_read_intr_sts(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6408a_gpio_intrstate *state)
+int8_t pcal6408a_read_intr_sts(pcal6408a_dev *hdev,uint8_t* intr_flg)
 {
-    uint8_t data;
-    int8_t status;
-    status = is_gpio_valid(pin);
-    if (PCAL6408A_OK != status)
-    {
-        status = PCAL6408A_E_OUT_OF_RANGE;
-    }
-    else
-    {
-        status = pcal6408a_read(hdev, PCAL6408_REG_INT_STATUS, &data, 1);
-        if (PCAL6408A_OK == status)
-        {
-            *state = ((data >> pin ) & 1);
-        }
-        else
-        {
-
-        }
-    }
-
+    int8_t status=PCAL6408A_E_COM_FAIL;
+    status = pcal6408a_read(hdev, PCAL6408_REG_INT_STATUS, intr_flg, 1);
     return status;
 }
 
@@ -542,15 +527,6 @@ int8_t pcal6408a_set_port_cfg(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6
         {
             data = bit_write(data, pin, flag);
             status = pcal6408a_write(hdev, PCAL6408_REG_OUT_CONFIG, &data, 1);
-            if (PCAL6408A_OK == status)
-            {
-
-                glob_gpio_config[pin].pull_drain = flag;
-            }
-            else
-            {
-
-            }
         }
         else
         {
@@ -564,25 +540,63 @@ int8_t pcal6408a_set_port_cfg(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6
 /**
  * @brief This API is used to get the configurations parameters of the gpio pin.
  */
-int8_t pcal6408a_get_gpio_cfg(pcal6408a_gpio_pin pin, pcal6408a_gpio_cfg *gpio_config)
+int8_t pcal6408a_gpio_pin_cfg(pcal6408a_dev *hdev, pcal6408a_gpio_cfg *gpio_config)
 {
     int8_t status;
-    status = is_gpio_valid(pin);
-    if (PCAL6408A_OK != status)
+    uint8_t gpio_bit_msk,pin=0;
+    if(NULL == gpio_config || NULL == hdev)
     {
-        status = PCAL6408A_E_OUT_OF_RANGE;
+        status = PCAL6408A_E_NULL_PTR;
     }
     else
     {
-        if(NULL == gpio_config)
+        switch(gpio_config->mode)
         {
-            status = PCAL6408A_E_NULL_PTR;
+            case PCAL6408A_GPIO_MODE_INPUT:
+            {
+                status = pcal6408a_set_dir(hdev,gpio_config->pin_num,INPUT);
+                break;
+            }
+            case PCAL6408A_GPIO_MODE_OUTPUT:
+            {
+                status = pcal6408a_set_dir(hdev,gpio_config->pin_num,OUTPUT);
+                break;
+            }
+            case PCAL6408A_GPIO_MODE_IT_RISING:
+            {
+                status = pcal6408a_set_dir(hdev,gpio_config->pin_num,INPUT);
+                status = pcal6408a_intr_config(hdev,gpio_config->pin_num,INTRUPT_RISING);
+                break;
+            }
+            case PCAL6408A_GPIO_MODE_IT_FALLING:
+            {
+                status = pcal6408a_set_dir(hdev,gpio_config->pin_num,INPUT);
+                status = pcal6408a_intr_config(hdev,gpio_config->pin_num,INTRUPT_FALLING);
+                break;
+            }
+            case PCAL6408A_GPIO_MODE_IT_RISING_FALLING:
+            {
+                status = pcal6408a_set_dir(hdev,gpio_config->pin_num,INPUT);
+                status = pcal6408a_intr_config(hdev,gpio_config->pin_num,INTRUPT_ANY_EDGE);
+                break;
+            }
         }
-        else
+        status = pcal6408a_set_pull_up_dwn(hdev,gpio_config->pin_num,gpio_config->pull_sts);
+
+        gpio_bit_msk=gpio_config->pin_num;
+        while(gpio_bit_msk)
         {
-            memcpy(gpio_config, &glob_gpio_config[pin], sizeof(pcal6408a_gpio_cfg));
+            if((gpio_bit_msk & 0x01) == 0x01)
+            {
+                hdev->intr_info[pin].callback_func=gpio_config->cb_func;
+                hdev->intr_info[pin].cb_func_args=gpio_config->cb_func_args;
+                hdev->intr_info[pin].intr_typ =gpio_config->mode;
+            }
+            gpio_bit_msk=gpio_bit_msk>>1;
+            pin++;
         }
     }
+
 
     return status;
 }
@@ -590,7 +604,7 @@ int8_t pcal6408a_get_gpio_cfg(pcal6408a_gpio_pin pin, pcal6408a_gpio_cfg *gpio_c
 /**
  * @brief This utility API is used to set or reset a bit in the data
  */
-static uint8_t bit_write (uint8_t data, pcal6408a_gpio_pin pin, uint8_t flag)
+static uint8_t bit_write(uint8_t data, pcal6408a_gpio_pin pin, uint8_t flag)
 {
     if(flag)
     {
@@ -607,7 +621,7 @@ static uint8_t bit_write (uint8_t data, pcal6408a_gpio_pin pin, uint8_t flag)
 /**
  * @brief This utility API is used to check the validity of the gpio pin number
  */
-static int8_t is_gpio_valid (pcal6408a_gpio_pin pin)
+static int8_t is_gpio_valid(pcal6408a_gpio_pin pin)
 {
     int8_t status;
 

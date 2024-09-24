@@ -4,7 +4,7 @@
  * @brief This file contains function prototypes ,macros,enumeration and
  * structure definition of PCAL6408 GPIO expander
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -110,22 +110,27 @@ typedef enum
  */
 typedef enum
 {
-    PULL_DOWN = 0,              ///< pin is configured for pull up
-    PULL_UP                     ///< pin is configured for pull down
+    PULL_DOWN = 0,          ///< pin is configured for pull down
+    PULL_UP,                ///< pin is configured for pull up
+    NO_PULL                 ///< pin is configured for no pull
 }pcal6408a_pin_up_dwn;
 
 /** 
  * @brief  Interrupt status enumeration
  */
-typedef enum{
-    INTRUPT_ENABLE = 0,       ///< Interrup mask is disabled
-    INTRUPT_DISABLE           ///< Interrup mask is enabled
-}pcal6408a_mask;
+typedef enum
+{
+    INTRUPT_RISING = 0,     ///< Interrupt on rising edge
+    INTRUPT_FALLING,        ///< Interrupt on falling edge
+    INTRUPT_ANY_EDGE,       ///< Interrupt on any edge
+    INTRUPT_DISABLE         ///< Interrupt disable
+}pcal6408a_intr_mode;
 
 /** 
  * @brief  port configuration status enumeration
  */
-typedef enum{
+typedef enum
+{
     PUSH_PULL = 0,           ///< Pin is configured as push pull
     OPEN_DRAIN               ///< Pin is configured as open drain
 }pcal6408a_port_cfg;
@@ -165,6 +170,19 @@ typedef enum{
 }pcal6408a_pin_strgth;
 
 /**
+ * @brief  mcp23008 gpio mode enumeration
+ */
+typedef enum
+{
+    PCAL6408A_GPIO_MODE_INPUT,
+    PCAL6408A_GPIO_MODE_OUTPUT,
+    PCAL6408A_GPIO_MODE_IT_RISING,
+    PCAL6408A_GPIO_MODE_IT_FALLING,
+    PCAL6408A_GPIO_MODE_IT_RISING_FALLING,
+    PCAL6408A_GPIO_MODE_MAX
+}pcal6408a_gpio_mode;
+
+/**
  * @brief Bus communication function pointer which should be mapped to
  * the platform specific read functions of the user
  */
@@ -182,36 +200,49 @@ typedef uint8_t (*pcal6408a_write_fptr_t)(void *hi2c, uint16_t dev_addr, uint8_t
  */
 typedef void (*pcal6408a_delay_fptr_t)(uint32_t period);
 
+/**
+ * @brief  Interrupt callback function pointer
+ */
+typedef void (*pcal6408a_cb_fptr_t)(void* args);
+
 /*************************** Data structures *********************************/
+
+/**
+ * @brief  pcal6408a interrupt control block
+ */
+typedef struct
+{
+    uint8_t intr_typ;                   /*!< Interrupt type */
+    pcal6408a_cb_fptr_t callback_func;  /*!< Interrupt callback function pointer */
+    void* cb_func_args;                 /*!< Interrupt callback function argument*/
+}pcal6408a_intr_info;
 
 /**
  * @brief pcal6408a expander device structure definition
  *
  */
-typedef struct __pcal6408a_dev
+typedef struct _pcal6408a_dev
 {
     uint8_t  slave_addr;               /*!< Chip address 					*/
     void  *io_intf_hdle;               /*!< 0 - I2C Instance handle pointer */
     pcal6408a_read_fptr_t  read;       /*!< Read function pointer 			*/
     pcal6408a_write_fptr_t write;      /*!< Write function pointer 			*/
-    pcal6408a_delay_fptr_t delay_ms;   /*!< Delay function pointer 		    */
+    pcal6408a_intr_info intr_info[8];  /*!< Interrupt information structure array  	*/
 } pcal6408a_dev;
 
 /**
  * @brief pcal6408a expander gpio configuration structure definition
- *
  */
 typedef struct __pcal6408a_gpio_cfg
 {
-    pcal6408a_gpio_pin   pin_num ;         		/*!< gpio pin number 							*/
-    pcal6408a_pin_dir    dir          : 1;      /*!< gpio pin direction 						*/
-    pcal6408a_pin_strgth strength     : 2;      /*!< gpio pin strength 							*/
-    pcal6408a_pin_pol    polarity_inv : 1;      /*!< gpio pin polarity inversion 				*/
-    pcal6408a_pin_lat    latch        : 1;      /*!< gpio pin latch status 						*/
-    pcal6408a_pin_pull   pull_enable  : 1;      /*!< gpio pin pull enable status 				*/
-    pcal6408a_pin_up_dwn up_dwn       : 1;      /*!< gpio pin pull up/dwn status 				*/
-    pcal6408a_mask       intr_set     : 1;      /*!< gpio pin interrupt mask status 			*/
-    pcal6408a_port_cfg   pull_drain   : 1;      /*!< gpio pin push-pull or open-drain status 	*/
+    uint8_t pin_num ;         	  /*!< gpio pin number 							*/
+    uint8_t mode;                 /*!< gpio mode 				        */
+    uint8_t strength;             /*!< gpio pin strength 						*/
+    uint8_t polarity_inv;         /*!< gpio pin polarity inversion 				*/
+    uint8_t latch;                /*!< gpio pin latch status 					*/
+    uint8_t pull_sts;             /*!< gpio pin pull enable status 				*/
+    pcal6408a_cb_fptr_t cb_func;  /*!< gpio interrupt callback function		*/
+    void* cb_func_args;           /*!< gpio interrupt callback fuction argument pointer		*/
 }pcal6408a_gpio_cfg;
 
 /**
@@ -223,6 +254,14 @@ typedef struct __pcal6408a_gpio_cfg
  * @retval zero -> Success / -ve value -> Error.
  */
 int8_t pcal6408a_gpio_init(pcal6408a_dev *hdev);
+
+/**
+ * @brief This API used to read data from register and write  to validate GPIO expender
+ * @param[in] hdev        : Structure instance of pcal6408a_dev.
+ * @return Result of API execution status
+ * @retval zero -> Success / -ve value -> Error.
+ */
+int8_t pcal6408a_self_test(pcal6408a_dev *hdev);
 
 /**
  * @brief This API is used to read the pcal6408a registers through i2c interface
@@ -323,7 +362,7 @@ int8_t pcal6408a_set_pol_inv(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal64
  * @return Result of API execution status
  * @retval zero -> Success / -ve value -> Error.
  */
-int8_t pcal6408a_set_input_lat(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6408a_pin_lat latch);
+int8_t pcal6408a_set_input_latch(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6408a_pin_lat latch);
 
 /**
  * @brief This API enables or disables pull-up/pull-down resistors on the
@@ -355,18 +394,6 @@ int8_t pcal6408a_enable_pull(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal64
 int8_t pcal6408a_set_pull_up_dwn(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6408a_pin_up_dwn flag);
 
 /**
- * @brief This API configures the interrupt mask of the corresponding gpio pin
- * Setting the flag to INTRUPT_ENABLE will not mask the interrupt and
- * flag = INTRUPT_DISABLE will mask the interrupt.
- * @param[in] hdev : Structure instance of pcal6408a_dev.
- * @param[in] pin  : gpio pin to be configured.
- * @param[in] flag : Enable or disable the interrupt.
- * @return Result of API execution status
- * @retval zero -> Success / -ve value -> Error.
- */
-int8_t pcal6408a_set_intr_msk(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6408a_mask flag);
-
-/**
  * @brief This API configures the output port as push-pull or open-drain.
  * Setting the flag as PUSH_PULL will configure the pin as as push-pull
  * Setting the flag as OPEN_DRAIN will configure the pin as open-drain
@@ -388,12 +415,11 @@ int8_t pcal6408a_set_port_cfg(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6
  * bit in the interrupt mask register is set to 1 (masked), the interrupt
  * state will be set to SOURCE_FALSE
  * @param[in] hdev   : Structure instance of pcal6408a_dev.
- * @param[in] pin    : gpio pin to be configured.
- * @param[out] state : interrupt source state of the gpio pin.
+ * @param[in] intr_flg    : pointer to isr flag.
  * @return Result of API execution status
  * @retval zero -> Success / -ve value -> Error.
  */
-int8_t pcal6408a_read_intr_sts(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal6408a_gpio_intrstate *state);
+int8_t pcal6408a_read_intr_sts(pcal6408a_dev *hdev, uint8_t* intr_flg);
 
 /**
  * @brief This API is used to get the configurations parameters of the gpio pin.
@@ -404,5 +430,26 @@ int8_t pcal6408a_read_intr_sts(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin, pcal
  * @retval zero -> Success / -ve value -> Error.
  */
 int8_t pcal6408a_get_gpio_cfg(pcal6408a_gpio_pin pin, pcal6408a_gpio_cfg *gpio_config);
+
+/**
+ * @brief This API enables or disables the input latch of the corresponding
+ * gpio pin. This is effective only when the pin is configured as an INPUT
+ * @param[out] hdev          : gpio input pin latch
+ * @param[in] pin : Structure instance of pcal6408a_gpio_cfg to which 
+ *                           the configuration parameters will be copied.
+ * @return Result of API execution status
+ * @retval zero -> Success / -ve value -> Error.
+ */
+pcal6408a_pin_lat pcal6408a_get_input_latch(pcal6408a_dev *hdev, pcal6408a_gpio_pin pin);
+
+/**
+ * @brief This API is used to get the configurations parameters of the gpio pin.
+ * @param[in] hdev          : gpio pin whose configuration is needed.
+ * @param[in] gpio_config : Structure instance of pcal6408a_gpio_cfg to which 
+ *                           the configuration parameters will be copied.
+ * @return Result of API execution status
+ * @retval zero -> Success / -ve value -> Error.
+ */
+int8_t pcal6408a_gpio_pin_cfg(pcal6408a_dev *hdev, pcal6408a_gpio_cfg *gpio_config);
 
 #endif /*GPIO_EXP_PCAL6408A_H_ */

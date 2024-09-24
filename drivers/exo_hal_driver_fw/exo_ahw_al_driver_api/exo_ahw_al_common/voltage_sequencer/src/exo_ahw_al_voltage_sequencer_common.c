@@ -3,7 +3,7 @@
  *
  * @brief This file has abstracted driver functions of voltage sequencer
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,12 +39,12 @@ hal_ret_sts ahw_al_vsm_init()
 #endif
     hal_ret_sts sts;
     ahw_al_vsm_hdle* hvsm_obc=(ahw_al_vsm_hdle*)malloc(sizeof(ahw_al_vsm_hdle));
-    hvsm_obc->ahw_gen_info.ahw_inst_id = VSM_UCD9081_OBC;
+    hvsm_obc->ahw_gen_info.ahw_inst_id = VOLTAGE_SEQUENCER_UCD9801_OBC;
     if(HAL_SCS == ahw_al_vsm_common_init(hvsm_obc))
     {
-        ahw_inst_hdle_ptr[VSM_UCD9081_OBC] = hvsm_obc;
+        ahw_inst_hdle_ptr[VOLTAGE_SEQUENCER_UCD9801_OBC] = hvsm_obc;
         sts = HAL_SCS;
-        if(HAL_SCS != ahdlsd_updt_ah_state(VSM_UCD9081_OBC, AH_ACTIVATED))
+        if(HAL_SCS != ahdlsd_updt_ah_state(VOLTAGE_SEQUENCER_UCD9801_OBC, AH_ACTIVATED))
         {
             sts = HAL_AHDLSD_FW_ERR;
         }
@@ -56,7 +56,7 @@ hal_ret_sts ahw_al_vsm_init()
     else
     {
         sts = HAL_AH_INIT_ERR;
-        if(HAL_SCS != ahdlsd_updt_ah_state(VSM_UCD9081_OBC, AH_ERROR))
+        if(HAL_SCS != ahdlsd_updt_ah_state(VOLTAGE_SEQUENCER_UCD9801_OBC, AH_ERROR))
         {
             sts = HAL_AHDLSD_FW_ERR;
         }

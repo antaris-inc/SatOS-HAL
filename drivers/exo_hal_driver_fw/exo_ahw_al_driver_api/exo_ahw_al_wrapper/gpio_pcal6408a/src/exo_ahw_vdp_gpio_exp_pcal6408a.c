@@ -3,7 +3,7 @@
  *
  * @brief This file contains the vendor driver porting function of PCAL6408A GPIO expander
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,14 +22,27 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "exo_ahw_vdp_gpio_exp_pcal6408a.h"
+#include "exo_io_al_gpio_common.h"
 #include "exo_osal_mem_management.h"
 #include "exo_ahw_al_linux_wrpr.h"
 #include "pcal6408a_gpio_expander.h"
+#include "exo_common.h"
 
-/**
- * @brief  GPIO_EXP PCAL6408A handle.
- */
-pcal6408a_dev vdh_gpio_exp;
+const uint8_t pcal480_gpio_mode_lut[IOAL_GPIO_MODE_MAX] = {
+        [IOAL_GPIO_MODE_INPUT]=PCAL6408A_GPIO_MODE_INPUT,
+        [IOAL_GPIO_MODE_OUTPUT_PP]=PCAL6408A_GPIO_MODE_OUTPUT,
+        [IOAL_GPIO_MODE_OUTPUT_OD]=PCAL6408A_GPIO_MODE_OUTPUT,
+        [IOAL_GPIO_MODE_IT_RISING]=PCAL6408A_GPIO_MODE_IT_RISING,
+        [IOAL_GPIO_MODE_IT_FALLING]=PCAL6408A_GPIO_MODE_IT_FALLING,
+        [IOAL_GPIO_MODE_IT_RISING_FALLING]=PCAL6408A_GPIO_MODE_IT_RISING_FALLING,
+
+};
+const uint8_t pcal480_pull_sts_lut[IOAL_PULL_MAX] = {
+        [IOAL_GPIO_NOPULL]=NO_PULL,
+        [IOAL_GPIO_PULLUP]=PULL_UP,
+        [IOAL_GPIO_PULLDOWN]=PULL_DOWN,
+};
+
 
 /**
  * @brief  IO Map lookup table.
@@ -122,7 +135,24 @@ hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_init(ahw_al_gpio_exp_hdle *hgpio_exp)
     return sts;
 }
 
-#ifndef LINUX_TEMP_PORT
+/**
+ * @brief This API is used to reads and writes data to register
+ */
+hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_self_test(ahw_al_gpio_exp_hdle *hgpio_exp)
+{
+    hal_ret_sts sts;
+    pcal6408a_dev *vdh_gex;
+    vdh_gex = (pcal6408a_dev*) hgpio_exp->ahw_gen_info.vdp_inst_hdle;
+    if(HAL_SCS == (hal_ret_sts) pcal6408a_self_test(vdh_gex))
+    {
+        sts = HAL_SCS;
+    }
+    else
+    {
+        sts = HAL_AH_DRIVER_ERR;
+    }
+    return sts;
+}
 /**
  * @brief This API is used to read the state of the GPIO pin
  */
@@ -242,26 +272,6 @@ hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_set_pol_inv(ahw_al_gpio_exp_hdle *hgpio_e
 }
 
 /**
- * @brief This API enables or disables the input latch of the corresponding
- * GPIO pin
- */
-hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_set_input_lat(ahw_al_gpio_exp_hdle *hgpio_exp, gpio_exp_gpio_pin pin, gpio_exp_pin_lat latch)
-{
-    hal_ret_sts sts;
-    pcal6408a_dev *vdh_gex;
-    vdh_gex = (pcal6408a_dev*) hgpio_exp->ahw_gen_info.vdp_inst_hdle;
-    if(HAL_SCS ==pcal6408a_set_input_lat(vdh_gex,pin,latch))
-    {
-        sts = HAL_SCS;
-    }
-    else
-    {
-        sts = HAL_AH_DRIVER_ERR;
-    }
-    return sts;
-}
-
-/**
  * @brief This API enables or disables pull-up/pull-down resistors on the
  * corresponding GPIO.
  */
@@ -303,47 +313,6 @@ hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_set_pull_up_dwn(ahw_al_gpio_exp_hdle *hgp
 }
 
 /**
- * @brief This API configures the interrupt mask of the corresponding GPIO pin
- */
-hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_set_intr_msk(ahw_al_gpio_exp_hdle *hgpio_exp, gpio_exp_gpio_pin pin, gpio_exp_mask flag)
-{
-    hal_ret_sts sts;
-    pcal6408a_dev *vdh_gex;
-    vdh_gex = (pcal6408a_dev*) hgpio_exp->ahw_gen_info.vdp_inst_hdle;
-
-    if(HAL_SCS == pcal6408a_set_intr_msk(vdh_gex,pin,flag))
-    {
-        sts = HAL_SCS;
-    }
-    else
-    {
-        sts = HAL_AH_DRIVER_ERR;
-    }
-    return sts;
-}
-
-/**
- * @brief This API is used to identify the source of an interrupt.
- */
-hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_read_intr_sts(ahw_al_gpio_exp_hdle *hgpio_exp, gpio_exp_gpio_pin pin, gpio_exp_gpio_intrstate *intr_state)
-{
-    hal_ret_sts sts;
-    pcal6408a_dev *vdh_gex;
-    vdh_gex = (pcal6408a_dev*) hgpio_exp->ahw_gen_info.vdp_inst_hdle;
-    if(HAL_SCS == pcal6408a_read_intr_sts(vdh_gex,pin,(pcal6408a_gpio_intrstate*)intr_state))
-    {
-        hgpio_exp->gpio_pin=vdh_gpio_cfg.pin_num;
-        hgpio_exp->intr_state =vdh_gpio_cfg.intr_set;
-        sts = HAL_SCS;
-    }
-    else
-    {
-        sts = HAL_AH_DRIVER_ERR;
-    }
-    return sts;
-}
-
-/**
  * @brief This API configures the output port as push-pull or open-drain.
  */
 hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_set_port_cfg(ahw_al_gpio_exp_hdle *hgpio_exp, gpio_exp_gpio_pin pin, gpio_exp_port_cfg flag)
@@ -362,4 +331,63 @@ hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_set_port_cfg(ahw_al_gpio_exp_hdle *hgpio_
     }
     return sts;
 }
-#endif
+
+/**
+ * @brief This API configures the output port as push-pull or open-drain.
+ */
+hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_gpio_pin_cfg(ahw_al_gpio_exp_hdle* hgpio_exp, ahw_al_gpio_exp_gpio_cfg* gpio_pin)
+{
+    hal_ret_sts sts;
+    pcal6408a_dev *vdh_gex;
+    pcal6408a_gpio_cfg vd_gpio_config;
+    vdh_gex = (pcal6408a_dev*) hgpio_exp->ahw_gen_info.vdp_inst_hdle;
+    vd_gpio_config.pin_num=gpio_pin->pin_num;
+    vd_gpio_config.cb_func =gpio_pin->cb_func ;
+    vd_gpio_config.cb_func_args= gpio_pin->cb_func_args;
+    vd_gpio_config.pull_sts= pcal480_pull_sts_lut[gpio_pin->pull_sts];
+    vd_gpio_config.mode= pcal480_gpio_mode_lut[gpio_pin->mode];
+    if(HAL_SCS == pcal6408a_gpio_pin_cfg(vdh_gex,&vd_gpio_config))
+    {
+        sts = HAL_SCS;
+    }
+    else
+    {
+        sts = HAL_AH_DRIVER_ERR;
+    }
+    return sts;
+}
+/**
+ * @brief This API for ISR handler.
+ */
+hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_isr_hdlr(ahw_al_gpio_exp_hdle *hgpio_exp)
+{
+    hal_ret_sts sts;
+    uint8_t intr_flg,data,pin=0;
+    pcal6408a_dev *gpio_hdl_vdp;
+    gpio_hdl_vdp = hgpio_exp->ahw_gen_info.vdp_inst_hdle;
+    if(HAL_SCS == (hal_ret_sts)pcal6408a_read_intr_sts(gpio_hdl_vdp,&intr_flg))
+    {
+        pcal6408a_read(gpio_hdl_vdp, PCAL6408_REG_INPUT,&data, 1);
+        while(intr_flg)
+        {
+            if((intr_flg & 0x01) == 0x01)
+            {
+                if(((data & 0x01) == 0x01 && gpio_hdl_vdp->intr_info[pin].intr_typ == PCAL6408A_GPIO_MODE_IT_RISING )  || \
+                        ((data & 0x01) == 0x0 && gpio_hdl_vdp->intr_info[pin].intr_typ == PCAL6408A_GPIO_MODE_IT_FALLING )  || \
+                        (gpio_hdl_vdp->intr_info[pin].intr_typ == PCAL6408A_GPIO_MODE_IT_RISING_FALLING) )
+                {
+                    gpio_hdl_vdp->intr_info[pin].callback_func(gpio_hdl_vdp->intr_info[pin].cb_func_args);
+                }
+            }
+            intr_flg=intr_flg>>1;
+            data=data>>1;
+            pin++;
+        }
+        sts=HAL_SCS;
+    }
+    else
+    {
+        sts=HAL_AH_DRIVER_ERR;
+    }
+    return sts;
+}

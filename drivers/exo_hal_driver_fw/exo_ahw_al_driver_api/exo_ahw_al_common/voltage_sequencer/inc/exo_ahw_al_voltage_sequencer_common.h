@@ -4,7 +4,7 @@
  * @brief This file has enumeration,structure definition,
  * function declaration of voltage sequencer
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,18 +41,18 @@ typedef enum
  */
 typedef enum
 {
-    VOLTAGE_SEQ_RAIL1,						/*!< ucd9081 rail1 */
-    VOLTAGE_SEQ_RAIL2,						/*!< ucd9081 rail2 */
-    VOLTAGE_SEQ_RAIL3,						/*!< ucd9081 rail3 */
-    VOLTAGE_SEQ_RAIL4,						/*!< ucd9081 rail4 */
-    VOLTAGE_SEQ_RAIL5,						/*!< ucd9081 rail5 */
-    VOLTAGE_SEQ_RAIL6,						/*!< ucd9081 rail6 */
-    VOLTAGE_SEQ_RAIL7,						/*!< ucd9081 rail7 */
-    VOLTAGE_SEQ_RAIL8,						/*!< ucd9081 rail8 */
-    VOLTAGE_SEQ_GPO1,						/*!< ucd9081 gpo1 */
-    VOLTAGE_SEQ_GPO2,						/*!< ucd9081 gpo2 */
-    VOLTAGE_SEQ_GPO3,						/*!< ucd9081 gpo3 */
-    VOLTAGE_SEQ_GPO4,						/*!< ucd9081 gpo4 */
+    VOLTAGE_SEQ_RAIL1,                      /*!< ucd9081 rail1 */
+    VOLTAGE_SEQ_RAIL2,                      /*!< ucd9081 rail2 */
+    VOLTAGE_SEQ_RAIL3,                      /*!< ucd9081 rail3 */
+    VOLTAGE_SEQ_RAIL4,                      /*!< ucd9081 rail4 */
+    VOLTAGE_SEQ_RAIL5,                      /*!< ucd9081 rail5 */
+    VOLTAGE_SEQ_RAIL6,                      /*!< ucd9081 rail6 */
+    VOLTAGE_SEQ_RAIL7,                      /*!< ucd9081 rail7 */
+    VOLTAGE_SEQ_RAIL8,                      /*!< ucd9081 rail8 */
+    VOLTAGE_SEQ_GPO1,                       /*!< ucd9081 gpo1 */
+    VOLTAGE_SEQ_GPO2,                       /*!< ucd9081 gpo2 */
+    VOLTAGE_SEQ_GPO3,                       /*!< ucd9081 gpo3 */
+    VOLTAGE_SEQ_GPO4,                       /*!< ucd9081 gpo4 */
     VOLTAGE_SEQ_RAIL_MAX
 
 }vltg_seq_rail_num;
@@ -62,9 +62,9 @@ typedef enum
  */
 typedef struct
 {
-    ahw_al_gen_info ahw_gen_info;		 /*!< General information of voltage sequencer  */
-    uint8_t v_ref_typ:1;			/*!< voltage reference type 					*/
-    uint8_t flash_lock_sts:1;            	/*!< flash lock status	    	 				*/
+    ahw_al_gen_info ahw_gen_info;        /*!< General information of voltage sequencer  */
+    uint8_t v_ref_typ:1;            /*!< voltage reference type                     */
+    uint8_t flash_lock_sts:1;               /*!< flash lock status                          */
 }ahw_al_vsm_hdle;
 
 /**
@@ -72,8 +72,8 @@ typedef struct
  */
 typedef enum
 {
-    VOLTAGE_SEQ_VREF_INT,		    		/*!< internal voltage reference */
-    VOLTAGE_SEQ_VREF_EXT		    		/*!< external voltage reference */
+    VOLTAGE_SEQ_VREF_INT,                   /*!< internal voltage reference */
+    VOLTAGE_SEQ_VREF_EXT                    /*!< external voltage reference */
 }vltg_seq_vref;
 
 /**
@@ -81,25 +81,25 @@ typedef enum
  */
 typedef struct
 {
-    vltg_seq_rail_num rail_nu;			/*!< voltage_seq rail number         	    	*/
-    float r_pull_up;				/*!< voltage_seq rail pull up        	    	*/
-    float r_pull_down;             			/*!< voltage_seq rail pull down   	    		*/
-    uint16_t seq_dly_tm;            	        /*!< voltage_seq rail delay time    			*/
-    float prnt_vlt;			    		/*!< voltage_seq rail parent voltage 	    	*/
-    float udr_vlt_thrsld;                   	/*!< voltage_seq rail undervoltage threshold 	*/
-    float ovr_vlt_thrsld;			    	/*!< voltage_seq rail overvoltage threshold     */
-    uint8_t seq_type;           			/*!< voltage_seq rail sequence type 			*/
-    uint16_t out_reg_width;  			/*!< voltage_seq rail out of regulation width   */
-    uint16_t ramp_time;			    	/*!< voltage_seq rail ramp time		    		*/
-    vltg_seq_rail_num prnt_rail;			/*!< voltage_seq rail parent rail	        	*/
-    uint16_t unseq_time ;		    		/*!< voltage_seq rail unsequence time	     	*/
-    uint16_t dpdncy_mask;	    			/*!< voltage_seq rail dependancy mask	    	*/
-    uint8_t alrm_typ;		    		/*!< voltage_seq rail alarm type	       	 	*/
-    uint8_t mntr_sts:1;       			/*!< voltage sequence rail monitor status   	*/
-    uint8_t polarity:1;         			/*!< voltage_seq rail polarity		    		*/
-    uint8_t reseq_sts:1;    			/*!< voltage_seq rail resequence status	    	*/
-    uint8_t ext_vd_en:1;			    	/*!< voltage_seq rail external voltage enable   */
-    uint8_t glt_alrm_sts:1;    			/*!< voltage_seq rail glitch alarm status		*/
+    vltg_seq_rail_num rail_nu;          /*!< voltage_seq rail number                    */
+    float r_pull_up;                /*!< voltage_seq rail pull up                   */
+    float r_pull_down;                      /*!< voltage_seq rail pull down                 */
+    uint16_t seq_dly_tm;                        /*!< voltage_seq rail delay time                */
+    float prnt_vlt;                     /*!< voltage_seq rail parent voltage            */
+    float udr_vlt_thrsld;                       /*!< voltage_seq rail undervoltage threshold    */
+    float ovr_vlt_thrsld;                   /*!< voltage_seq rail overvoltage threshold     */
+    uint8_t seq_type;                       /*!< voltage_seq rail sequence type             */
+    uint16_t out_reg_width;             /*!< voltage_seq rail out of regulation width   */
+    uint16_t ramp_time;                 /*!< voltage_seq rail ramp time                 */
+    vltg_seq_rail_num prnt_rail;            /*!< voltage_seq rail parent rail               */
+    uint16_t unseq_time ;                   /*!< voltage_seq rail unsequence time           */
+    uint16_t dpdncy_mask;                   /*!< voltage_seq rail dependancy mask           */
+    uint8_t alrm_typ;                   /*!< voltage_seq rail alarm type                */
+    uint8_t mntr_sts:1;                 /*!< voltage sequence rail monitor status       */
+    uint8_t polarity:1;                     /*!< voltage_seq rail polarity                  */
+    uint8_t reseq_sts:1;                /*!< voltage_seq rail resequence status         */
+    uint8_t ext_vd_en:1;                    /*!< voltage_seq rail external voltage enable   */
+    uint8_t glt_alrm_sts:1;             /*!< voltage_seq rail glitch alarm status       */
 
 }vltg_seq_rail_cfg;
 

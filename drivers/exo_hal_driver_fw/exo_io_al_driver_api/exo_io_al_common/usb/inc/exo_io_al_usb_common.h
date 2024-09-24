@@ -4,7 +4,7 @@
  * @brief This file contains structures,enumerations
  * and function declaration for USB interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@
 #define _IO_AL_USB_COMMON_H_
 
 
-
 #define USB_INTF_ENB
 #include <stdint.h>
 #include "exo_io_al_common.h"
@@ -34,18 +33,18 @@
  */
 typedef struct _ioal_usb_hdle
 {
-    ioal_intf_gen_info intf_gen_info;                                       /*!< Hold general information of interface  			*/
-    void (*sof_cb)(struct _ioal_usb_hdle *husbdev);							/*!< Fn address of sof event callback   				*/
-    void (*setup_stage_cb)(struct _ioal_usb_hdle *husbdev);					/*!< Fn address of setup stage event callback   		*/
-    void (*reset_cb)(struct _ioal_usb_hdle *husbdev);						/*!< Fn address of reset callback   					*/
-    void (*suspend_cb)(struct _ioal_usb_hdle *husbdev);						/*!< Fn address of suspend callback   					*/
-    void (*resume_cb)(struct _ioal_usb_hdle *husbdev);						/*!< Fn address of resume event callback   				*/
-    void (*connect_cb)(struct _ioal_usb_hdle *husbdev);						/*!< Fn address of connect event callback   			*/
-    void (*disconnect_cb)(struct _ioal_usb_hdle *husbdev);					/*!< Fn address of disconnect event callback   			*/
-    void (*data_out_stage_cb)(struct _ioal_usb_hdle *husbdev, uint8 epnum); /*!< Fn address of data out stage event callback   		*/
-    void (*data_in_stage_cb)(struct _ioal_usb_hdle *husbdev, uint8 epnum);	/*!< Fn address of data in stage event callback   		*/
-    void (*iso_out_incplt_cb)(struct _ioal_usb_hdle *husbdev, uint8 epnum); /*!< Fn address of iso out incomplete event callback   	*/
-    void (*iso_in_incplt_cb)(struct _ioal_usb_hdle *husbdev, uint8 epnum);  /*!< Fn address of iso in incompleteevent callback   	*/
+    ioal_intf_gen_info intf_gen_info;                                       /*!< Hold general information of interface              */
+    void (*sof_cb)(struct _ioal_usb_hdle *husbdev);                         /*!< Fn address of sof event callback                   */
+    void (*setup_stage_cb)(struct _ioal_usb_hdle *husbdev);                 /*!< Fn address of setup stage event callback           */
+    void (*reset_cb)(struct _ioal_usb_hdle *husbdev);                       /*!< Fn address of reset callback                       */
+    void (*suspend_cb)(struct _ioal_usb_hdle *husbdev);                     /*!< Fn address of suspend callback                     */
+    void (*resume_cb)(struct _ioal_usb_hdle *husbdev);                      /*!< Fn address of resume event callback                */
+    void (*connect_cb)(struct _ioal_usb_hdle *husbdev);                     /*!< Fn address of connect event callback               */
+    void (*disconnect_cb)(struct _ioal_usb_hdle *husbdev);                  /*!< Fn address of disconnect event callback            */
+    void (*data_out_stage_cb)(struct _ioal_usb_hdle *husbdev, uint8 epnum); /*!< Fn address of data out stage event callback        */
+    void (*data_in_stage_cb)(struct _ioal_usb_hdle *husbdev, uint8 epnum);  /*!< Fn address of data in stage event callback         */
+    void (*iso_out_incplt_cb)(struct _ioal_usb_hdle *husbdev, uint8 epnum); /*!< Fn address of iso out incomplete event callback    */
+    void (*iso_in_incplt_cb)(struct _ioal_usb_hdle *husbdev, uint8 epnum);  /*!< Fn address of iso in incompleteevent callback      */
 }ioal_usb_hdle;
 
 /**

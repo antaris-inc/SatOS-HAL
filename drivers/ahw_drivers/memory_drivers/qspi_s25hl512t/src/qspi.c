@@ -3,7 +3,7 @@
  *
  *  @brief This file contains function definitions of QSPI
  *
- *	@copyright Copyright 2023 Antaris, Inc.
+ *  @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,10 @@
 
 #define JEDEC_MANUF_ID_CYPRESS ((uint8_t) 0x34)
 
-QSPI_HandleTypeDef hqspi;
-QSPI_InfoTypeDef QspiInfo;
+QSPI_HandleTypeDef hqspi;   ///< QSPI handler definition
+QSPI_InfoTypeDef QspiInfo;  ///< QSPI information definition
 
-uint8_t qspi_protocol_type = QPI;
+uint8_t qspi_protocol_type = QPI; ///< QSPI protocol type
 
 /**
  * @brief QSPI initialization function
@@ -682,7 +682,7 @@ uint8_t qspi_set_protocol_type(QSPI_HandleTypeDef *qspi_hdl, uint8_t prtcl_type)
         return QSPI_ERROR;
     }
     s_command.Instruction = 0x01;
-    s_command.NbData  	  = 4;
+    s_command.NbData      = 4;
     if(prtcl_type==QPI)
     {
         MODIFY_REG(reg[1], S25FL512T_CR1_QUAD, S25FL512T_CR1_QUAD);

@@ -3,7 +3,7 @@
  *
  * @brief This file contains function definition for application hardware management
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@
 #include "exo_io_al_eth_common.h"
 #include "exo_io_al_rtc_common.h"
 #include "exo_io_al_can_common.h"
+#include "exo_common.h"
 
 extern void *intf_inst_hdle_ptr[MAX_IO_INST_ID];
 
@@ -41,14 +42,21 @@ hal_ret_sts io_hal_init(void)
 #endif
     hal_ret_sts sts = 0;
     io_hal_i2c_init();
-    //io_hal_spi_init();
-    //io_hal_usb_device_init();
+    io_hal_spi_init();
+    io_hal_usb_device_init();
     io_hal_uart_init();
     io_hal_can_init();
-    //io_hal_rtc_init();
-    //io_hal_eth_init();
+    io_hal_rtc_init();
 #ifdef LINUX_TEMP_PORT
     printf("\n EXO IO AL Framework Initialisation completed successfully");
 #endif
     return sts;
+}
+
+/**
+ * @brief Function to get IOAL instance handle pointer
+ */
+void* get_ioal_inst_hdle(io_inst_id inst_id)
+{
+    return intf_inst_hdle_ptr[inst_id];
 }

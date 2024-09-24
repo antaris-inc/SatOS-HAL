@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 /* Defining MPU_WRAPPERS_INCLUDED_FROM_API_FILE prevents task.h from redefining
 all the API functions to use the MPU wrappers.  That should only be done when
 task.h is included from an application file. */
@@ -2985,8 +2986,21 @@ void vTaskSwitchContext( void )
 		#endif /* configGENERATE_RUN_TIME_STATS */
 
 		/* Check for stack overflow, if configured. */
-		taskCHECK_FOR_STACK_OVERFLOW();
+	//	taskCHECK_FOR_STACK_OVERFLOW();
 
+#ifdef EXO_STACK_OVERFLOW_DETECTION
+		const uint32_t * const pulStack = ( uint32_t * ) pxCurrentTCB->pxStack;							\
+		const uint32_t ulCheckValue = ( uint32_t ) 0xa5a5a5a5;											\
+																										\
+		if( ( pulStack[ 0 ] != ulCheckValue ) ||														\
+			( pulStack[ 1 ] != ulCheckValue ) ||														\
+			( pulStack[ 2 ] != ulCheckValue ) ||														\
+			( pulStack[ 3 ] != ulCheckValue ) )															\
+		{																								\
+			vApplicationStackOverflowHook( ( TaskHandle_t ) pxCurrentTCB, pxCurrentTCB->pcTaskName );	\
+		}
+
+#endif
 		/* Before the currently running task is switched out, save its errno. */
 		#if( configUSE_POSIX_ERRNO == 1 )
 		{
@@ -5211,4 +5225,13 @@ when performing module tests). */
 
 #endif
 
+/*
+ * This API get the current status of the heap memory
+ */
+void get_heap_mem_info(heap_memory_info_s *mem_data)
+{
+	mem_data->total_heapsize = configTOTAL_HEAP_SIZE;				/* Get the Total heap memory */
+	mem_data->free_heapsize = xPortGetFreeHeapSize();				/* Get the Free heap memory */
+	mem_data->used_heapsize = mem_data->total_heapsize - mem_data->free_heapsize;   /* Get the used heap memory */
+}
 

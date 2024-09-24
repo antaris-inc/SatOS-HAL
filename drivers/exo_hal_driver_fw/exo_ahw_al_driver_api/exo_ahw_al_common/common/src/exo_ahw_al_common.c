@@ -3,7 +3,7 @@
  *
  * @brief This file has function declaration for application hardware management
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,14 +30,15 @@
 #include "exo_ahw_al_voltage_sequencer_common.h"
 #include "exo_ahw_al_data_acq_dvc_common.h"
 
-ahw_al_gen_info ahal_inst_id[MAX_HAL_AH_NUM];
+ahw_al_gen_info ahal_inst_id[MAX_HAL_AH_NUM]; ///< HAL instance id
+void* ahw_inst_hdle_ptr[MAX_AH_INST_ID]; ///< Hardware instancce handler pointer
 
-
-void* ahw_inst_hdle_ptr[MAX_AH_INST_ID];
-extern ahw_al_dt_hdle *digi_therm1;
-extern ahw_al_psm_hdle *ahw_al_hpsm;
-extern ahw_al_gpio_exp_hdle *hgpio_exp;
-extern ahw_al_temp_sensor_hdl *ahw_al_hts;
+ahw_al_gpio_exp_hdle ps_gpx;  ///< PS GPS
+ahw_al_gpio_exp_hdle hgpio_exp_obc_1; ///< GPIO expander OBC1
+ahw_al_gpio_exp_hdle hgpio_exp_obc_2; ///< GPIO expander OBC2
+ahw_al_gpio_exp_hdle hgpio_exp_edge_1; ///< GPIO expander EDGE1
+ahw_al_gpio_exp_hdle hgpio_exp_edge_2; ///< GPIO expander EDGe2
+ahw_al_gpio_exp_hdle hgpio_exp_gps;   ///< GPIO expander GPS
 
 /**
  * @brief HAL initialization function
@@ -45,10 +46,46 @@ extern ahw_al_temp_sensor_hdl *ahw_al_hts;
 hal_ret_sts ah_hal_init(void)
 {
 
+    hal_ret_sts sts = HAL_AH_INIT_ERR;
 #ifdef LINUX_TEMP_PORT
     printf("\n EXO Application Hardware Abstraction Layer Framework Initialize");
+
+#endif
+
+#ifdef COREBOARD
+    sts=ahw_al_gpio_exp_init(&ps_gpx,GPIO_EXPANDER_PCAL6408A_PS);
+    sts=ahw_al_gpio_exp_init(&hgpio_exp_obc_1,GPIO_EXPANDER_MCP23008_OBC_1);
+    sts=ahw_al_gpio_exp_init(&hgpio_exp_obc_2,GPIO_EXPANDER_MCP23008_OBC_2);
+    sts=ahw_al_gpio_exp_init(&hgpio_exp_edge_1,GPIO_EXPANDER_MCP23008_EDGE_1);
+    sts=ahw_al_gpio_exp_init(&hgpio_exp_edge_2,GPIO_EXPANDER_MCP23008_EDGE_2);
+    sts=ahw_al_gpio_exp_init(&hgpio_exp_gps,GPIO_EXPANDER_MCP23008_GPS);
+#endif
+
+#ifdef LINUX_TEMP_PORT
     printf("\n EXO Application Hardware Abstraction Layer Framework Initialization completed successfully");
 #endif
-    return 0;
+    return sts;
 }
 
+/**
+ * @brief HAL initialization function
+ */
+void ahal_set_hdle(ahw_inst_id_t id, void* ahw_hdle)
+{
+    if(id<MAX_AH_INST_ID)
+    {
+        ahw_inst_hdle_ptr[id]=ahw_hdle;
+    }
+}
+/**
+ * @brief HAL function to return AHW handle from AHW id
+ */
+void* ahal_get_hdle(ahw_inst_id_t id)
+{
+    void* ret = NULL;
+    if(id<MAX_AH_INST_ID)
+    {
+        ret = ahw_inst_hdle_ptr[id];
+    }
+    return ret;
+}

@@ -1,5 +1,5 @@
 #
-#   @copyright Copyright 2022 Antaris, Inc.
+#   @copyright Copyright 2024 Antaris, Inc.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -42,6 +42,10 @@ INCLUDES =
 
 SUBDIR += drivers
 SUBDIR += exo_os
+SUBDIR += exo_services
+SUBDIR += exo_lib
+SUBDIR += exo_stack
+SUBDIR += exo_fw
 
 ##############################################################################
 
@@ -95,7 +99,7 @@ all: top_obj_dirs $(OBJS)
 ifneq ($(SUBDIR),)
 	$(HIDE)$(MAKE) subdir_all
 endif
-	$(HIDE)$(CC) $(CFLAGS)  $(LDFLAGS) $(LIBS)  $(TOP_DIR)/$(OBJ_DIR)/*.o -o $(TARGET).$(EXT)
+	$(HIDE)$(CC) $(CFLAGS)  $(LDFLAGS) $(TOP_DIR)/$(OBJ_DIR)/*.o -o $(TARGET).$(EXT) $(LIBS)
 	$(SIZE) -A -d $(TARGET).$(EXT)
 
 # Command to delete intermediate object files

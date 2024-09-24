@@ -3,7 +3,7 @@
  *
  * @brief This file contains the vendor driver porting function of INA230 power sense monitor
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -159,7 +159,7 @@ hal_ret_sts    ahw_vdp_psm_ina230_deinit(ahw_al_psm_hdle *hpsm)
     printf("\n EXO PSM - AH-Vendor driver porting layer de-Initialization completed successfully");
 
 #else
-    vdh_psm.io_intf_hdle = intf_inst_hdle_ptr[ahw_io_lookup_tble[POWER_SENSE_MONITOR_PS]->io_instance_id];
+    vdh_psm.io_intf_hdle = intf_inst_hdle_ptr[ahw_io_lookup_tble[hpsm->ahw_gen_info.ahw_inst_id]->io_instance_id];
     if(HAL_SCS == (hal_ret_sts)ina230_deinit(&vdh_psm))
     {
         hpsm->ahw_gen_info.vdp_inst_hdle = (void*)&vdh_psm;

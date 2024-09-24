@@ -3,7 +3,7 @@
  *
  * @brief This file contains abstracted function definition for USB interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,31 +31,31 @@
 #endif
 
 #ifndef LINUX_TEMP_PORT
-#define USB_DEV_SOF_CB				io_hal_pcd_sof_cb								///< USB SOF callback event
-#define USB_DEV_SETUP_STAGE_CB		io_hal_pcd_setupstage_cb				        ///< USB setup stage callback event
-#define USB_DEV_RESET_CB			io_hal_pcd_reset_cb				                ///< USB reset callback event
-#define USB_DEV_SUSPEND_CB			io_hal_pcd_suspend_cb				            ///< USB suspend callback event
-#define USB_DEV_RESUME_CB			io_hal_pcd_resume_cb				            ///< USB resume callback event
-#define USB_DEV_CONNECT_CB			io_hal_pcd_connect_cb				            ///< USB connect callback event
-#define USB_DEV_DISCONNECT_CB		io_hal_pcd_disconnect_cb				        ///< USB disconnect callback event
-#define USB_DEV_DATA_OUT_STAGE_CB	io_hal_pcd_dataoutstage_cb				        ///< USB data out stage callback event
-#define USB_DEV_DATA_IN_STAGE_CB	io_hal_pcd_datainstage_cb				        ///< USB data in stage callback event
-#define USB_DEV_ISO_OUT_INCPLT_CB	io_hal_pcd_iso_out_incomplete_cb				    ///< USB ISO out incomplete callback event
-#define USB_DEV_ISO_IN_INCPLT_CB	io_hal_pcd_iso_in_incomplete_cb				    ///< USB ISO in incomplete callback event
+#define USB_DEV_SOF_CB              io_hal_pcd_sof_cb                               ///< USB SOF callback event
+#define USB_DEV_SETUP_STAGE_CB      io_hal_pcd_setupstage_cb                        ///< USB setup stage callback event
+#define USB_DEV_RESET_CB            io_hal_pcd_reset_cb                             ///< USB reset callback event
+#define USB_DEV_SUSPEND_CB          io_hal_pcd_suspend_cb                           ///< USB suspend callback event
+#define USB_DEV_RESUME_CB           io_hal_pcd_resume_cb                            ///< USB resume callback event
+#define USB_DEV_CONNECT_CB          io_hal_pcd_connect_cb                           ///< USB connect callback event
+#define USB_DEV_DISCONNECT_CB       io_hal_pcd_disconnect_cb                        ///< USB disconnect callback event
+#define USB_DEV_DATA_OUT_STAGE_CB   io_hal_pcd_dataoutstage_cb                      ///< USB data out stage callback event
+#define USB_DEV_DATA_IN_STAGE_CB    io_hal_pcd_datainstage_cb                       ///< USB data in stage callback event
+#define USB_DEV_ISO_OUT_INCPLT_CB   io_hal_pcd_iso_out_incomplete_cb                    ///< USB ISO out incomplete callback event
+#define USB_DEV_ISO_IN_INCPLT_CB    io_hal_pcd_iso_in_incomplete_cb                 ///< USB ISO in incomplete callback event
 
 #else
 
-#define USB_DEV_SOF_CB				linux_usb_dummy_fn						///< USB SOF callback event
-#define USB_DEV_SETUP_STAGE_CB		linux_usb_dummy_fn				        ///< USB setup stage callback event
-#define USB_DEV_RESET_CB			linux_usb_dummy_fn		                ///< USB reset callback event
-#define USB_DEV_SUSPEND_CB			linux_usb_dummy_fn			            ///< USB suspend callback event
-#define USB_DEV_RESUME_CB		    linux_usb_dummy_fn			            ///< USB resume callback event
-#define USB_DEV_CONNECT_CB			linux_usb_dummy_fn			            ///< USB connect callback event
-#define USB_DEV_DISCONNECT_CB		linux_usb_dummy_fn				        ///< USB disconnect callback event
-#define USB_DEV_DATA_OUT_STAGE_CB	linux_usb_io_dummy_fn			        ///< USB data out stage callback event
-#define USB_DEV_DATA_IN_STAGE_CB	linux_usb_io_dummy_fn			        ///< USB data in stage callback event
-#define USB_DEV_ISO_OUT_INCPLT_CB	linux_usb_io_dummy_fn				    ///< USB ISO out incomplete callback event
-#define USB_DEV_ISO_IN_INCPLT_CB	linux_usb_io_dummy_fn				    ///< USB ISO in incomplete callback event
+#define USB_DEV_SOF_CB              linux_usb_dummy_fn                      ///< USB SOF callback event
+#define USB_DEV_SETUP_STAGE_CB      linux_usb_dummy_fn                      ///< USB setup stage callback event
+#define USB_DEV_RESET_CB            linux_usb_dummy_fn                      ///< USB reset callback event
+#define USB_DEV_SUSPEND_CB          linux_usb_dummy_fn                      ///< USB suspend callback event
+#define USB_DEV_RESUME_CB           linux_usb_dummy_fn                      ///< USB resume callback event
+#define USB_DEV_CONNECT_CB          linux_usb_dummy_fn                      ///< USB connect callback event
+#define USB_DEV_DISCONNECT_CB       linux_usb_dummy_fn                      ///< USB disconnect callback event
+#define USB_DEV_DATA_OUT_STAGE_CB   linux_usb_io_dummy_fn                   ///< USB data out stage callback event
+#define USB_DEV_DATA_IN_STAGE_CB    linux_usb_io_dummy_fn                   ///< USB data in stage callback event
+#define USB_DEV_ISO_OUT_INCPLT_CB   linux_usb_io_dummy_fn                   ///< USB ISO out incomplete callback event
+#define USB_DEV_ISO_IN_INCPLT_CB    linux_usb_io_dummy_fn                   ///< USB ISO in incomplete callback event
 
 #endif
 
@@ -75,7 +75,7 @@ hal_ret_sts io_hal_usb_device_init(void)
     hal_ret_sts sts;
     if(HAL_SCS == io_hal_common_usb_device_init(&io_hal_husbdev))
     {
-        intf_inst_hdle_ptr[IOAL_INST_USB_DEVICE] = &io_hal_husbdev;
+        intf_inst_hdle_ptr[IOAL_INST_USB1] = &io_hal_husbdev;
         io_hal_usb_dev_cb_init(&io_hal_husbdev);
 
     }

@@ -1,5 +1,5 @@
 #
-#   @copyright Copyright 2022 Antaris, Inc.
+#   @copyright Copyright 2024 Antaris, Inc.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -46,6 +46,7 @@ SUBDIR += rtc
 SUBDIR += spi
 SUBDIR += uart
 SUBDIR += usb
+SUBDIR += gpio
 
 ifeq ($(ENVIRONMENT),1)
 SUBDIR += fmc_nor_flash

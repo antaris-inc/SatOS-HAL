@@ -3,7 +3,7 @@
  *
  * @brief This file contains the vendor driver porting function prototype of GPIO expander
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,6 +52,14 @@ hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_readpin(ahw_al_gpio_exp_hdle *hgpio_exp, 
  */
 hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_writepin(ahw_al_gpio_exp_hdle *hgpio_exp, gpio_exp_gpio_pin pin, gpio_exp_gpio_pinstate pin_state);
 
+/**
+ * @brief This API is used to writes and reads data from register
+ * @param[in] hgpio_exp    : Structure instance of gpio_exp_hdl.
+ * @return Result of API execution status
+ * @retval zero -> Success / -ve value -> Error.
+ */
+
+hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_self_test(ahw_al_gpio_exp_hdle *hgpio_exp);
 /**
  * @brief This API is used to toggle the state of the GPIO pin
  * @param[in] hgpio_exp    : Structure instance of gpio_exp_hdl.
@@ -127,26 +135,6 @@ hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_enable_pull(ahw_al_gpio_exp_hdle *hgpio_e
 hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_set_pull_up_dwn(ahw_al_gpio_exp_hdle *hgpio_exp, gpio_exp_gpio_pin pin, gpio_exp_pin_up_dwn flag);
 
 /**
- * @brief This API configures the interrupt mask of the corresponding GPIO pin
- * @param[in] hgpio_exp : Structure instance of gpio_exp_hdl.
- * @param[in] pin  : gpio pin to be configured.
- * @param[in] flag : Enable or disable the interrupt.
- * @return Result of API execution status
- * @retval zero -> Success / -ve value -> Error.
- */
-hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_set_intr_msk(ahw_al_gpio_exp_hdle *hgpio_exp, gpio_exp_gpio_pin pin, gpio_exp_mask flag);
-
-/**
- * @brief This API is used to identify the source of an interrupt.
- * @param[in] hgpio_exp   : Structure instance of gpio_exp_hdl.
- * @param[in] pin    : gpio pin to be configured.
- * @param[out] intr_state : interrupt source state of the gpio pin.
- * @return Result of API execution status
- * @retval zero -> Success / -ve value -> Error.
- */
-hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_read_intr_sts(ahw_al_gpio_exp_hdle *hgpio_exp, gpio_exp_gpio_pin pin, gpio_exp_gpio_intrstate *intr_state);
-
-/**
  * @brief This API configures the output port as push-pull or open-drain.
  * @param[in] hgpio_exp : Structure instance of gpio_exp_hdl.
  * @param[in] pin  : gpio pin to be configured.
@@ -156,5 +144,21 @@ hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_read_intr_sts(ahw_al_gpio_exp_hdle *hgpio
  */
 hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_set_port_cfg(ahw_al_gpio_exp_hdle *hgpio_exp, gpio_exp_gpio_pin pin, gpio_exp_port_cfg flag);
 
+/**
+ * @brief This API for ISR handler.
+ * @param[in] hgpio_exp : Structure instance of gpio_exp_hdl.
+ * @return Result of API execution status
+ * @retval zero -> Success / -ve value -> Error.
+ */
+hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_isr_hdlr(ahw_al_gpio_exp_hdle *hgpio_exp);
+
+/**
+ * @brief This API for GPIO pin configuration.
+ * @param[in] hgpio_exp : Structure instance of gpio_exp_hdl.
+ * @param[in] gpio_pin : Structure pointer for gpio pin configurations
+ * @return Result of API execution status
+ * @retval zero -> Success / -ve value -> Error.
+ */
+hal_ret_sts ahw_vdp_gpio_exp_pcal6408a_gpio_pin_cfg(ahw_al_gpio_exp_hdle* hgpio_exp, ahw_al_gpio_exp_gpio_cfg* gpio_pin);
 
 #endif /* EXO_HAL_DRIVER_FW_EXO_AHW_AL_DRIVER_API_EXO_AHW_AL_WRAPPER_GPIO_PCAL_6408_INC_EXO_AHW_VDP_GPIO_EXP_PCAL6408A_H_ */

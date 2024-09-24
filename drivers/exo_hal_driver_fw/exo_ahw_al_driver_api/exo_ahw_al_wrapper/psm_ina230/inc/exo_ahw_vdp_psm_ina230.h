@@ -3,7 +3,7 @@
  *
  * @brief This file contains function prototype of power sense monitor
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -250,9 +250,5 @@ float ahw_vdp_psm_ina230_get_current(ahw_al_psm_hdle *hpsm);
  * @retval Actual state of the flag (TRUE or FALSE).
  */
 hal_ret_sts ahw_vdp_psm_ina230_get_flag(ahw_al_psm_hdle *hpsm, psm_flag_t flag);
-
-
-
-
 
 #endif /* HAL_DRIVER_FW_AHW_AL_DRIVER_API_PSM_INA230_INC_AHW_VDP_PSM_INA230_H_ */

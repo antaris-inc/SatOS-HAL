@@ -3,7 +3,7 @@
  *
  * @brief This file contains abstracted function definition for RTC interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,17 +31,17 @@
 #include <time.h>
 #include "exo_io_al_sos_timer.h"
 
-#define RTC_FORMAT_BIN                  0x00000000U
-#define RTC_FORMAT_BCD                  0x00000001U
+#define RTC_FORMAT_BIN      0x00000000U  ///< RTC format binary
+#define RTC_FORMAT_BCD      0x00000001U ///< RTC format BCD
 
-extern ioal_rtc_hdle ioal_hrtc;
-uint8_t rtc_nvm_flag;
+extern ioal_rtc_hdle ioal_hrtc; ///< IOAL RTC handlers
+uint8_t rtc_nvm_flag;   ///< RTC NVM flag
 
 #ifdef LINUX_TEMP_PORT
-uint64_t linux_epoch_start=0;
+uint64_t linux_epoch_start=0; ///< Linux epoch start
 #endif
 
-uint64_t nvm_start_epoch_time=0;
+uint64_t nvm_start_epoch_time=0; ///< NVM start epoch time
 
 /*!
  *  @brief This API gets the current time and date

@@ -4,7 +4,7 @@
  * @brief This file contains declaration of API's,enumerations,structure
  *  definition and macros of GPIO expander MCP23008
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,6 +51,12 @@ typedef int8_t (*mcp23008_read_fptr_t)(void* intf_hdl, uint16_t slv_addr, uint8_
 typedef int8_t (*mcp23008_write_fptr_t)(void* intf_hdl, uint16_t slv_addr, uint8_t reg_addr, uint8_t *data, uint16_t len);
 
 /**
+ * @brief  Interrupt callback function pointer
+ */
+typedef void (*mcp23008_cb_fptr_t)(void* args);
+
+
+/**
  * @brief  mcp23008 error status enumeration
  */
 typedef enum
@@ -66,6 +72,15 @@ typedef enum
 }e_mcp23008_err;
 
 /**
+ * @brief  mcp23008 interrupt control block
+ */
+typedef struct
+{
+    mcp23008_cb_fptr_t callback_func;  /*!< Interrupt callback function pointer */
+    void* cb_func_args;             /*!< Interrupt callback function argument*/
+}s_mcp23008_intr_info;
+
+/**
  * @brief  mcp23008  control block structure definition
  */
 typedef struct
@@ -75,7 +90,22 @@ typedef struct
     uint8_t intr_pin_plrty;			/*!< polarity of interrupt pin 	        */
     mcp23008_read_fptr_t read;      /*!< Read API function pointer          */
     mcp23008_write_fptr_t write;    /*!< Write API function pointer         */
+    s_mcp23008_intr_info callback_func_info[8];/*!< Interrupt callback function pointer array  */
 }s_mcp23008;
+
+
+/**
+ * @brief  mcp23008 gpio mode enumeration
+ */
+typedef enum
+{
+    MCP23008_GPIO_MODE_INPUT,
+    MCP23008_GPIO_MODE_OUTPUT,
+    MCP23008_GPIO_MODE_IT_RISING,
+    MCP23008_GPIO_MODE_IT_FALLING,
+    MCP23008_GPIO_MODE_IT_RISING_FALLING,
+    MCP23008_GPIO_MODE_MAX
+}mcp23008_gpio_mode;
 
 /**
  * @brief  mcp23008 gpio pin enumeration
@@ -110,9 +140,10 @@ typedef struct
 {
     uint8_t gpio_bit_msk;				/*!< gpio bit masking			*/
     uint8_t gpio_state;					/*!< gpio pin state		    	*/
-    uint8_t gpio_dir;					/*!< gpio direction of the pin	*/
+    uint8_t mode;					/*!< gpio mode of the pin	*/
     uint8_t pull_up_sts;				/*!< gpio pin pullup status		*/
-    uint8_t intr_type;					/*!< gpio interrupt type		*/
+    mcp23008_cb_fptr_t cb_func;        /*!< gspio interrupt type		*/
+    void* cb_func_args;
 }s_gpio_config;
 
 /**
@@ -152,7 +183,7 @@ typedef enum
 typedef enum
 {
     MCP23008_GPIO_INTR_DISABLE,							///< mcp23008 gpio interrupt disable
-    MCP23008_GPIO_INTR_PIN_CHANGE,						///< mcp23008 gpio pin change interrupt
+    MCP23008_GPIO_INTR_RISING_FALLING,						///< mcp23008 gpio pin change interrupt
     MCP23008_GPIO_INTR_RISING,							///< mcp23008 gpio interrupt rising
     MCP23008_GPIO_INTR_FALLING,							///< mcp23008 gpio interrupt falling
     MCP23008_GPIO_INTR_MAX
@@ -216,6 +247,12 @@ e_mcp23008_err mcp23008_write_pin(s_mcp23008* mcp23008_hdl, uint8_t gpio_pin, e_
  */
 e_gpio_pin_ste mcp23008_read_pin (s_mcp23008* mcp23008_hdl, e_gpio_num gpio_pin);
 
+/**
+ * @brief This function is used to read to write and read data to validate gpio expender
+ * @param[in] mcp23008_hdl - instance pointer of mcp23008
+ * @retval e_mcp23008_err - returns the success or error code
+ */
+e_mcp23008_err mcp23008_self_test(s_mcp23008* mcp23008_hdl);
 /**
  * @brief This function is used to toggle the GPIO
  * @param[in] mcp23008_hdl - instance pointer of mcp23008

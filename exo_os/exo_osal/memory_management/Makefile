@@ -1,5 +1,5 @@
 #
-#   @copyright Copyright 2022 Antaris, Inc.
+#   @copyright Copyright 2024 Antaris, Inc.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -39,10 +39,8 @@ INCLUDES = -Iinc\
 	   -I$(TOP_DIR)exo_os/rtos/free_rtos/portable/GCC/ARM_CM7/r0p1/\
 	   -I$(TOP_DIR)exo_os/rtos/free_rtos/include/\
 	   -I$(TOP_DIR)/exo_core/obc/inc/\
-	   -I$(TOP_DIR)/exo_lib/tc_tm/lib/inc/\
 	   -I$(TOP_DIR)/exo_lib/security/libcrc-2.0/include/\
 	   -I$(TOP_DIR)/drivers/ahw_drivers/eps/inc/\
-	   -I$(TOP_DIR)/exo_services/exo_otsu/inc/\
 	   -I$(TOP_DIR)/drivers/io_drivers/io_drivers_stm32f7xx/common/inc/\
 	   -I$(TOP_DIR)/drivers/io_drivers/io_drivers_stm32f7xx/rcc/inc/\
 	   -I$(TOP_DIR)/drivers/io_drivers/io_drivers_stm32f7xx/exti/inc/\

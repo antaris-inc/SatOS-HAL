@@ -91,9 +91,6 @@ __attribute__((weak)) int _write(int file, char *ptr, int len)
 #ifdef STM32F765xx
 
 #ifdef COREBOARD
-#ifdef PRINT_UART_4
-    io_hal_uart_transmit(&ioal_huart4, (uint8_t *)ptr,(uint16_t)len,300);
-#endif
 #ifdef PRINT_UART_5
     io_hal_uart_transmit(&ioal_huart5, (uint8_t *)ptr,(uint16_t)len,300);
 #endif

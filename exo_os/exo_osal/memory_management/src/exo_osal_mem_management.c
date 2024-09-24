@@ -3,7 +3,7 @@
  *
  * @brief This file contains function definitions for OS memory management.
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -329,7 +329,9 @@ void os_free_debug(void *ptr,char *file_name, uint32_t line_num)
 }
 else
 {
+#ifndef LINUX_TEMP_PORT
     printf("Err NULL Pointer free called Line %lu File %s",line_num, file_name);
+#endif
 }
 }
 

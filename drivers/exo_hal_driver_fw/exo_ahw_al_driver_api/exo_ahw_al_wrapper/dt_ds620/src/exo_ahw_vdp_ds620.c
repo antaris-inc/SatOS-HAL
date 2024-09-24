@@ -1,9 +1,9 @@
 /**
- * @file exo_ahw_vdp_dt_ds620.c
+ * @file exo_ahw_vdp_ds620.c
  *
  * @brief This file contains vendor driver porting function of DS620 digital thermostat
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

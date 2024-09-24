@@ -3,7 +3,7 @@
  *
  * @brief This file contains abstracted driver functions for temperature sensor
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -183,7 +183,7 @@ hal_ret_sts ahw_al_temp_sensor_set_mode(ahw_al_temp_sensor_hdl *ahw_al_hts,temp_
 /*
  * @brief API to set interrupt clear bit in shutdown mode
  */
-hal_ret_sts	ahw_al_temp_sensor_intrupt_clear(ahw_al_temp_sensor_hdl *ahw_al_hts, uint8_t interrupt_clear)
+hal_ret_sts ahw_al_temp_sensor_intrupt_clear(ahw_al_temp_sensor_hdl *ahw_al_hts, uint8_t interrupt_clear)
 {
     hal_ret_sts sts;
     sts = ahiobcsn_check_ste(&ahw_al_hts->ahw_gen_info);
@@ -264,7 +264,7 @@ hal_ret_sts ahw_al_temp_sensor_set_event_polarity(ahw_al_temp_sensor_hdl *ahw_al
 /*
  * @brief API to set win lock bit of temperature sensor
  */
-hal_ret_sts	ahw_al_temp_sensor_set_win_lockbit(ahw_al_temp_sensor_hdl *al_ts_h,temp_sensor_win_lock_t win_lock)
+hal_ret_sts ahw_al_temp_sensor_set_win_lockbit(ahw_al_temp_sensor_hdl *al_ts_h,temp_sensor_win_lock_t win_lock)
 {
     hal_ret_sts sts;
     sts = ahiobcsn_check_ste(&al_ts_h->ahw_gen_info);
@@ -291,7 +291,7 @@ hal_ret_sts	ahw_al_temp_sensor_set_win_lockbit(ahw_al_temp_sensor_hdl *al_ts_h,t
 /*
  * @brief API to set critical lock bit of temperature sensor
  */
-hal_ret_sts	ahw_al_temp_sensor_set_crit_lockbit(ahw_al_temp_sensor_hdl *ahw_al_hts,temp_sensor_crit_lock_t crit_lock)
+hal_ret_sts ahw_al_temp_sensor_set_crit_lockbit(ahw_al_temp_sensor_hdl *ahw_al_hts,temp_sensor_crit_lock_t crit_lock)
 {
     hal_ret_sts sts;
     sts = ahiobcsn_check_ste(&ahw_al_hts->ahw_gen_info);

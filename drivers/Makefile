@@ -1,5 +1,5 @@
 #
-#   @copyright Copyright 2022 Antaris, Inc.
+#   @copyright Copyright 2024 Antaris, Inc.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -42,11 +42,12 @@ SUBDIR += exo_hal_driver_fw
 ifeq ($(ENVIRONMENT),1)
 SUBDIR += io_drivers
 SUBDIR += ahw_drivers
+SUBDIR += bsp
 endif
 
 ifeq ($(ENVIRONMENT),0)
-#SUBDIR += io_drivers
 SUBDIR += ahw_drivers
+SUBDIR += bsp/linux
 endif
 
 ##############################################################################

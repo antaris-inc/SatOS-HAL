@@ -1,5 +1,5 @@
 #
-#   @copyright Copyright 2022 Antaris, Inc.
+#   @copyright Copyright 2024 Antaris, Inc.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -38,6 +38,7 @@ INCLUDES = -Iinc/\
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_ahw_al_driver_api/exo_ahw_al_wrapper/gpio_mcp23008/inc/\
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_common/common/inc/\
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_common/i2c/inc/\
+           -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_common/gpio/inc/\
 	   -I$(TOP_DIR)exo_os/exo_osal/memory_management/inc/\
 	   -I$(TOP_DIR)exo_os/exo_ral/exo_ral_common/inc/\
 

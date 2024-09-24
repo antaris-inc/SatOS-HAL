@@ -4,7 +4,7 @@
  * @brief This file has mapping functions which resolves the
  * instance Id and invokes the vendor driver API for voltage sequencer on the partnumber
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ hal_ret_sts ahw_al_vsm_common_init(ahw_al_vsm_hdle *hvsm)
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_init(hvsm);
             break;
         default:
@@ -48,7 +48,7 @@ hal_ret_sts ahw_al_vsm_common_rail_config(ahw_al_vsm_hdle *hvsm, vltg_seq_rail_c
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_rail_config(hvsm, rail_info);
             break;
         default:
@@ -66,7 +66,7 @@ hal_ret_sts ahw_al_vsm_common_set_undervoltage_thrsld(ahw_al_vsm_hdle *hvsm, vlt
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_set_undervoltage_thrsld(hvsm,rail_info,udr_vltg_thrsld);
             break;
         default:
@@ -83,7 +83,7 @@ hal_ret_sts ahw_al_vsm_common_set_overvoltage_thrsld(ahw_al_vsm_hdle *hvsm, vltg
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_set_overvoltage_thrsld(hvsm,rail_info,ovr_vltg_thrsld);
             break;
         default:
@@ -100,7 +100,7 @@ hal_ret_sts ahw_al_vsm_common_set_enable_polarity(ahw_al_vsm_hdle *hvsm,  vltg_s
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_set_enable_polarity(hvsm,rail_info,polarity);
             break;
         default:
@@ -117,7 +117,7 @@ hal_ret_sts ahw_al_vsm_common_set_unsequence_time(ahw_al_vsm_hdle *hvsm, vltg_se
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_set_unsequence_time(hvsm,rail_info,time);
             break;
         default:
@@ -134,7 +134,7 @@ hal_ret_sts ahw_al_vsm_common_set_out_of_reg_width(ahw_al_vsm_hdle *hvsm, vltg_s
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_set_out_of_reg_width(hvsm,rail_info,width);
             break;
         default:
@@ -151,7 +151,7 @@ hal_ret_sts ahw_al_vsm_common_set_ramp_time(ahw_al_vsm_hdle *hvsm, vltg_seq_rail
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_set_ramp_time(hvsm,rail_info,ramp_tm);
             break;
         default:
@@ -168,7 +168,7 @@ hal_ret_sts ahw_al_vsm_common_force_restart(ahw_al_vsm_hdle *hvsm)
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_force_restart(hvsm);
             break;
         default:
@@ -185,7 +185,7 @@ hal_ret_sts ahw_al_vsm_common_restart(ahw_al_vsm_hdle *hvsm)
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_restart(hvsm);
             break;
         default:
@@ -202,7 +202,7 @@ hal_ret_sts ahw_al_vsm_common_get_fw_version(ahw_al_vsm_hdle *hvsm, uint8_t* ver
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_get_fw_version(hvsm, version);
             break;
         default:
@@ -219,7 +219,7 @@ hal_ret_sts ahw_al_vsm_common_get_voltage(ahw_al_vsm_hdle *hvsm, vltg_seq_rail_c
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_get_voltage(hvsm,rail_info,voltage);
             break;
         default:
@@ -236,7 +236,7 @@ hal_ret_sts ahw_al_vsm_common_get_alrm_pndng_sts(ahw_al_vsm_hdle *hvsm, uint8_t*
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_get_alrm_pndng_sts(hvsm,rail_err_sts);
             break;
         default:
@@ -253,7 +253,7 @@ hal_ret_sts ahw_al_vsm_common_set_seq_type(ahw_al_vsm_hdle *hvsm, vltg_seq_rail_
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_set_seq_type(hvsm,rail_info,seq_tp);
             break;
         default:
@@ -270,7 +270,7 @@ hal_ret_sts ahw_al_vsm_common_set_seq_delay(ahw_al_vsm_hdle *hvsm, vltg_seq_rail
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_set_seq_delay(hvsm,rail_info,dly_tm);
             break;
         default:
@@ -287,7 +287,7 @@ hal_ret_sts ahw_al_vsm_common_set_seq_prnt_vltg_lvl(ahw_al_vsm_hdle *hvsm, vltg_
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_set_seq_prnt_vltg_lvl(hvsm,actual_rail_info,parent_rail_info,voltage);
             break;
         default:
@@ -304,7 +304,7 @@ hal_ret_sts ahw_al_vsm_common_set_seq_prnt_rail(ahw_al_vsm_hdle *hvsm, vltg_seq_
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_set_seq_prnt_rail(hvsm,rail_info,prnt_rail);
             break;
         default:
@@ -321,7 +321,7 @@ hal_ret_sts ahw_al_vsm_common_vref_cfg(ahw_al_vsm_hdle *hvsm,uint8_t v_ref)
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_vref_cfg(hvsm,v_ref);
             break;
         default:
@@ -338,7 +338,7 @@ hal_ret_sts ahw_al_vsm_common_glitch_alrm_cfg(ahw_al_vsm_hdle *hvsm, vltg_seq_ra
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_glitch_alrm_cfg(hvsm,rail_info,glth_alrm_sts);
             break;
         default:
@@ -355,7 +355,7 @@ hal_ret_sts ahw_al_vsm_common_set_rail_alrm_typ(ahw_al_vsm_hdle *hvsm, vltg_seq_
     hal_ret_sts sts;
     switch(hvsm->ahw_gen_info.ahw_inst_id)
     {
-        case VSM_UCD9081_OBC:
+        case VOLTAGE_SEQUENCER_UCD9801_OBC:
             sts = ahw_vdp_vsm_ucd9081_set_rail_alrm_typ(hvsm,rail_info,alrm_typ);
             break;
         default:

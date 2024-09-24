@@ -4,7 +4,7 @@
  * @brief This file contains structure definition for error handler also
  *  function prototype. 
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,8 +29,8 @@
 #define MAX_DBG_IDX (20)
 
 /**
-  * @brief  EXO error status enumeration
-  */
+ * @brief  EXO error status enumeration
+ */
 typedef enum
 {
     UNKNOWN_ERROR,
@@ -72,9 +72,9 @@ typedef struct {
 }s_exo_sen_debug ;
 
 typedef struct {
-s_exo_hwd_debug hw_dbg;
-s_exo_swd_debug sw_dbg;
-s_exo_sen_debug sen_dbg;
+    s_exo_hwd_debug hw_dbg;
+    s_exo_swd_debug sw_dbg;
+    s_exo_sen_debug sen_dbg;
 }s_exo_debug;
 
 extern s_exo_debug exo_dbg_cb;

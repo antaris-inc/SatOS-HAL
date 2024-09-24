@@ -1,5 +1,5 @@
 #
-#   @copyright Copyright 2022 Antaris, Inc.
+#   @copyright Copyright 2024 Antaris, Inc.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -34,6 +34,17 @@ INCLUDES = -Iinc \
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_wrapper/exo_io_al_stm32f7xx/spi/inc/\
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_wrapper/inc/\
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_hal_fw_common/common/inc/\
+	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_ahw_al_driver_api/exo_ahw_al_common/common/inc/\
+	   
+ifneq ($(BOARD),)
+    ifeq ($(BOARD),GEN1)
+        INCLUDES += \
+            -I$(TOP_DIR)drivers/bsp/gen1/inc/
+    else ifeq ($(BOARD),STM32_DISCO_F769NI)
+        INCLUDES += \
+            -I$(TOP_DIR)drivers/bsp/stm32_disco_f769ni/inc/
+    endif
+endif	   
 
 ifeq ($(ENVIRONMENT),0)
 INCLUDES += -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_wrapper/exo_io_al_linux/

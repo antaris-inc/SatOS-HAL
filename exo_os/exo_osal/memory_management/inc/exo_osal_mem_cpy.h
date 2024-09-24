@@ -4,7 +4,7 @@
  * @brief This file contains enumeration, stucture and function prototypes
  *        for different memory.
  *
- *  @copyright Copyright 2023 Antaris, Inc.
+ *  @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

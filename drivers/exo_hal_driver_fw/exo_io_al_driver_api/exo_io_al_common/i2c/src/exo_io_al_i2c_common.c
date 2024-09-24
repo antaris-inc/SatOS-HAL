@@ -3,7 +3,7 @@
  *
  * @brief This file contains abstracted function definition for I2C interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,67 +32,67 @@
 
 #ifndef LINUX_TEMP_PORT
 
-#define I2C1_TX_CPLT_CB			check_i2c1_dummy					///< I2C1 TX complete callback event
-#define I2C1_RX_CPLT_CB			check_i2c1_dummy					///< I2C1 RX complete callback event
-#define I2C1_ABORT_CPLT_CB		check_i2c1_dummy					///< I2C1 Abort complete callback event
-#define I2C1_LISTEN_CPLT_CB		check_i2c1_dummy					///< I2C1 Listen complete callback event
-#define I2C1_ERROR_CB			check_i2c1_dummy					///< I2C1 Error complete callback event
+#define I2C1_TX_CPLT_CB         check_i2c1_dummy      ///< I2C1 TX complete callback event
+#define I2C1_RX_CPLT_CB         check_i2c1_dummy      ///< I2C1 RX complete callback event
+#define I2C1_ABORT_CPLT_CB      check_i2c1_dummy      ///< I2C1 Abort complete callback event
+#define I2C1_LISTEN_CPLT_CB     check_i2c1_dummy      ///< I2C1 Listen complete callback event
+#define I2C1_ERROR_CB           check_i2c1_dummy      ///< I2C1 Error complete callback event
 
-#define I2C2_TX_CPLT_CB	    	check_i2c2_dummy					///< I2C2 TX complete callback event
-#define I2C2_RX_CPLT_CB	    	check_i2c2_dummy					///< I2C2 RX complete callback event
-#define I2C2_ABORT_CPLT_CB		check_i2c2_dummy					///< I2C2 Abort complete callback event
-#define I2C2_LISTEN_CPLT_CB		check_i2c2_dummy					///< I2C2 Listen complete callback event
-#define I2C2_ERROR_CB			check_i2c2_dummy					///< I2C2 Error complete callback event
+#define I2C2_TX_CPLT_CB         check_i2c2_dummy      ///< I2C2 TX complete callback event
+#define I2C2_RX_CPLT_CB         check_i2c2_dummy      ///< I2C2 RX complete callback event
+#define I2C2_ABORT_CPLT_CB      check_i2c2_dummy      ///< I2C2 Abort complete callback event
+#define I2C2_LISTEN_CPLT_CB     check_i2c2_dummy      ///< I2C2 Listen complete callback event
+#define I2C2_ERROR_CB           check_i2c2_dummy      ///< I2C2 Error complete callback event
 
-#define I2C3_TX_CPLT_CB			check_i2c3_dummy					///< I2C3 TX complete callback event
-#define I2C3_RX_CPLT_CB			check_i2c3_dummy					///< I2C3 RX complete callback event
-#define I2C3_ABORT_CPLT_CB		check_i2c3_dummy					///< I2C3 Abort complete callback event
-#define I2C3_LISTEN_CPLT_CB		check_i2c3_dummy					///< I2C3 Listen complete callback event
-#define I2C3_ERROR_CB			check_i2c3_dummy					///< I2C3 Error complete callback event
+#define I2C3_TX_CPLT_CB         check_i2c3_dummy      ///< I2C3 TX complete callback event
+#define I2C3_RX_CPLT_CB         check_i2c3_dummy      ///< I2C3 RX complete callback event
+#define I2C3_ABORT_CPLT_CB      check_i2c3_dummy      ///< I2C3 Abort complete callback event
+#define I2C3_LISTEN_CPLT_CB     check_i2c3_dummy      ///< I2C3 Listen complete callback event
+#define I2C3_ERROR_CB           check_i2c3_dummy      ///< I2C3 Error complete callback event
 
-#define I2C4_TX_CPLT_CB			check_i2c4_dummy					///< I2C4 TX complete callback event
-#define I2C4_RX_CPLT_CB			check_i2c4_dummy					///< I2C4 RX complete callback event
-#define I2C4_ABORT_CPLT_CB		check_i2c4_dummy					///< I2C4 Abort complete callback event
-#define I2C4_LISTEN_CPLT_CB		check_i2c4_dummy					///< I2C4 Listen complete callback event
-#define I2C4_ERROR_CB			check_i2c4_dummy					///< I2C4 Error complete callback event
+#define I2C4_TX_CPLT_CB         check_i2c4_dummy      ///< I2C4 TX complete callback event
+#define I2C4_RX_CPLT_CB         check_i2c4_dummy      ///< I2C4 RX complete callback event
+#define I2C4_ABORT_CPLT_CB      check_i2c4_dummy      ///< I2C4 Abort complete callback event
+#define I2C4_LISTEN_CPLT_CB     check_i2c4_dummy      ///< I2C4 Listen complete callback event
+#define I2C4_ERROR_CB           check_i2c4_dummy      ///< I2C4 Error complete callback event
 
 #else
 
 
-#define I2C1_TX_CPLT_CB			linux_i2c_dummy_fn							///< I2C1 TX complete callback event
-#define I2C1_RX_CPLT_CB			linux_i2c_dummy_fn							///< I2C1 RX complete callback event
-#define I2C1_ABORT_CPLT_CB		linux_i2c_dummy_fn							///< I2C1 Abort complete callback event
-#define I2C1_LISTEN_CPLT_CB		linux_i2c_dummy_fn							///< I2C1 Listen complete callback event
-#define I2C1_ERROR_CB			linux_i2c_dummy_fn							///< I2C1 Error complete callback event
+#define I2C1_TX_CPLT_CB         linux_i2c_dummy_fn    ///< I2C1 TX complete callback event
+#define I2C1_RX_CPLT_CB         linux_i2c_dummy_fn    ///< I2C1 RX complete callback event
+#define I2C1_ABORT_CPLT_CB      linux_i2c_dummy_fn    ///< I2C1 Abort complete callback event
+#define I2C1_LISTEN_CPLT_CB     linux_i2c_dummy_fn    ///< I2C1 Listen complete callback event
+#define I2C1_ERROR_CB           linux_i2c_dummy_fn    ///< I2C1 Error complete callback event
 
-#define I2C2_TX_CPLT_CB	    	linux_i2c_dummy_fn					///< I2C2 TX complete callback event
-#define I2C2_RX_CPLT_CB	    	linux_i2c_dummy_fn					///< I2C2 RX complete callback event
-#define I2C2_ABORT_CPLT_CB		linux_i2c_dummy_fn					///< I2C2 Abort complete callback event
-#define I2C2_LISTEN_CPLT_CB		linux_i2c_dummy_fn					///< I2C2 Listen complete callback event
-#define I2C2_ERROR_CB			linux_i2c_dummy_fn					///< I2C2 Error complete callback event
+#define I2C2_TX_CPLT_CB         linux_i2c_dummy_fn    ///< I2C2 TX complete callback event
+#define I2C2_RX_CPLT_CB         linux_i2c_dummy_fn    ///< I2C2 RX complete callback event
+#define I2C2_ABORT_CPLT_CB      linux_i2c_dummy_fn    ///< I2C2 Abort complete callback event
+#define I2C2_LISTEN_CPLT_CB     linux_i2c_dummy_fn    ///< I2C2 Listen complete callback event
+#define I2C2_ERROR_CB           linux_i2c_dummy_fn    ///< I2C2 Error complete callback event
 
 
-#define I2C3_TX_CPLT_CB			linux_i2c_dummy_fn							///< I2C3 TX complete callback event
-#define I2C3_RX_CPLT_CB			linux_i2c_dummy_fn							///< I2C3 RX complete callback event
-#define I2C3_ABORT_CPLT_CB		linux_i2c_dummy_fn							///< I2C3 Abort complete callback event
-#define I2C3_LISTEN_CPLT_CB		linux_i2c_dummy_fn							///< I2C3 Listen complete callback event
-#define I2C3_ERROR_CB			linux_i2c_dummy_fn							///< I2C3 Error complete callback event
+#define I2C3_TX_CPLT_CB         linux_i2c_dummy_fn    ///< I2C3 TX complete callback event
+#define I2C3_RX_CPLT_CB         linux_i2c_dummy_fn    ///< I2C3 RX complete callback event
+#define I2C3_ABORT_CPLT_CB      linux_i2c_dummy_fn    ///< I2C3 Abort complete callback event
+#define I2C3_LISTEN_CPLT_CB     linux_i2c_dummy_fn    ///< I2C3 Listen complete callback event
+#define I2C3_ERROR_CB           linux_i2c_dummy_fn    ///< I2C3 Error complete callback event
 
-#define I2C4_TX_CPLT_CB			linux_i2c_dummy_fn							///< I2C4 TX complete callback event
-#define I2C4_RX_CPLT_CB			linux_i2c_dummy_fn							///< I2C4 RX complete callback event
-#define I2C4_ABORT_CPLT_CB		linux_i2c_dummy_fn							///< I2C4 Abort complete callback event
-#define I2C4_LISTEN_CPLT_CB		linux_i2c_dummy_fn							///< I2C4 Listen complete callback event
-#define I2C4_ERROR_CB			linux_i2c_dummy_fn							///< I2C4 Error complete callback event
+#define I2C4_TX_CPLT_CB         linux_i2c_dummy_fn    ///< I2C4 TX complete callback event
+#define I2C4_RX_CPLT_CB         linux_i2c_dummy_fn    ///< I2C4 RX complete callback event
+#define I2C4_ABORT_CPLT_CB      linux_i2c_dummy_fn    ///< I2C4 Abort complete callback event
+#define I2C4_LISTEN_CPLT_CB     linux_i2c_dummy_fn    ///< I2C4 Listen complete callback event
+#define I2C4_ERROR_CB           linux_i2c_dummy_fn    ///< I2C4 Error complete callback event
 
 
 #endif
 
-extern void *intf_inst_hdle_ptr[MAX_IO_INST_ID];
+extern void *intf_inst_hdle_ptr[MAX_IO_INST_ID]; ///< Interface instance handler pointer
 
-ioal_i2c_hdle ioal_hi2c1;
-ioal_i2c_hdle ioal_hi2c2;
-ioal_i2c_hdle ioal_hi2c3;
-ioal_i2c_hdle ioal_hi2c4;
+ioal_i2c_hdle ioal_hi2c1; ///< IOAL I2C1 handle
+ioal_i2c_hdle ioal_hi2c2; ///< IOAL I2C2 handle
+ioal_i2c_hdle ioal_hi2c3; ///< IOAL I2C3 handle
+ioal_i2c_hdle ioal_hi2c4; ///< IOAL I2C4 handle
 
 /**
  * @brief This API initializes the control block memory
@@ -115,7 +115,6 @@ hal_ret_sts io_hal_i2c_init(void)
     {
         sts = HAL_IO_INIT_ERR;
     }
-#ifdef COREBOARD
     if(HAL_SCS == io_hal_common_i2c2_init(&ioal_hi2c2))
     {
         intf_inst_hdle_ptr[IOAL_INST_I2C2] = &ioal_hi2c2;
@@ -144,7 +143,6 @@ hal_ret_sts io_hal_i2c_init(void)
     {
         sts = HAL_IO_INIT_ERR;
     }
-#endif
 
 #ifdef LINUX_TEMP_PORT
     printf("\n EXO IO AL I2C Initialisation completed successfully");
@@ -157,19 +155,12 @@ hal_ret_sts io_hal_i2c_init(void)
  */
 void io_hal_i2c1_cb_init(ioal_i2c_hdle *hi2c1)
 {
-    hi2c1->mst_tx_cplt_cb = I2C1_TX_CPLT_CB;
-    hi2c1->mst_rx_cplt_cb = I2C1_RX_CPLT_CB;
-    hi2c1->abort_cplt_cb = I2C1_ABORT_CPLT_CB;
-    hi2c1->listen_cplt_cb = I2C1_LISTEN_CPLT_CB;
-    hi2c1->error_cb = I2C1_ERROR_CB;
+    hi2c1->i2c_mst_tx_cplt_cb = I2C1_TX_CPLT_CB;
+    hi2c1->i2c_mst_rx_cplt_cb = I2C1_RX_CPLT_CB;
+    hi2c1->i2c_abort_cplt_cb = I2C1_ABORT_CPLT_CB;
+    hi2c1->i2c_listen_cplt_cb = I2C1_LISTEN_CPLT_CB;
+    hi2c1->i2c_error_cb = I2C1_ERROR_CB;
 
-#ifndef LINUX_TEMP_PORT
-    io_hal_common_i2c_reg_cb(hi2c1, IOHAL_STM32_I2C_MASTER_TX_CPLT_CB_ID);
-    io_hal_common_i2c_reg_cb(hi2c1, IOHAL_STM32_I2C_MASTER_RX_CPLT_CB_ID);
-    io_hal_common_i2c_reg_cb(hi2c1, IOHAL_STM32_I2C_ABORT_CB_ID);
-    io_hal_common_i2c_reg_cb(hi2c1, IOHAL_STM32_I2C_LISTEN_CPLT_CB_ID);
-    io_hal_common_i2c_reg_cb(hi2c1, IOHAL_STM32_I2C_ERROR_CB_ID);
-#endif
 }
 
 /**
@@ -177,19 +168,11 @@ void io_hal_i2c1_cb_init(ioal_i2c_hdle *hi2c1)
  */
 void io_hal_i2c2_cb_init(ioal_i2c_hdle *hi2c2)
 {
-    hi2c2->mst_tx_cplt_cb = I2C2_TX_CPLT_CB;
-    hi2c2->mst_rx_cplt_cb = I2C2_RX_CPLT_CB;
-    hi2c2->abort_cplt_cb = I2C2_ABORT_CPLT_CB;
-    hi2c2->listen_cplt_cb = I2C2_LISTEN_CPLT_CB;
-    hi2c2->error_cb = I2C2_ERROR_CB;
-
-#ifndef LINUX_TEMP_PORT
-    io_hal_common_i2c_reg_cb(hi2c2, IOHAL_STM32_I2C_MASTER_TX_CPLT_CB_ID);
-    io_hal_common_i2c_reg_cb(hi2c2, IOHAL_STM32_I2C_MASTER_RX_CPLT_CB_ID);
-    io_hal_common_i2c_reg_cb(hi2c2, IOHAL_STM32_I2C_ABORT_CB_ID);
-    io_hal_common_i2c_reg_cb(hi2c2, IOHAL_STM32_I2C_LISTEN_CPLT_CB_ID);
-    io_hal_common_i2c_reg_cb(hi2c2, IOHAL_STM32_I2C_ERROR_CB_ID);
-#endif
+    hi2c2->i2c_mst_tx_cplt_cb = I2C2_TX_CPLT_CB;
+    hi2c2->i2c_mst_rx_cplt_cb = I2C2_RX_CPLT_CB;
+    hi2c2->i2c_abort_cplt_cb = I2C2_ABORT_CPLT_CB;
+    hi2c2->i2c_listen_cplt_cb = I2C2_LISTEN_CPLT_CB;
+    hi2c2->i2c_error_cb = I2C2_ERROR_CB;
 }
 
 /**
@@ -197,18 +180,11 @@ void io_hal_i2c2_cb_init(ioal_i2c_hdle *hi2c2)
  */
 void io_hal_i2c3_cb_init(ioal_i2c_hdle *hi2c3)
 {
-    hi2c3->mst_tx_cplt_cb = I2C3_TX_CPLT_CB;
-    hi2c3->mst_rx_cplt_cb = I2C3_RX_CPLT_CB;
-    hi2c3->abort_cplt_cb = I2C3_ABORT_CPLT_CB;
-    hi2c3->listen_cplt_cb = I2C3_LISTEN_CPLT_CB;
-    hi2c3->error_cb = I2C3_ERROR_CB;
-#ifndef LINUX_TEMP_PORT
-    io_hal_common_i2c_reg_cb(hi2c3, IOHAL_STM32_I2C_MASTER_TX_CPLT_CB_ID);
-    io_hal_common_i2c_reg_cb(hi2c3, IOHAL_STM32_I2C_MASTER_RX_CPLT_CB_ID);
-    io_hal_common_i2c_reg_cb(hi2c3, IOHAL_STM32_I2C_ABORT_CB_ID);
-    io_hal_common_i2c_reg_cb(hi2c3, IOHAL_STM32_I2C_LISTEN_CPLT_CB_ID);
-    io_hal_common_i2c_reg_cb(hi2c3, IOHAL_STM32_I2C_ERROR_CB_ID);
-#endif
+    hi2c3->i2c_mst_tx_cplt_cb = I2C3_TX_CPLT_CB;
+    hi2c3->i2c_mst_rx_cplt_cb = I2C3_RX_CPLT_CB;
+    hi2c3->i2c_abort_cplt_cb = I2C3_ABORT_CPLT_CB;
+    hi2c3->i2c_listen_cplt_cb = I2C3_LISTEN_CPLT_CB;
+    hi2c3->i2c_error_cb = I2C3_ERROR_CB;
 }
 
 /**
@@ -216,18 +192,12 @@ void io_hal_i2c3_cb_init(ioal_i2c_hdle *hi2c3)
  */
 void io_hal_i2c4_cb_init(ioal_i2c_hdle *hi2c4)
 {
-    hi2c4->mst_tx_cplt_cb = I2C4_TX_CPLT_CB;
-    hi2c4->mst_rx_cplt_cb = I2C4_RX_CPLT_CB;
-    hi2c4->abort_cplt_cb = I2C4_ABORT_CPLT_CB;
-    hi2c4->listen_cplt_cb = I2C4_LISTEN_CPLT_CB;
-    hi2c4->error_cb = I2C4_ERROR_CB;
-#ifndef LINUX_TEMP_PORT
-    io_hal_common_i2c_reg_cb(hi2c4, IOHAL_STM32_I2C_MASTER_TX_CPLT_CB_ID);
-    io_hal_common_i2c_reg_cb(hi2c4, IOHAL_STM32_I2C_MASTER_RX_CPLT_CB_ID);
-    io_hal_common_i2c_reg_cb(hi2c4, IOHAL_STM32_I2C_ABORT_CB_ID);
-    io_hal_common_i2c_reg_cb(hi2c4, IOHAL_STM32_I2C_LISTEN_CPLT_CB_ID);
-    io_hal_common_i2c_reg_cb(hi2c4, IOHAL_STM32_I2C_ERROR_CB_ID);
-#endif
+    hi2c4->i2c_mst_tx_cplt_cb = I2C4_TX_CPLT_CB;
+    hi2c4->i2c_mst_rx_cplt_cb = I2C4_RX_CPLT_CB;
+    hi2c4->i2c_abort_cplt_cb = I2C4_ABORT_CPLT_CB;
+    hi2c4->i2c_listen_cplt_cb = I2C4_LISTEN_CPLT_CB;
+    hi2c4->i2c_error_cb = I2C4_ERROR_CB;
+
 }
 
 /**
@@ -398,19 +368,38 @@ hal_ret_sts io_hal_i2c_abort_it(ioal_i2c_hdle *hi2c, uint16 addr)
 
 #ifndef LINUX_TEMP_PORT
 
-
+/**
+ * @brief Check I2C 1 dummy
+ *
+ * @param[in] hi2c : pointer to i2c handle
+ */
 void check_i2c1_dummy(ioal_i2c_hdle *hi2c)
 {
     return;
 }
+/**
+ * @brief Check I2C 2 dummy
+ *
+ * @param[in] hi2c : pointer to i2c handle
+ */
 void check_i2c2_dummy(ioal_i2c_hdle *hi2c)
 {
     return;
 }
+/**
+ * @brief Check I2C 3 dummy
+ *
+ * @param[in] hi2c : pointer to i2c handle
+ */
 void check_i2c3_dummy(ioal_i2c_hdle *hi2c)
 {
     return;
 }
+/**
+ * @brief Check I2C 4 dummy
+ *
+ * @param[in] hi2c : pointer to i2c handle
+ */
 void check_i2c4_dummy(ioal_i2c_hdle *hi2c)
 {
     return;

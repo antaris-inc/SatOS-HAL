@@ -1,8 +1,8 @@
 /**
- * @file           : main.c
- * @brief          : Main program body
+ * @file main.c
+ * @brief Main program body
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,9 +26,11 @@
 #include "qspi.h"
 #include "exo_io_al_rtc_common.h"
 #include "exo_io_al_sos_timer.h"
+#include "comms_uhf_main.h"
 #include "exo_ahw_al_dt_common.h"
 #include "exo_ahw_al_temp_sensor_common.h"
 #include "exo_debug.h"
+#include "exo_gpio.h"
 
 s_exo_debug exo_dbg_cb;
 extern volatile uint8_t system_error;
@@ -45,16 +47,6 @@ WWDG_HandleTypeDef hwwdg;
 extern QSPI_HandleTypeDef hqspi;
 extern QSPI_InfoTypeDef QspiInfo;
 
-DMA_HandleTypeDef hdma_i2c1_rx;
-DMA_HandleTypeDef hdma_i2c1_tx;
-DMA_HandleTypeDef hdma_i2c2_rx;
-DMA_HandleTypeDef hdma_i2c2_tx;
-DMA_HandleTypeDef hdma_spi1_rx;
-DMA_HandleTypeDef hdma_spi1_tx;
-DMA_HandleTypeDef hdma_spi2_rx;
-DMA_HandleTypeDef hdma_spi2_tx;
-DMA_HandleTypeDef hdma_usart6_rx;
-DMA_HandleTypeDef hdma_usart6_tx;
 
 ahw_al_temp_sensor_hdl ahw_ts_obc;
 float temperature_value;
@@ -82,27 +74,18 @@ volatile uint8_t WDT_ENB =0;
 #ifdef STM32F765xx
 volatile uint8_t BOARD = 1;
 #else
-#warning  "#####################This is not compiled for CORE BOARD #######################"
+//#warning  "#####################This is not compiled for CORE BOARD #######################"
 volatile uint8_t BOARD = 0;
 #endif
 
 /**
  * @Brief Enable or disable the UART print
  */
-#ifndef PRINT_UART_4
 #ifndef PRINT_UART_5
 volatile uint8_t PRINT_ENB=1;
 #endif
-#endif
-#ifdef PRINT_UART_4
-#ifndef PRINT_UART_5
-volatile uint8_t PRINT_ENB=0;
-#endif
-#endif
-#ifndef PRINT_UART_4
 #ifdef PRINT_UART_5
 volatile uint8_t PRINT_ENB=0;
-#endif
 #endif
 
 /**
@@ -119,7 +102,7 @@ volatile uint8_t BOOTLOADER =0;
  */
 #ifndef GSOBC_USB_EN
 #ifdef COREBOARD
-#error    "################### GS via Ethernet was enabled, so PS based validaiton cannot be performed #####################"
+//#error    "################### GS via Ethernet was enabled, so PS based validaiton cannot be performed #####################"
 #endif
 volatile uint8_t GS_OBC_VIA_USB_DISABLE=1;
 #else
@@ -139,36 +122,13 @@ volatile uint8_t PS_OBC_VIA_ETH_DISABLE =0;
 #endif
 
 /**
- * @brief Configure the coreboard communication.
- */
-#ifndef S_BAND_SIM_CB
-volatile uint8_t CORE_BRD_S_BAND_SIM_DISABLE =1;
-#else
-#ifdef COREBOARD
-#error  "################### S_BAND Simulator was enabled #####################"
-#endif
-volatile uint8_t CORE_BRD_S_BAND_SIM_DISABLE =0;
-#endif
-
-/**
- * @brief Configure the socket interface.
- */
-#ifndef CAN_BYPASS
-volatile uint8_t CAN_BYPASS_SOCK_DISABLE =1;
-#else
-#ifdef COREBOARD
-#error  "################### CAN Bypass mode enabled #####################"
-#endif
-#endif
-
-/**
  * @brief Configure EPS default state.
  */
 #ifdef EPS_HRM_ON_DFLT
 volatile uint8_t EPS_HRM_ON_DEFLT =1;
 #else
 #ifdef COREBOARD
-#error  "################### HRM ON was disabled  #####################"
+//#error  "################### HRM ON was disabled  #####################"
 #endif
 volatile uint8_t EPS_HRM_ON_DEFLT =0;
 #endif
@@ -199,9 +159,9 @@ extern ioal_rtc_hdle ioal_hrtc;
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
-    .name = "defaultTask",
-    .stack_size = 128 * 4,
-    .priority = (osPriority_t)P_DEFAULT_PRIO,
+        .name = "defaultTask",
+        .stack_size = 128 * 4,
+        .priority = (osPriority_t)P_DEFAULT_PRIO,
 };
 
 /**
@@ -257,7 +217,6 @@ int main(void)
     if(0 == flight_mode)
     {
         disable_wdt = 1;
-        CAN_BYPASS_SOCK_DISABLE = 0;
         EPS_HRM_ON_DEFLT = 0;
         EPS_PS_ON_DEFLT_DISABLE = 0;
     }
@@ -265,10 +224,11 @@ int main(void)
     HAL_Init();
     SystemClock_Config();
     start_time = HAL_GetTick();
-    hal_init();
     MX_GPIO_Init();
     __enable_irq();
     MX_DMA_Init();
+    hal_init();
+    bsp_init();
 #if defined(COREBOARD) || defined(STM32F769xx)
     HAL_NOR_MspDeInit(&hnor1);
     MX_FMC_Init();
@@ -281,6 +241,10 @@ int main(void)
 #endif
     os_memcpy_fw_init(&hnor1,&hqspi);
     build_macro_print();
+    MX_LWIP_Init();
+    MX_USB_DEVICE_Init();
+    CSP_Setup();
+    comms_uhf_csw_init();
     defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
     /* Start scheduler */
     kernel_init_done = 1;
@@ -304,9 +268,7 @@ void build_macro_print(void)
     printf("BOARD==%d\n",BOARD);
     printf("EPS_PS_ON_DEFLT_DISABLE==%d\n",EPS_PS_ON_DEFLT_DISABLE);
     printf("EPS_HRM_ON_DEFLT==%d\n",EPS_HRM_ON_DEFLT);
-    printf("CAN_BYPASS_SOCK_DISABLE==%d\n",CAN_BYPASS_SOCK_DISABLE);
     printf("GS_OBC_VIA_USB_DISABLE==%d\n",GS_OBC_VIA_USB_DISABLE);
-    printf("CORE_BRD_S_BAND_SIM_DISABLE==%d\n",CORE_BRD_S_BAND_SIM_DISABLE);
     printf("PRINT_ENB==%d\n",PRINT_ENB);
     printf("BOOTLOADER==%d\n",BOOTLOADER);
     printf("PS_OBC_VIA_ETH_DISABLE==%d\n",PS_OBC_VIA_ETH_DISABLE);
@@ -339,7 +301,7 @@ void StartDefaultTask(void *argument)
 #endif
         osDelay(1000);
         ahw_al_temp_sensor_gettemperature(&ahw_ts_obc,&temperature_value);
-        printf("OBC Temperature sensor value = %d \n",(int)temperature_value);
+        // printf("OBC Temperature sensor value = %d \n",(int)temperature_value);
     }
 }
 /**
@@ -361,7 +323,7 @@ void SystemClock_Config(void)
     RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
     /** Configure the main internal regulator output voltage
-    */
+     */
     __HAL_RCC_PWR_CLK_ENABLE();
     __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
@@ -384,16 +346,16 @@ void SystemClock_Config(void)
     }
 
     /** Activate the Over-Drive mode
-    */
+     */
     if (HAL_PWREx_EnableOverDrive() != HAL_OK)
     {
         Error_Handler();
     }
 
     /** Initializes the CPU, AHB and APB buses clocks
-    */
+     */
     RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-        |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+            |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
     RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
     RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
     RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
@@ -753,10 +715,10 @@ static void BSP_SDRAM_Initialization_Sequence(SDRAM_HandleTypeDef *hsdram1, FMC_
 
     /* Step 7: Program the external memory mode register */
     tmpmrd = (uint32_t)SDRAM_MODEREG_BURST_LENGTH_1          |
-        SDRAM_MODEREG_BURST_TYPE_SEQUENTIAL   |
-        SDRAM_MODEREG_CAS_LATENCY_2           |
-        SDRAM_MODEREG_OPERATING_MODE_STANDARD |
-        SDRAM_MODEREG_WRITEBURST_MODE_SINGLE;
+            SDRAM_MODEREG_BURST_TYPE_SEQUENTIAL   |
+            SDRAM_MODEREG_CAS_LATENCY_2           |
+            SDRAM_MODEREG_OPERATING_MODE_STANDARD |
+            SDRAM_MODEREG_WRITEBURST_MODE_SINGLE;
 
     Command->CommandMode = FMC_SDRAM_CMD_LOAD_MODE;
     Command->CommandTarget = FMC_SDRAM_CMD_TARGET_BANK1;

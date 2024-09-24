@@ -1,9 +1,9 @@
 /**
- * @file mcp9843.h
+ * @file mcp9843.c
  *
  *  @brief This file contains the driver function of temperature sensor MCP9843
  *
- *	@copyright Copyright 2023 Antaris, Inc.
+ *  @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@
  * @return Result of API execution status
  * @retval zero -> Success / -ve value -> Error.
  */
-static  int8_t 	null_ptr_check(mcp9843_dev_ptr_t mcp9843_hdl);
+static  int8_t  null_ptr_check(mcp9843_dev_ptr_t mcp9843_hdl);
 
 /**
  * @brief validate the device structure pointer
@@ -186,7 +186,7 @@ e_temp_sensor_sts mcp9843_deinit(mcp9843_dev_ptr_t mcp9843_hdl)
 /**
  * @brief MCP9843 get event status
  */
-e_temp_sensor_sts 	mcp9843_get_event_sts (mcp9843_dev_ptr_t mcp9843_hdl, uint8_t* evnt_sts)
+e_temp_sensor_sts   mcp9843_get_event_sts (mcp9843_dev_ptr_t mcp9843_hdl, uint8_t* evnt_sts)
 {
     e_temp_sensor_sts sts;
     uint8_t temp_data[2];

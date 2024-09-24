@@ -4,7 +4,7 @@
  * @brief This file contains the macros,structure declaration,enumeration,
  *  function declaration of digital thermostat DS620
  *
- *  @copyright Copyright 2023 Antaris, Inc.
+ *  @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,9 +30,9 @@
 #include <string.h>
 #include <math.h>
 
-#define MAX_COUNT 4
-#define MAX_TEMP_VAL 125
-#define MIN_TEMP_VAL -55
+#define MAX_COUNT 4           ///< Maximum count
+#define MAX_TEMP_VAL 125      ///< Maximum temperature value
+#define MIN_TEMP_VAL -55      ///< Minimum temperature value
 
 #define TEMP_TL_LSB_REG   0xA3   ///< Low temperature threshold LSB register Address
 #define TEMP_TL_MSB_REG   0xA2   ///< Low temperature threshold MSB register Address
@@ -43,14 +43,14 @@
 #define CONFIG_MSB_REG    0xAC   ///< configuration MSB register Address
 #define CONFIG_LSB_REG    0xAD   ///< configuration LSB register Address
 
-#define DS620_I2C_ADDR0	  0x90   ///< I2C slave address 0
-#define DS620_I2C_ADDR1	  0x91   ///< I2C slave address 1
-#define DS620_I2C_ADDR2	  0x92   ///< I2C slave address 2
-#define DS620_I2C_ADDR3	  0x93   ///< I2C slave address 3
-#define DS620_I2C_ADDR4	  0x94   ///< I2C slave address 4
-#define DS620_I2C_ADDR5	  0x95   ///< I2C slave address 5
-#define DS620_I2C_ADDR6	  0x96   ///< I2C slave address 6
-#define DS620_I2C_ADDR7	  0x97   ///< I2C slave address 7
+#define DS620_I2C_ADDR0   0x90   ///< I2C slave address 0
+#define DS620_I2C_ADDR1   0x91   ///< I2C slave address 1
+#define DS620_I2C_ADDR2   0x92   ///< I2C slave address 2
+#define DS620_I2C_ADDR3   0x93   ///< I2C slave address 3
+#define DS620_I2C_ADDR4   0x94   ///< I2C slave address 4
+#define DS620_I2C_ADDR5   0x95   ///< I2C slave address 5
+#define DS620_I2C_ADDR6   0x96   ///< I2C slave address 6
+#define DS620_I2C_ADDR7   0x97   ///< I2C slave address 7
 
 #define START_CMD         0x51   ///< Start temperature conversion command
 #define STOP_CMD          0x22   ///< Stop temperature conversion command
@@ -60,7 +60,7 @@
 
 #define MAX_NUM_DEV_SUPPORT  8   ///< Maximum number of device supported
 
-#define DS620_DELAY 100			 ///< Delay of 100
+#define DS620_DELAY 100          ///< Delay of 100
 
 #define TIMEOUT 1000             ///< Timeout for IO interface read/write API
 
@@ -306,4 +306,4 @@ e_ds620_err ds620_reset_alert_flag(s_ds620_drv_cb_ptr ds620_hdl);
  */
 e_ds620_err ds620_get_po_lvl_alert_sts (s_ds620_drv_cb_ptr ds620_hdl, e_ds620_po_lvl* alert_sts);
 
-#endif
+#endif /* DS620_H */

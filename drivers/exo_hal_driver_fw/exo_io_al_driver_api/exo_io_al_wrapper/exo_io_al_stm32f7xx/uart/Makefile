@@ -1,5 +1,5 @@
 #
-#   @copyright Copyright 2022 Antaris, Inc.
+#   @copyright Copyright 2024 Antaris, Inc.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -34,11 +34,48 @@ INCLUDES = -Iinc \
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_wrapper/exo_io_al_stm32f7xx/uart/inc/\
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_io_al_driver_api/exo_io_al_wrapper/inc/\
 	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_hal_fw_common/common/inc/\
+	   -I$(TOP_DIR)drivers/exo_hal_driver_fw/exo_ahw_al_driver_api/exo_ahw_al_common/common/inc/\
 	   -I$(TOP_DIR)drivers/ut/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/spi/inc/\
+	   -I$(TOP_DIR)exo_os/exo_osal/memory_management/inc/\
+       -I$(TOP_DIR)/exo_os/exo_osal/task_management/inc/\
+       -I$(TOP_DIR)/exo_os/exo_osal/ipc_mbmr/inc/\
+       -I$(TOP_DIR)exo_os/exo_osal/exo_osal_common/inc/\
+       -I$(TOP_DIR)exo_os/exo_ral/exo_ral_common/inc/\
 	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/common/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/exti/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/rtc/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/gpio/inc/\
 	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/dma/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/cortex/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/can/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/rcc/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/adc/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/flash/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/wdg/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/i2c/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/crc/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/pwr/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/spi/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/qspi/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/tmr/inc/\
 	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/uart/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/usb/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/ethernet/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/fmc/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/nor_flash/inc/\
+	   -I$(TOP_DIR)drivers/io_drivers/io_drivers_stm32f7xx/sdram/inc/\
 	   -I$(TOP_DIR)exo_os/exo_ral/cpu_arch/stm32f7xx/inc/\
+	   
+ifneq ($(BOARD),)
+    ifeq ($(BOARD),GEN1)
+        INCLUDES += \
+            -I$(TOP_DIR)drivers/bsp/gen1/inc/
+    else ifeq ($(BOARD),STM32_DISCO_F769NI)
+        INCLUDES += \
+            -I$(TOP_DIR)drivers/bsp/stm32_disco_f769ni/inc/
+    endif
+endif	   
 
 ##############################################################################
 #Current Folder target name, usually current folder name

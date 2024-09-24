@@ -4,7 +4,7 @@
  * @brief This file contains structures,enumerations
  * and function declaration for RTC interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ typedef enum
 
 /**
  * @brief This function initializes the control block memory and do the basic
- *   		configurations RTC
+ *          configurations RTC
  * @param[in] ioal_hrtc - ioal_hrtc pointer to a ioal_rtc_hdle structure that contains
  * @retval HAL status.
  */
@@ -157,20 +157,21 @@ hal_ret_sts io_hal_stm32f7xx_rtc_get_state(ioal_rtc_hdle *ioal_hrtc);
  */
 hal_ret_sts io_hal_stm32f7xx_rtc_init_mode(ioal_rtc_hdle *ioal_hrtc);
 
+/** IO HAL common RTC function mapping **/
 #define io_hal_common_rtc_init                  io_hal_stm32f7xx_rtc_init
-#define io_hal_common_rtc_unregcallback			io_hal_stm32f7xx_rtc_unregcallback
-#define io_hal_common_rtc_set_time				io_hal_stm32f7xx_rtc_set_time
-#define io_hal_common_rtc_get_time				io_hal_stm32f7xx_rtc_get_time
-#define io_hal_common_rtc_set_date 				io_hal_stm32f7xx_rtc_set_date
-#define io_hal_common_rtc_get_date				io_hal_stm32f7xx_rtc_get_date
-#define io_hal_common_rtc_set_alarm				io_hal_stm32f7xx_rtc_set_alarm
-#define io_hal_common_rtc_set_alarmit			io_hal_stm32f7xx_rtc_set_alarmit
-#define io_hal_common_rtc_deactivate_alarm		io_hal_stm32f7xx_rtc_deactivate_alarm
-#define io_hal_common_rtc_get_alarm				io_hal_stm32f7xx_rtc_get_alarm
-#define io_hal_common_rtc_poll_alarmevent		io_hal_stm32f7xx_rtc_poll_alarmevent
-#define io_hal_common_rtc_wait_synchro			io_hal_stm32f7xx_rtc_wait_synchro
-#define io_hal_common_rtc_get_state				io_hal_stm32f7xx_rtc_get_state
-#define io_hal_common_rtc_init_mode				io_hal_stm32f7xx_rtc_init_mode
-#define io_hal_common_rtc_reg_cb			    io_hal_stm32f7xx_rtc_reg_cb
+#define io_hal_common_rtc_unregcallback         io_hal_stm32f7xx_rtc_unregcallback
+#define io_hal_common_rtc_set_time              io_hal_stm32f7xx_rtc_set_time
+#define io_hal_common_rtc_get_time              io_hal_stm32f7xx_rtc_get_time
+#define io_hal_common_rtc_set_date              io_hal_stm32f7xx_rtc_set_date
+#define io_hal_common_rtc_get_date              io_hal_stm32f7xx_rtc_get_date
+#define io_hal_common_rtc_set_alarm             io_hal_stm32f7xx_rtc_set_alarm
+#define io_hal_common_rtc_set_alarmit           io_hal_stm32f7xx_rtc_set_alarmit
+#define io_hal_common_rtc_deactivate_alarm      io_hal_stm32f7xx_rtc_deactivate_alarm
+#define io_hal_common_rtc_get_alarm             io_hal_stm32f7xx_rtc_get_alarm
+#define io_hal_common_rtc_poll_alarmevent       io_hal_stm32f7xx_rtc_poll_alarmevent
+#define io_hal_common_rtc_wait_synchro          io_hal_stm32f7xx_rtc_wait_synchro
+#define io_hal_common_rtc_get_state             io_hal_stm32f7xx_rtc_get_state
+#define io_hal_common_rtc_init_mode             io_hal_stm32f7xx_rtc_init_mode
+#define io_hal_common_rtc_reg_cb                io_hal_stm32f7xx_rtc_reg_cb
 
 #endif /* DRIVERS_EXO_HAL_DRIVER_FW_EXO_IO_AL_DRIVER_API_EXO_IO_AL_WRAPPER_EXO_IO_AL_STM32F7XX_RTC_INC_EXO_IO_AL_STM32F7XX_RTC_H_ */

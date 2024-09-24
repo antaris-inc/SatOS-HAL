@@ -4,7 +4,7 @@
  * @brief This file has mapping functions which resolves the
  * instance Id and invokes the vendor driver API for power sense monitor based on the partnumber
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,8 +32,8 @@ hal_ret_sts	ahw_al_psm_common_init(ahw_al_psm_hdle *hpsm,ahw_al_psm_tc_config_t 
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC :
+        case PSM_INA230_PS:
+        case PSM_INA230_OBC :
             sts = ahw_vdp_psm_ina230_init(hpsm,hpsm_tc_cfg);
             break;
         default:
@@ -51,8 +51,8 @@ hal_ret_sts  ahw_al_psm_common_deinit(ahw_al_psm_hdle *hpsm)
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_deinit(hpsm);
             break;
         default:
@@ -71,8 +71,8 @@ hal_ret_sts	 ahw_al_psm_common_read_id(ahw_al_psm_hdle *hpsm)
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_read_id(hpsm);
             break;
         default:
@@ -90,8 +90,8 @@ hal_ret_sts ahw_al_psm_common_reset(ahw_al_psm_hdle *hpsm)
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_reset(hpsm);
             break;
         default:
@@ -109,8 +109,8 @@ hal_ret_sts ahw_al_psm_common_set_calibration(ahw_al_psm_hdle *hpsm, uint16_t ca
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_set_calibration(hpsm,calibration);
             break;
         default:
@@ -128,8 +128,8 @@ uint16_t ahw_al_psm_common_get_calibration(ahw_al_psm_hdle *hpsm)
     uint16_t sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts =  ahw_vdp_psm_ina230_get_calibration(hpsm);
             break;
         default:
@@ -147,8 +147,8 @@ hal_ret_sts ahw_al_psm_common_alert_pinconfig(ahw_al_psm_hdle *hpsm,ahw_al_psm_a
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_alert_pinconfig(hpsm,alert_pin_cfg);
             break;
         default:
@@ -166,8 +166,8 @@ hal_ret_sts ahw_al_psm_common_set_alertfunction(ahw_al_psm_hdle *hpsm,psm_alert_
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_set_alertfunction(hpsm,alert_function);
             break;
         default:
@@ -185,8 +185,8 @@ hal_ret_sts ahw_al_psm_common_get_alertfunction(ahw_al_psm_hdle *hpsm,psm_alert_
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_get_alertfunction(hpsm,alert_function);
             break;
         default:
@@ -204,8 +204,8 @@ hal_ret_sts ahw_al_psm_common_setvbusthreshold(ahw_al_psm_hdle *hpsm, float vbus
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_setvbusthreshold(hpsm,vbusthreshold);
             break;
         default:
@@ -223,8 +223,8 @@ hal_ret_sts ahw_al_psm_common_getvbusthreshold(ahw_al_psm_hdle *hpsm)
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_getvbusthreshold(hpsm);
             break;
         default:
@@ -242,8 +242,8 @@ hal_ret_sts ahw_al_psm_common_setvshuntthreshold(ahw_al_psm_hdle *hpsm, float vs
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_setvshuntthreshold(hpsm,vshuntthreshold);
             break;
         default:
@@ -261,8 +261,8 @@ hal_ret_sts	ahw_al_psm_common_getshuntthreshold(ahw_al_psm_hdle *hpsm)
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_getshuntthreshold(hpsm);
             break;
         default:
@@ -280,8 +280,8 @@ hal_ret_sts ahw_al_psm_common_set_current_threshold(ahw_al_psm_hdle *hpsm, float
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts =ahw_vdp_psm_ina230_get_current_threshold(hpsm,current_threshold);
             break;
         default:
@@ -299,8 +299,8 @@ hal_ret_sts ahw_al_psm_common_setpowerthreshold(ahw_al_psm_hdle *hpsm, uint32_t 
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts =ahw_vdp_psm_ina230_setpowerthreshold(hpsm,powerthreshold);
             break;
         default:
@@ -318,8 +318,8 @@ hal_ret_sts ahw_al_psm_common_getpowerthreshold(ahw_al_psm_hdle *hpsm)
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_getpowerthreshold(hpsm);
             break;
         default:
@@ -337,8 +337,8 @@ hal_ret_sts ahw_al_psm_common_alert_threshold_enable_it(ahw_al_psm_hdle *hpsm)
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_alert_threshold_enable_it(hpsm);
             break;
         default:
@@ -356,8 +356,8 @@ hal_ret_sts ahw_al_psm_common_alert_threshold_disable_it(ahw_al_psm_hdle *hpsm)
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts =  ahw_vdp_psm_ina230_alert_threshold_disable_it(hpsm);
             break;
         default:
@@ -375,8 +375,8 @@ hal_ret_sts ahw_al_psm_common_conversion_ready_enable_it(ahw_al_psm_hdle *hpsm)
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_conversion_ready_enable_it(hpsm);
             break;
         default:
@@ -395,8 +395,8 @@ hal_ret_sts ahw_al_psm_common_conversion_ready_disable_it(ahw_al_psm_hdle *hpsm)
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts =ahw_vdp_psm_ina230_conversion_ready_disable_it(hpsm);
             break;
         default:
@@ -414,8 +414,8 @@ hal_ret_sts ahw_al_psm_common_startconversion(ahw_al_psm_hdle *hpsm, psm_input_s
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts =  ahw_vdp_psm_ina230_startconversion(hpsm,inputsignal,mode);
             break;
         default:
@@ -433,8 +433,8 @@ hal_ret_sts ahw_al_psm_common_stopconversion(ahw_al_psm_hdle *hpsm)
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_stopconversion(hpsm);
             break;
         default:
@@ -453,8 +453,8 @@ float ahw_al_psm_common_get_vbus(ahw_al_psm_hdle *hpsm)
     float ret=0;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             ret = ahw_vdp_psm_ina230_get_vbus(hpsm);
             break;
         default:
@@ -472,8 +472,8 @@ float  ahw_al_psm_common_get_vshunt(ahw_al_psm_hdle *hpsm)
     float sts=0;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_get_vshunt(hpsm);
             break;
         default:
@@ -491,8 +491,8 @@ uint32_t ahw_al_psm_common_get_power(ahw_al_psm_hdle *hpsm)
     uint32_t sts=0;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts =ahw_vdp_psm_ina230_get_power(hpsm);
             break;
         default:
@@ -510,8 +510,8 @@ float ahw_al_psm_common_get_current(ahw_al_psm_hdle *hpsm)
     float sts=0;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts = ahw_vdp_psm_ina230_get_current(hpsm);
             break;
         default:
@@ -529,8 +529,8 @@ hal_ret_sts ahw_al_psm_common_get_flag(ahw_al_psm_hdle *hpsm, psm_flag_t flag)
     hal_ret_sts sts;
     switch(hpsm->ahw_gen_info.ahw_inst_id)
     {
-        case  POWER_SENSE_MONITOR_PS:
-        case POWER_SENSE_MONITOR_OBC:
+        case  PSM_INA230_PS:
+        case PSM_INA230_OBC:
             sts =ahw_vdp_psm_ina230_get_flag(hpsm,flag);
             break;
         default:

@@ -4,7 +4,7 @@
  * @brief This file contains structures,enumerations
  * and function declaration for FMC-NOR-FLASH interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@
 #endif
 
 
-#define FMC_NOR_PAGE_SIZE 512
+#define FMC_NOR_PAGE_SIZE 512 ///< FMC NOR page size
 
 /**
  * @brief  This function initializes the control block memory and do the basic

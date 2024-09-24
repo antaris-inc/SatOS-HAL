@@ -3,7 +3,7 @@
  *
  * @brief This file has vendor driver porting function declaration of GPIO expander
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,6 +52,14 @@ hal_ret_sts ahw_vdp_mcp23008_set_direction(ahw_al_gpio_exp_hdle* hgpio_exp, gpio
 hal_ret_sts ahw_vdp_mcp23008_read_pin(ahw_al_gpio_exp_hdle* hgpio_exp, gpio_exp_gpio_pin gpio_pin, gpio_exp_gpio_pinstate* pin_ste);
 
 /**
+ * @brief API to read and write data from register
+ * @param[in]  hgpio_exp - AHAL instance pointer of gpio expander
+ * @param[in]  gpio_pin - gpio pin num
+ * @param[out]  pin_ste - state of the pin
+ * @retval hal_ret_sts - returns the success or error code
+ */
+hal_ret_sts ahw_vdp_mcp23008_self_test(ahw_al_gpio_exp_hdle* hgpio_exp);
+/**
  * @brief API to write the state of the gpio pin
  * @param[in]  hgpio_exp - AHAL instance pointer of gpio expander
  * @param[in]  gpio_pin - gpio pin num
@@ -74,7 +82,7 @@ hal_ret_sts ahw_vdp_mcp23008_toggle_pin(ahw_al_gpio_exp_hdle* hgpio_exp, gpio_ex
  * @param[in]  gpio_pin - gpio pin configuration
  * @retval hal_ret_sts - returns the success or error code
  */
-hal_ret_sts ahw_vdp_mcp23008_config_pin(ahw_al_gpio_exp_hdle* hgpio_exp, gpio_exp_gpio_cfg* gpio_pin);
+hal_ret_sts ahw_vdp_mcp23008_config_pin(ahw_al_gpio_exp_hdle* hgpio_exp, ahw_al_gpio_exp_gpio_cfg* gpio_pin);
 
 /**
  * @brief  API to to enable the pin to pullup mode
@@ -123,5 +131,12 @@ hal_ret_sts ahw_vdp_mcp23008_clear_interrupt(ahw_al_gpio_exp_hdle* hgpio_exp);
  * @retval hal_ret_sts - returns the success or error code
  */
 hal_ret_sts ahw_vdp_mcp23008_int_pin_polarity_cfg(ahw_al_gpio_exp_hdle* hgpio_exp,gpio_exp_pin_pol polarity);
+
+/**
+ * @brief  This API executes the interrupt callback function
+ * @param[in]  hgpio_exp - AHAL instance pointer of gpio expander
+ * @retval hal_ret_sts - returns the success or error code
+ */
+hal_ret_sts ahw_vdp_mcp23008_interrupt_cb(ahw_al_gpio_exp_hdle* hgpio_exp);
 
 #endif /* DRIVERS_EXO_HAL_DRIVER_FW_EXO_AHW_AL_DRIVER_API_EXO_AHW_AL_WRAPPER_GPIO_MCP23008_INC_EXO_AHW_VDP_GPIO_EXP_MCP23008_H_ */

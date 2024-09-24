@@ -4,7 +4,7 @@
  * @brief This file contains structures,enumerations
  * and function declaration for SPI interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,8 @@
 
 #include "exo_io_al_common.h"
 #include "exo_hal_common.h"
+#include "exo_hal_io_al_intr.h"
+#include "exo_ahw_al_common.h"
 
 #define SPI_INTF_ENB
 
@@ -32,17 +34,19 @@
  */
 typedef struct _ioal_spi_hdle
 {
-    ioal_intf_gen_info intf_gen_info;						/*!< Hold general information of interface  						*/
-    void (*spi_tx_cplt_cb)(struct _ioal_spi_hdle *hspi);    /*!< Hold Fn address for Transmit complete event					*/
-    void (*spi_rx_cplt_cb)(struct _ioal_spi_hdle *hspi);    /*!< Hold Fn address for Receive complete event						*/
-    void (*spi_tx_rx_cplt_cb)(struct _ioal_spi_hdle *hspi); /*!< Hold Fn address for Transmit and Receive complete event		*/
-    void (*spi_abort_cplt_cb)(struct _ioal_spi_hdle *hspi); /*!< Hold Fn address for Abort complete event						*/
-    void (*spi_error_cb)(struct _ioal_spi_hdle *hspi);      /*!< Hold Fn address for error event								*/
+    ioal_intf_gen_info intf_gen_info;                       /*!< Hold general information of interface                          */
+    void (*spi_tx_cplt_cb)(struct _ioal_spi_hdle *hspi);    /*!< Hold Fn address for Transmit complete event                    */
+    void (*spi_rx_cplt_cb)(struct _ioal_spi_hdle *hspi);    /*!< Hold Fn address for Receive complete event                     */
+    void (*spi_tx_rx_cplt_cb)(struct _ioal_spi_hdle *hspi); /*!< Hold Fn address for Transmit and Receive complete event        */
+    void (*spi_abort_cplt_cb)(struct _ioal_spi_hdle *hspi); /*!< Hold Fn address for Abort complete event                       */
+    void (*spi_error_cb)(struct _ioal_spi_hdle *hspi);      /*!< Hold Fn address for error event                                */
+    uint16 cb_context;                                      /*!< SPI App callbacks execution context                            */
+    spi_cb_lst app_callbacks;                               /*!< SPI App callbacks list                                         */
 }ioal_spi_hdle;
 
 /**
  * @brief This function initialize the SPI control block memory structure and
- * 			do basic configurations of SPI
+ *          do basic configurations of SPI
  * @retval HAL status
  */
 hal_ret_sts io_hal_spi_init(void);
@@ -170,10 +174,12 @@ hal_ret_sts io_hal_spi_dma_resume(ioal_spi_hdle *hspi);
 hal_ret_sts io_hal_spi_dma_stop(ioal_spi_hdle *hspi);
 
 
-
-
 #ifndef LINUX_TEMP_PORT
-
+/**
+ * @brief This is SPI interface dummy function for linux
+ *
+ * @param[in] hspi : pointer to SPI handler
+ */
 void check_spi1_dummy(ioal_spi_hdle *hspi);
 #else
 /**

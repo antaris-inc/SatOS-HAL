@@ -3,7 +3,7 @@
  *
  * @brief This file contains abstracted function definition for SPI interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,17 +30,17 @@
 #endif
 
 #ifndef LINUX_TEMP_PORT
-#define SPI1_TX_CPLT_CB			check_spi1_dummy					///< SPI1 TX complete callback event
-#define SPI1_RX_CPLT_CB			check_spi1_dummy					///< SPI1 RX complete callback event
-#define SPI1_TX_RX_CPLT_CB		check_spi1_dummy					///< SPI1 TX RX complete callback event
-#define SPI1_ABORT_CPLT_CB		check_spi1_dummy					///< SPI1 Abort complete callback event
-#define SPI1_ERROR_CB			check_spi1_dummy					///< SPI1 error callback event
+#define SPI1_TX_CPLT_CB         check_spi1_dummy                    ///< SPI1 TX complete callback event
+#define SPI1_RX_CPLT_CB         check_spi1_dummy                    ///< SPI1 RX complete callback event
+#define SPI1_TX_RX_CPLT_CB      check_spi1_dummy                    ///< SPI1 TX RX complete callback event
+#define SPI1_ABORT_CPLT_CB      check_spi1_dummy                    ///< SPI1 Abort complete callback event
+#define SPI1_ERROR_CB           check_spi1_dummy                    ///< SPI1 error callback event
 #else
-#define SPI1_TX_CPLT_CB			linux_spi_dummy_fn							///< SPI1 TX complete callback event
-#define SPI1_RX_CPLT_CB			linux_spi_dummy_fn							///< SPI1 RX complete callback event
-#define SPI1_TX_RX_CPLT_CB		linux_spi_dummy_fn							///< SPI1 TX RX complete callback event
-#define SPI1_ABORT_CPLT_CB		linux_spi_dummy_fn							///< SPI1 Abort complete callback event
-#define SPI1_ERROR_CB			linux_spi_dummy_fn							///< SPI1 error callback event
+#define SPI1_TX_CPLT_CB         linux_spi_dummy_fn                          ///< SPI1 TX complete callback event
+#define SPI1_RX_CPLT_CB         linux_spi_dummy_fn                          ///< SPI1 RX complete callback event
+#define SPI1_TX_RX_CPLT_CB      linux_spi_dummy_fn                          ///< SPI1 TX RX complete callback event
+#define SPI1_ABORT_CPLT_CB      linux_spi_dummy_fn                          ///< SPI1 Abort complete callback event
+#define SPI1_ERROR_CB           linux_spi_dummy_fn                          ///< SPI1 error callback event
 #endif
 
 extern void *intf_inst_hdle_ptr[MAX_IO_INST_ID];
@@ -60,11 +60,9 @@ hal_ret_sts io_hal_spi_init(void)
     {
         intf_inst_hdle_ptr[IOAL_INST_SPI1] = &ioal_hspi1;
         io_hal_spi1_cb_init(&ioal_hspi1);
-
     }
     else
     {
-
         sts = HAL_IO_INIT_ERR;
     }
 #ifdef LINUX_TEMP_PORT
@@ -83,14 +81,6 @@ void io_hal_spi1_cb_init(ioal_spi_hdle *hspi1)
     hspi1->spi_tx_rx_cplt_cb = SPI1_TX_RX_CPLT_CB;
     hspi1->spi_abort_cplt_cb = SPI1_ABORT_CPLT_CB;
     hspi1->spi_error_cb = SPI1_ERROR_CB;
-
-#ifndef LINUX_TEMP_PORT
-    io_hal_common_spi_reg_cb(hspi1, IOHAL_STM32_SPI_TX_CPLT_CB_ID);
-    io_hal_common_spi_reg_cb(hspi1, IOHAL_STM32_SPI_RX_CPLT_CB_ID);
-    io_hal_common_spi_reg_cb(hspi1, IOHAL_STM32_SPI_TX_RX_CPLT_CB_ID);
-    io_hal_common_spi_reg_cb(hspi1, IOHAL_STM32_SPI_ABORT_CPLT_CB_ID);
-    io_hal_common_spi_reg_cb(hspi1, IOHAL_STM32_SPI_ERROR_CB_ID);
-#endif
 }
 
 /*
@@ -345,6 +335,9 @@ hal_ret_sts io_hal_spi_dma_stop(ioal_spi_hdle *hspi)
 
 #ifndef LINUX_TEMP_PORT
 
+/**
+ * @brief This is SPI interface dummy function for linux
+ */
 void check_spi1_dummy(ioal_spi_hdle *hspi)
 {
     return;

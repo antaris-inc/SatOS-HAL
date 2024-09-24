@@ -1,9 +1,9 @@
-/*
+/**
  * @file exo_io_al_linux_i2c.h
  *
  * @brief This file contains linux wrapper functions declarations for IO interface
  *
- * @copyright Copyright 2023 Antaris, Inc.
+ * @copyright Copyright 2024 Antaris, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,8 +75,7 @@ hal_ret_sts io_hal_linux_i2c_transmit(ioal_i2c_hdle *ioal_hi2c, uint16 addr, uin
  */
 hal_ret_sts io_hal_linux_i2c_receive(ioal_i2c_hdle *ioal_hi2c, uint16 addr, uint8 *pdata, uint16 size, uint32 timeout);
 
-
-
+/** IO HAL common I2C fucntion mapping **/
 #define io_hal_common_i2c1_init 			io_hal_linux_i2c1_init
 #define io_hal_common_i2c2_init 			io_hal_linux_i2c2_init
 #define io_hal_common_i2c3_init 			io_hal_linux_i2c3_init

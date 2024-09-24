@@ -6,18 +6,31 @@
 ENVIRONMENT=1
 
 #############################################################
-# 65Z - refers to STM32F765ZI development board
-# 69N - refers to STM32F769NI discovery development board
-# 65N  - refers to Target hardware STM32F765NIH6 (Core Board)
+# STM32_DISCO_F769NI - refers to STM32F769NI discovery development board
+# GEN1  - refers to Target hardware STM32F765NIH6 (Core Board)
 
-BOARD=65N
+BOARD=GEN1
 
 #############################################################
-# 4  - print from UART 4 in Coreboard
-# 5  - print from UART 5 in Coreboard
+# 0 - Disable GS Backdoor sock
+# 1 - Enable GS Backdoor sock
+
+ENABLE_BACKDOOR_SOCKET =1
+
+##############################################################
+#0 - Which enables USB/Ethernet via UDP with LibCSP
+#1 - Which enables USB/Ethernet via TCP with LibCSP
+
+# This is used to select UDP/TCP protocol to be used between GS and OBC while connected with
+# Ethernet or USB. This should be UDP while connected to S-Band module.
+
+GS_OBC_TCP=1
+
+#############################################################
+# 1  - print from UART 5 in Coreboard
 # 0 -  Disable print in Coreboard
 
-PRINT_ENB=4
+PRINT_ENB=0
 
 #############################################################
 # 0 - Watchdog timer disable
@@ -38,35 +51,7 @@ BOOTLOADER=0
 # When CAN_BYPASS_SOCK_ENB=0,This will not impact any common functionality 
 # When CAN_BYPASS_SOCK_ENB= , this decides which IP (USB/Ethernet) to be listern
 # Default to all USB, as we must need to support via USB for PS TC TM Interface
-GS_OBC_VIA_USB=1
-##############################################################
-#0 - Which enables PS via USB
-#1 - Which enables PS via Ethernet
-
-# This is not a common use case, only need if PS sim is running via ethernet
-PS_OBC_VIA_ETH=0
-##############################################################
-# Core board acts as sim mode address to connect with disco brd simulator when enabled, disabled needs real s_band module setup
-CORE_BRD_S_BAND_SIM_SETUP=0
-
-# Enabled only for disco board and it will act like ethernet to can convertor only. so OBC func may not work when enabled.
-DISCO_BRD_ETH_CAN_SIM_SETUP=0
-
-# Enabled only for bypassing CAN interface and seng data through socket(ETH) interface from core board or EVB board 
-CAN_BYPASS_SOCK_ENB=0
-
-#############################################################
-
-# 1 - Turn on HRM by default during power on
-# 0 - HRM is not truned on by default during power on
-
-EPS_HRM_ON_DFLT=1
-#############################################################
-
-# 1 - Turn on Payload server and GPS by default during power on
-# 0 - Payload server and GPS is not truned on by default during power on
-
-EPS_PS_ON_DFLT=0
+GS_OBC_VIA_USB=0
 #############################################################
 
 # 1 - Heat sink will not be turned on
@@ -83,6 +68,16 @@ SCANF_ENB =1
 # 1 - Disbales O2 optimzation
 
 IGNORE_OPT =0
+#############################################################
+# 1 - Enable UHF Bypass
+# 0 - Enable UHF hardware in linux via UART
+
+UHF_HW_BYPASS =0
+#############################################################
+# 0 - Disable ethernet speed to 10MHz
+# 1 - Enable ethernet speed to 10MHz
+
+ETH_10MHZ_EN=0
 #############################################################
 
 # Clear All previous CFLAGS settings
@@ -107,7 +102,7 @@ OPT = -O2
 endif
 
 PROJ_NAME = antaris_exo_core
-TARGET = antaris_exo_core
+TARGET = bin/antaris_exo_core
 
 MKDIR = mkdir -p
 RM    = rm -rf
@@ -144,14 +139,6 @@ ifeq ($(WDT_ENB),1)
     CFLAGS += -DWDT_ENABLE
 endif
 
-ifeq ($(EPS_HRM_ON_DFLT),1)
-	CFLAGS += -DEPS_HRM_ON_DFLT
-endif
-
-ifeq ($(EPS_PS_ON_DFLT),1)
-	CFLAGS += -DEPS_PS_ON_DFLT 
-endif
-
 ifeq ($(HEAT_SINK_DISABLE),1)
 	CFLAGS += -DHEAT_SINK_DISABLE 
 endif
@@ -160,18 +147,16 @@ ifeq ($(BOOTLOADER),1)
     CFLAGS += -DBTLR_ON
 endif
 
-ifeq ($(CAN_BYPASS_SOCK_ENB),1)
-    CFLAGS += -DCAN_BYPASS
-endif
-
 ifeq ($(GS_OBC_VIA_USB),1)
 	CFLAGS += -DGSOBC_USB_EN
 endif
 
-ifeq ($(PS_OBC_VIA_ETH),1)
-	CFLAGS += -DPSOBC_ETH_EN
+ifeq ($(BOARD),STM32_DISCO_F769NI)
+	CFLAGS += -DCOMMS_UART6_ENB
 endif
-
+ifeq ($(ETH_10MHZ_EN),1)
+    CFLAGS += -DETH_10MHZ_EN 
+endif
 
 ifeq ($(ENVIRONMENT),1)
 	CFLAGS += -DUSB_IP_ADDR0=190
@@ -184,41 +169,37 @@ ifeq ($(ENVIRONMENT),1)
 	CFLAGS += -DETH_IP_ADDR2=1
 	CFLAGS += -DETH_IP_ADDR3=111
 
-	CFLAGS += -DPS_SRVR_PORT=6565
+	CFLAGS += -DETH_MAC_ADDR0=0x00
+	CFLAGS += -DETH_MAC_ADDR1=0x80
+	CFLAGS += -DETH_MAC_ADDR2=0xE1
+	CFLAGS += -DETH_MAC_ADDR3=0x00
+	CFLAGS += -DETH_MAC_ADDR4=0x00
+	CFLAGS += -DETH_MAC_ADDR5=0x00
+	
+	CFLAGS += -DUSB_MAC_ADDR0=0x00U
+	CFLAGS += -DUSB_MAC_ADDR1=0x02U
+	CFLAGS += -DUSB_MAC_ADDR2=0x02U
+	CFLAGS += -DUSB_MAC_ADDR3=0x03U
+	CFLAGS += -DUSB_MAC_ADDR4=0x00U
+	CFLAGS += -DUSB_MAC_ADDR5=0x00U
+
 	CFLAGS += -DGS_SRVR_PORT=6767
 endif
 
 
-ifeq ($(BOARD),65Z)
-    # Additional compilation flags that could be enabled
-    CFLAGS += -g3 $(OPT) -Wall $(MCU) -DDEBUG -DUSE_HAL_DRIVER -DSTM32F765xx \
-             -DCMSIS_RTOS_V2 -DFT_OBC -DFT_SAT -I$(TOP_DIR)/includes -I$(TOP_DIR) -DCSP_FREERTOS=1 \
-            -Wno-implicit-function-declaration
-
-else ifeq ($(BOARD),69N)
+ifeq ($(BOARD),STM32_DISCO_F769NI)
     #Additional compilation flags that could be enabled
     CFLAGS += -g3 $(OPT) -Wall $(MCU) -DDEBUG -DUSE_HAL_DRIVER -DSTM32F769xx \
              -DCMSIS_RTOS_V2 -DFT_OBC -DFT_SAT -I$(TOP_DIR)/includes -I$(TOP_DIR) -DCSP_FREERTOS=1 \
             -Wno-implicit-function-declaration
 
-    ifeq ($(DISCO_BRD_ETH_CAN_SIM_SETUP),1)
-        CFLAGS += -DS_BAND_SIM
-    endif
-
-else ifeq ($(BOARD),65N)
+else ifeq ($(BOARD),GEN1)
 
     CFLAGS += -g3 $(OPT) -Wall $(MCU) -DDEBUG -DUSE_HAL_DRIVER -DSTM32F765xx -DCOREBOARD \
     	 -DCMSIS_RTOS_V2 -DFT_OBC -DFT_SAT -I$(TOP_DIR)/includes -I$(TOP_DIR) -DCSP_FREERTOS=1 \
             -Wno-implicit-function-declaration
 
-    ifeq ($(CORE_BRD_S_BAND_SIM_SETUP),1)
-        CFLAGS += -DS_BAND_SIM_CB
-    endif
-
-
-    ifeq ($(PRINT_ENB),4)
-        CFLAGS += -DPRINT_UART_4
-    else ifeq ($(PRINT_ENB),5)
+    ifeq ($(PRINT_ENB),1)
         CFLAGS += -DPRINT_UART_5
     endif
 endif
@@ -243,6 +224,9 @@ LDFLAGS = $(MCU) -specs=nano.specs -specs=nosys.specs -T$(LDSCRIPT) -Wl,-Map=$(T
 	  -L exo_lib/security/mbedtls/library/obj/\
 
 else
+ifeq ($(UHF_HW_BYPASS),1)
+    CFLAGS += -DUHF_HW_BYPASS
+endif
 
 # Target file name and extension type
 EXT = exe
@@ -256,8 +240,7 @@ SIZE = size
 LD   = ld
 
 # Additional compilation flags that could be enabled
-CFLAGS += -g3 $(OPT) -lpthread -Wall -DDEBUG -DLINUX_TEMP_PORT -DFT_OBC -DFT_SAT -I$(TOP_DIR)/includes -I$(TOP_DIR) -DCSP_POSIX=1 -std=gnu99
-CFLAGS += -DCAN_BYPASS
+CFLAGS += -g3 $(OPT) -lpthread -ljansson -Wall -DDEBUG -DLINUX_TEMP_PORT -DFT_OBC -DFT_SAT -I$(TOP_DIR)/includes -I$(TOP_DIR) -DCSP_POSIX=1 -std=gnu99
 
 ifeq ($(SCANF_ENB),1)
     CFLAGS += -DSCANF_ENB
@@ -269,13 +252,23 @@ LDFLAGS = -L exo_lib/exo_ipcc/\
 	  -L exo_lib/security/hmac/obj/\
 	  -L exo_lib/security/mbedtls/library/obj/
 
-LIBS = -lc -lm
+LIBS = -lc -lm -ljansson
 
 ifneq ($(SINGLE_MAKE),1)
     LIBS += -lipcc_lib -lcrc -lhmac -lmbedcrypto
 endif
 
 endif
+ifeq ($(ENABLE_BACKDOOR_SOCKET),1)
+    CFLAGS += -DBACKDOOR_SOCK_ENB
+endif
+
+ifeq ($(GS_OBC_TCP),1)
+    CFLAGS += -DGSOBC_TCP_EN
+else
+    CFLAGS += -UGSOBC_TCP_EN
+endif
+
 
 MAKE = make -k $(MAKE_FLAGS)
 

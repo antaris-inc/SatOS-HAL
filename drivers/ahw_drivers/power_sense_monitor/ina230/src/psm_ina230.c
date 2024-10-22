@@ -127,8 +127,15 @@ e_ina230_sts ina230_deinit(ina230_dev_ptr_t ina230_hdl)
  */
 uint16_t ina230_read_id(ina230_dev_ptr_t ina230_hdl)
 {
+    e_ina230_sts rslt;
     uint16_t device_id;
-    device_id=ina230_readreg(ina230_hdl, INA230_REG_ID,&device_id);
+
+    rslt = ina230_readreg(ina230_hdl, INA230_REG_ID,&device_id);
+    if (rslt != INA230_OK)
+    {
+        device_id = INA230_E_READ_FAIL;
+    }
+
     return device_id;
 }
 
@@ -147,9 +154,11 @@ static uint8_t ina230_int(ina230_dev_ptr_t ina230_hdl)
     {
         uint16_t apol;
 
-        apol = (ina230_readreg(ina230_hdl,INA230_REG_MASK_ENABLE,&apol) & INA230_REG_MASK_ENABLE_APOL_Msk);
+        rslt = ina230_readreg(ina230_hdl,INA230_REG_MASK_ENABLE,&apol);
         if(rslt==INA230_SCS)
         {
+            apol = (apol & INA230_REG_MASK_ENABLE_APOL_Msk);
+    
             if (apol == INA230_REG_MASK_ENABLE_APOL)
             {
 
@@ -226,6 +235,7 @@ e_ina230_sts ina230_set_calibration(ina230_dev_ptr_t ina230_hdl, uint16_t calibr
  */
 uint16_t ina230_get_calibration(ina230_dev_ptr_t ina230_hdl)
 {
+    e_ina230_sts rslt;
     uint16_t calibration;
 
     calibration = null_ptr_check_ina230(ina230_hdl);
@@ -236,7 +246,11 @@ uint16_t ina230_get_calibration(ina230_dev_ptr_t ina230_hdl)
     else
     {
 
-        ina230_readreg(ina230_hdl, INA230_REG_CALIBRATION,&calibration);
+        rslt = ina230_readreg(ina230_hdl, INA230_REG_CALIBRATION,&calibration);
+        if(rslt != INA230_SCS)
+        {
+            calibration = INA230_E_READ_FAIL;
+        }
     }
     return (calibration);
 }
@@ -257,10 +271,9 @@ e_ina230_sts ina230_alert_pinconfig(ina230_dev_ptr_t ina230_hdl,ina230_alert_pin
     {
         uint16_t mask_en;
 
-        mask_en = ina230_readreg(ina230_hdl, INA230_REG_MASK_ENABLE,&mask_en);
+        rslt = ina230_readreg(ina230_hdl, INA230_REG_MASK_ENABLE,&mask_en);
         if(rslt==INA230_SCS)
         {
-
             mask_en = (mask_en & ((uint16_t)~(INA230_REG_MASK_ENABLE_APOL_Msk))) | (alert_pin_cfg_vd->polarity<< INA230_REG_MASK_ENABLE_APOL_Pos);
             mask_en = (mask_en & ((uint16_t)~(INA230_REG_MASK_ENABLE_LEN_Msk))) | (alert_pin_cfg_vd->latch_enable << INA230_REG_MASK_ENABLE_LEN_Pos);
             rslt = ina230_writereg(ina230_hdl, INA230_REG_MASK_ENABLE, mask_en);
@@ -289,7 +302,7 @@ e_ina230_sts ina230_set_alertfunction(ina230_dev_ptr_t ina230_hdl, ina230_af_t a
     else
     {
 
-        mask_en = ina230_readreg(ina230_hdl, INA230_REG_MASK_ENABLE,&mask_en);
+        rslt = ina230_readreg(ina230_hdl, INA230_REG_MASK_ENABLE,&mask_en);
         if(rslt==INA230_SCS)
         {
 
@@ -342,7 +355,7 @@ e_ina230_sts ina230_get_alertfunction(ina230_dev_ptr_t ina230_hdl,ina230_af_t al
     {
         uint16_t mask_en;
 
-        mask_en = ina230_readreg(ina230_hdl, INA230_REG_MASK_ENABLE,&mask_en);
+        rslt = ina230_readreg(ina230_hdl, INA230_REG_MASK_ENABLE,&mask_en);
         if(rslt==INA230_SCS)
         {
             if ((mask_en & INA230_REG_MASK_ENABLE_POL) == INA230_REG_MASK_ENABLE_POL)
@@ -415,7 +428,7 @@ uint16_t ina230_getvbusthreshold(ina230_dev_ptr_t ina230_hdl)
     {
         uint16_t val;
         uint32_t vbus_threshold;
-        ina230_readreg(ina230_hdl, INA230_REG_ALERT_LIMIT,&val);
+        rslt = ina230_readreg(ina230_hdl, INA230_REG_ALERT_LIMIT,&val);
         if(rslt==INA230_SCS)
         {
             vbus_threshold = (val * BUS_VOLTAGE_LSB);
@@ -538,7 +551,7 @@ uint32_t ina230_getpowerthreshold(ina230_dev_ptr_t ina230_hdl)
     {
         uint16_t val;
         uint32_t power_threshold;
-        ina230_readreg(ina230_hdl, INA230_REG_ALERT_LIMIT,&val);
+        rslt = ina230_readreg(ina230_hdl, INA230_REG_ALERT_LIMIT,&val);
         if(rslt==INA230_SCS)
         {
             power_threshold = (uint32_t)(val *POWER_LSB);
@@ -604,7 +617,7 @@ e_ina230_sts ina230_conversion_ready_enable_it(ina230_dev_ptr_t ina230_hdl)
     else
     {
         uint16_t mask_en;
-        mask_en = ina230_readreg(ina230_hdl, INA230_REG_MASK_ENABLE,&mask_en);
+        rslt = ina230_readreg(ina230_hdl, INA230_REG_MASK_ENABLE,&mask_en);
         if(rslt==INA230_SCS)
         {
             ina230_int(ina230_hdl);
@@ -633,7 +646,7 @@ e_ina230_sts ina230_conversion_ready_disable_it(ina230_dev_ptr_t ina230_hdl)
     else
     {
         uint16_t mask_en;
-        mask_en = ina230_readreg(ina230_hdl, INA230_REG_MASK_ENABLE,&mask_en);
+        rslt = ina230_readreg(ina230_hdl, INA230_REG_MASK_ENABLE,&mask_en);
         if(rslt==INA230_SCS)
         {
             mask_en &= ~INA230_REG_MASK_ENABLE_CNVR;
@@ -661,7 +674,7 @@ e_ina230_sts ina230_stopconversion(ina230_dev_ptr_t ina230_hdl)
     else
     {
         uint16_t cfg = 0;
-        cfg = ina230_readreg(ina230_hdl, INA230_REG_CONFIG,&cfg);
+        rslt = ina230_readreg(ina230_hdl, INA230_REG_CONFIG,&cfg);
         if(rslt==INA230_SCS)
         {
             cfg = (cfg & ((uint16_t)~(INA230_REG_CFG_MODE_Msk)));
@@ -774,8 +787,16 @@ float ina230_get_current(ina230_dev_ptr_t ina230_hdl)
     }
     else
     {
-        ina230_readreg(ina230_hdl, INA230_REG_CURRENT,&temp);
-        current = ((temp*CURR_MULTIPLIER)/1000);
+        sts = ina230_readreg(ina230_hdl, INA230_REG_CURRENT,&temp);
+        if(sts == INA230_SCS)
+        {
+            current = ((temp*CURR_MULTIPLIER)/1000);   
+        }
+        else
+        {
+            sts = INA230_E_READ_FAIL;
+        }
+        
     }
     return current;
 }
@@ -814,7 +835,7 @@ e_ina230_sts ina230_startconversion(ina230_dev_ptr_t ina230_hdl, ina230_inputsig
     else
     {
         uint16_t cfg = 0;
-        cfg = ina230_readreg(ina230_hdl, INA230_REG_CONFIG,&cfg);
+        rslt = ina230_readreg(ina230_hdl, INA230_REG_CONFIG,&cfg);
         if(rslt==INA230_SCS)
         {
             cfg = (cfg & ((uint16_t)~(INA230_REG_CFG_MODE_Msk))) | aMode[mode][inputsignal];
@@ -842,7 +863,7 @@ uint8_t ina230_get_flag(ina230_dev_ptr_t ina230_hdl, ina230_flag_t flag)
     else
     {
         uint16_t flags;
-        flags = ina230_readreg(ina230_hdl, INA230_REG_MASK_ENABLE,&flags) & REG_MASK_ENABLE_FLAGS_Msk;
+        rslt = ina230_readreg(ina230_hdl, INA230_REG_MASK_ENABLE,&flags) & REG_MASK_ENABLE_FLAGS_Msk;
         if(rslt==INA230_SCS)
         {
             rslt= ((aflags[flag] & flags) == aflags[flag]);
